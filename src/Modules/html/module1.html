@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../stylesheets/module1.css">
+    
+    <title>Module 1: NMAP</title>
+</head>
+    <div class="container">
+        <div class="topContainer">
+            <div class="resizableContainer" id="narrativeContainer">
+                <div class="containerContent">
+                  <h2 style="color: #ffd700; font-size: 24px; font-weight: bold;" id="moduleTitle"></h2>
+                  <div style="background-color: #444; padding: 10px; border-radius: 4px; border: 2px solid #ddd;">
+                    <!-- Use JavaScript to dynamically generate sections -->
+                    <div id="moduleSections"></div>
+                  </div>
+                </div>
+              </div>
+            <div class="resizableContainer" id="questionFormContainer">
+                <div class="containerContent" id="questionForm">
+                    <h2 style="color: #ffd700;">Submit Questions</h2>
+                    <div id="questionsContainer"></div>
+                    <button class="submitQuestionsButton" onclick="checkAnswers()">Check Answers</button>
+                    <div id="resultMessage"></div>
+                </div>
+            </div>
+        </div>
+        <div class="resizableContainer" id="terminalContainer">
+            <div class="containerContent">
+                <h2 style="color: #ffd700;">Remote Terminal</h2>
+                <div class="terminalOutputWrapper">
+                    <textarea id="terminalOutput" readonly></textarea>
+                </div>
+                <div class="terminalCommands">
+                    <label for="exampleCommands" style="color: #ffd700;">Example Commands:</label>
+                    <select id="exampleCommands" name="exampleCommands" style="width: calc(100% - 16px); padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #333; color: white;">
+                        <option value="module1-command1">nmap a.b.c.d</option>
+                        <option value="module1-command2">nmap -sV a.b.c.d</option>
+                        <option value="module1-command3">nmap -p- a.b.c.d</option>
+                        <option value="module1-command4">nmap -p 80 a.b.c.d</option>
+                        <option value="module1-command5">nmap -p 21 a.b.c.d</option>
+                        <option value="module1-command6">nmap -sS a.b.c.d</option>
+                    </select>
+                    <button class="sendCommandButton" onclick="sendExampleCommand()">Send Command</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="../js/module1.js"></script>
+</body>
+</html>
