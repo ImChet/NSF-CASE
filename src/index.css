@@ -1,0 +1,279 @@
+/* Import custom font */
+@font-face {
+    font-family: 'Kanit';
+    src: url('https://fonts.googleapis.com/css2?family=Kanit:wght@500&display=swap');
+}
+
+body {
+  font-family: "Kanit", sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #222;
+  color: #fff;
+  text-align: center;
+  position: relative;
+}
+
+/* Custom scrollbar for the main page */
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #ffd700 #333;
+}
+
+body::-webkit-scrollbar {
+  width: 12px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #ffd700;
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: #333;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* h1 is the Title "Module" */
+h1 {
+  background-color: #ffd700;
+  color: #fff;
+  cursor: default;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 12px;
+}
+
+.authors {
+  font-family: "Open Sans", sans-serif; /* Different font for descriptions */
+  font-size: 1em;
+  padding: 20px;
+  margin: 10px 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  text-align: left;
+}
+
+/* Style for expanded module heading */
+/* h2 */
+.expandedHeading {
+  background-color: #ffd700 !important;
+  color: #fff;
+  padding: 15px;
+}
+
+/* h2 is the Individual "Module" */
+h2 {
+  font-size: 1.2em;
+  color: #ffd700;
+  background-color: #666;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 12px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+h2:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.description {
+  font-family: "Open Sans", sans-serif; /* Different font for descriptions */
+  font-size: 1em;
+  padding: 20px;
+  margin: 10px 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  text-align: left;
+}
+
+.initiateButton {
+  font-weight: bold;
+  font-size: 1em;
+  background-color: green;
+  color: #fff;
+  padding: 8px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.initiateButton:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  transform: translateY(-4px);
+  background-image: linear-gradient(
+    270deg,
+    #006400,
+    #008000,
+    #00ff00,
+    #008000,
+    #006400
+  );
+  background-size: 200% 200%;
+  animation: gradientAnimation 2s ease infinite;
+}
+
+/* Style for expanded group heading */
+/* h3 */
+.expandedGroup {
+  background-color: #ffd700;
+  color: #fff;
+  padding: 15px;
+}
+
+/* h3 is the Group "Module" */
+h3 {
+  font-size: 1.5em;
+  color: #ffd700;
+  background-color: #444;
+  padding: 13px; /* Adjusted to account for the border */
+  margin: 10px 0;
+  border-radius: 12px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  border: 2px solid #ffd700; /* Thin border with the color #ffd700 */
+}
+
+h3:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+h1,
+h2,
+h3,
+.initiateButton,
+#collapseButton {
+  font-family: "Roboto Mono", monospace;
+  text-shadow: 2px 2px 4px #000;
+}
+
+p {
+  font-size: 1em;
+  line-height: 1.6;
+  margin: 10px 0;
+  text-shadow: 1px 1px 2px #000;
+}
+
+.moduleContent,
+.nonClickableButton {
+  background-color: #444;
+  padding: 20px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  animation: fadeIn 0.5s ease;
+}
+
+.moduleContent {
+  display: none;
+}
+
+#collapseButton {
+  font-weight: bold;
+  font-size: 1em;
+  background-color: #ffd700;
+  color: #fff;
+  padding: 8px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  display: none;
+  z-index: 9999; /* Set a high z-index value to ensure it's on top */
+}
+
+#collapseButton:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  transform: translateY(-4px);
+}
+
+#signInButton {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  z-index: 9999; /* Set a high z-index value to ensure it's on top */
+  font-weight: bold;
+  font-size: 1em;
+  background-color: #ffd700;
+  color: #fff;
+  padding: 8px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 2px 2px 4px #000;
+}
+
+#signInButton:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  transform: translateY(-4px);
+}
+
+/* Custom CSS Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slideInUp {
+  animation: slideInUp 0.5s ease;
+}
+
+.hoverScale {
+  transition: transform 0.3s ease;
+}
+
+.hoverScale:hover {
+  transform: scale(1.01);
+}
