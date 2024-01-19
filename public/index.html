@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CASE Learning Modules</title>
+     <!-- Google Fonts Link for Roboto Mono and Open Sans -->
+     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500&display=swap" rel="stylesheet">
+     <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            position: relative;
+        }
+    
+        /* Custom scrollbar for the main page */
+        body {
+            scrollbar-width: thin;
+            scrollbar-color: #ffd700 #333;
+        }
+    
+        body::-webkit-scrollbar {
+            width: 12px; 
+        }
+    
+        body::-webkit-scrollbar-thumb {
+            background-color: #ffd700;
+            border-radius: 10px;
+        }
+    
+        body::-webkit-scrollbar-track {
+            background-color: #333;
+        }
+    
+        body::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
+        }
+
+        /* h1 is the Title "Module" */
+        h1 {
+            background-color: #ffd700;
+            color: #fff;
+            cursor: default;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 12px;
+        }
+
+        .authors {
+            font-family: 'Open Sans', sans-serif; /* Different font for descriptions */
+            font-size: 1.0em;
+            padding: 20px;
+            margin: 10px 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            color: #fff;
+            text-align: left;
+        }
+
+        /* Style for expanded module heading */
+        /* h2 */
+        .expandedHeading {
+            background-color: #ffd700 !important;
+            color: #fff;
+            padding: 15px;
+        }
+
+        /* h2 is the Individual "Module" */
+        h2 {
+            font-size: 1.2em;
+            color: #ffd700;
+            background-color: #666;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        h2:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .description {
+            font-family: 'Open Sans', sans-serif; /* Different font for descriptions */
+            font-size: 1.0em;
+            padding: 20px;
+            margin: 10px 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            color: #fff;
+            text-align: left;
+        }
+
+        .initiateButton {
+            font-weight: bold;
+            font-size: 1.0em;
+            background-color: green;
+            color: #fff;
+            padding: 8px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .initiateButton:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transform: translateY(-4px);
+            background-image: linear-gradient(270deg, #006400, #008000, #00ff00, #008000, #006400);
+            background-size: 200% 200%;
+            animation: gradientAnimation 2s ease infinite;
+        }
+
+        /* Style for expanded group heading */
+        /* h3 */
+        .expandedGroup {
+            background-color: #ffd700;
+            color: #fff;
+            padding: 15px;
+        }
+
+        /* h3 is the Group "Module" */
+        h3 {
+            font-size: 1.5em;
+            color: #ffd700;
+            background-color: #444;
+            padding: 13px; /* Adjusted to account for the border */
+            margin: 10px 0;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 2px solid #ffd700; /* Thin border with the color #ffd700 */
+        }
+
+        h3:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        h1, h2, h3, .initiateButton, #collapseButton {
+            font-family: 'Roboto Mono', monospace;
+            text-shadow: 2px 2px 4px #000;
+        }
+    
+        p {
+            font-size: 1.0em;
+            line-height: 1.6;
+            margin: 10px 0;
+            text-shadow: 1px 1px 2px #000;
+        }
+    
+        .moduleContent, .nonClickableButton {
+            background-color: #444;
+            padding: 20px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+            animation: fadeIn 0.5s ease;
+        }
+    
+        .moduleContent {
+            display: none;
+        }
+
+        #collapseButton {
+            font-weight: bold;
+            font-size: 1.0em;
+            background-color: #ffd700;
+            color: #fff;
+            padding: 8px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            display: none;
+            z-index: 9999; /* Set a high z-index value to ensure it's on top */
+        }
+
+        #collapseButton:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transform: translateY(-4px);
+        }
+
+        #signInButton {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            z-index: 9999; /* Set a high z-index value to ensure it's on top */
+            font-weight: bold;
+            font-size: 1.0em;
+            background-color: #ffd700;
+            color: #fff;
+            padding: 8px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        #signInButton:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transform: translateY(-4px);
+        }
+        
+        /* Custom CSS Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .slideInUp {
+            animation: slideInUp 0.5s ease;
+        }
+
+        .hoverScale {
+            transition: transform 0.3s ease;
+        }
+
+        .hoverScale:hover {
+            transform: scale(1.01);
+        }
+
+    </style>    
+</head>
+<body>
+    <button id="signInButton" class="hoverScale" onclick="window.location.href = 'signin.html';">Sign In</button>
+    <button id="collapseButton" onclick="collapseAll()" class="hoverScale">Collapse All</button>
+    <div id="groupButtons"></div>
+
+    <h1 class="h1">CASE Learning Modules</h1>
+
+    <div class="nonClickableButton description">
+        <p>This website provides learning modules about Common Vulnerabilities and Exposures (CVE). Click on each module to learn more.</p>
+    </div>
+
+    <script>
+        const modules = [
+        {
+            "id": "module1",
+            "groupID": "group1",
+            "title": "Module 1: NMAP",
+            "description": "NMAP Module that teaches you about the basics of reconnaissance of a remote target."
+        },
+        {
+            "id": "module2",
+            "groupID": "group1",
+            "title": "Module 2",
+            "description": "Description of Module 2 goes here."
+        },
+        {
+            "id": "module3",
+            "groupID": "group1",
+            "title": "Module 3",
+            "description": "Description of Module 3 goes here."
+        },
+        {
+            "id": "module4",
+            "groupID": "group1",
+            "title": "Module 4",
+            "description": "Description of Module 4 goes here."
+        },
+        {
+            "id": "module5",
+            "groupID": "group1",
+            "title": "Module 5",
+            "description": "Description of Module 5 goes here."
+        },
+        {
+            "id": "module6",
+            "groupID": "group2",
+            "title": "Module 6",
+            "description": "Description of Module 6 goes here."
+        },
+        {
+            "id": "module7",
+            "groupID": "group2",
+            "title": "Module 7",
+            "description": "Description of Module 7 goes here."
+        },
+        {
+            "id": "module8",
+            "groupID": "group2",
+            "title": "Module 8",
+            "description": "Description of Module 8 goes here."
+        },
+        {
+            "id": "module9",
+            "groupID": "group2",
+            "title": "Module 9",
+            "description": "Description of Module 9 goes here."
+        },
+        {
+            "id": "module10",
+            "groupID": "group2",
+            "title": "Module 10",
+            "description": "Description of Module 10 goes here."
+        },
+        {
+            "id": "module11",
+            "groupID": "group3",
+            "title": "Module 11",
+            "description": "Description of Module 11 goes here."
+        },
+        {
+            "id": "module12",
+            "groupID": "group3",
+            "title": "Module 12",
+            "description": "Description of Module 12 goes here."
+        },
+        {
+            "id": "module13",
+            "groupID": "group3",
+            "title": "Module 13",
+            "description": "Description of Module 13 goes here."
+        },
+        {
+            "id": "module14",
+            "groupID": "group3",
+            "title": "Module 14",
+            "description": "Description of Module 14 goes here."
+        },
+        {
+            "id": "module15",
+            "groupID": "group3",
+            "title": "Module 15",
+            "description": "Description of Module 15 goes here."
+        },
+        {
+            "id": "module16",
+            "groupID": "group4",
+            "title": "Module 16",
+            "description": "Description of Module 16 goes here."
+        },
+        {
+            "id": "module17",
+            "groupID": "group4",
+            "title": "Module 17",
+            "description": "Description of Module 17 goes here."
+        },
+        {
+            "id": "module18",
+            "groupID": "group4",
+            "title": "Module 18",
+            "description": "Description of Module 18 goes here."
+        },
+        {
+            "id": "module19",
+            "groupID": "group4",
+            "title": "Module 19",
+            "description": "Description of Module 19 goes here."
+        },
+        {
+            "id": "module20",
+            "groupID": "group4",
+            "title": "Module 20",
+            "description": "Description of Module 20 goes here."
+        }
+        ];
+
+        const groupModules = [
+        {
+            "id": "group1",
+            "groupID": "group1",
+            "title": "Group 1"
+        },
+        {
+            "id": "group2",
+            "groupID": "group2",
+            "title": "Group 2"
+        },
+        {
+            "id": "group3",
+            "groupID": "group3",
+            "title": "Group 3"
+        },
+        {
+            "id": "group4",
+            "groupID": "group4",
+            "title": "Group 4"
+        },
+        ];
+
+    // Function to create and append module elements
+    function createModuleElement(module, groupId) {
+        const parentGroup = document.getElementById(groupId);
+
+        const moduleTitle = document.createElement('h2');
+        moduleTitle.className = 'hoverScale';
+        moduleTitle.setAttribute('onclick', `toggleModule('${module.id}')`);
+        moduleTitle.textContent = module.title;
+
+        const moduleContent = document.createElement('div');
+        moduleContent.id = module.id;
+        moduleContent.className = 'moduleContent slideInUp';
+
+        const moduleDescription = document.createElement('div');
+        moduleDescription.className = 'description';
+        moduleDescription.innerHTML = `<p>${module.description}</p>`;
+
+        const initiateButton = document.createElement('button');
+        initiateButton.className = 'initiateButton';
+        initiateButton.setAttribute('onclick', `initiateModule('${module.id}')`);
+        initiateButton.textContent = 'Initiate Module';
+
+        moduleContent.appendChild(moduleDescription);
+        moduleContent.appendChild(initiateButton);
+
+        parentGroup.appendChild(moduleTitle);
+        parentGroup.appendChild(moduleContent);
+    }
+
+    // Function to create and append group elements
+    function createGroupElement(group) {
+        const groupTitle = document.createElement('h3');
+        groupTitle.className = 'hoverScale';
+        groupTitle.setAttribute('onclick', `toggleGroup('${group.id}')`);
+        groupTitle.textContent = group.title;
+
+        const groupContent = document.createElement('div');
+        groupContent.id = `group_${group.id}`;
+        groupContent.className = 'groupContent';
+        groupContent.style.display = 'none'; // Initially hide the group content
+
+        document.body.appendChild(groupTitle);
+        document.body.appendChild(groupContent);
+    }
+
+    // Function to initialize the modules on page load
+    function initModules() {
+        groupModules.forEach(group => {
+            createGroupElement(group);
+            modules.filter(module => module.groupID === group.id)
+                   .forEach(module => createModuleElement(module, `group_${group.id}`));
+        });
+    }
+
+    function toggleGroup(groupId) {
+        const groupContent = document.getElementById(`group_${groupId}`);
+        const groupTitle = document.querySelector(`h3[onclick="toggleGroup('${groupId}')"]`);
+        const isGroupExpanded = groupContent.style.display === 'block';
+
+        if (!isGroupExpanded) {
+            groupContent.style.display = 'block';
+            groupTitle.classList.add('expandedGroup'); // Add expanded style
+        } else {
+            groupContent.style.display = 'none';
+            groupTitle.classList.remove('expandedGroup'); // Remove expanded style
+        }
+
+        // Close all modules within this group
+        const modulesInGroup = groupContent.querySelectorAll('.moduleContent');
+        modulesInGroup.forEach(module => {
+            module.style.display = 'none';
+            const moduleId = module.id;
+            const moduleHeading = document.querySelector(`h2[onclick="toggleModule('${moduleId}')"]`);
+            moduleHeading.classList.remove('expandedHeading');
+        });
+
+        updateCollapseButtonVisibility(); // Update the visibility of the collapse button
+    }
+
+    function toggleModule(moduleId) {
+        const moduleContent = document.getElementById(moduleId);
+        const moduleHeading = document.querySelector(`h2[onclick="toggleModule('${moduleId}')"]`);
+        const isExpanded = moduleContent.style.display === 'block';
+
+        if (isExpanded) {
+            moduleContent.style.display = 'none';
+            moduleHeading.classList.remove('expandedHeading');
+        } else {
+            moduleContent.style.display = 'block';
+            moduleHeading.classList.add('expandedHeading');
+        }
+        updateCollapseButtonVisibility();
+    }
+
+    function initiateModule(moduleId) {
+        // Add logic to initiate the module (e.g., open terminal, start questions, etc.)
+        console.log(`Module ${moduleId} initiated.`);
+
+        // Generate the URL based on the module name and folder
+        const moduleUrl = `Modules/${moduleId.toLowerCase()}.html`;
+
+        // Redirect to the generated URL
+        window.location.href = moduleUrl;
+    }
+
+    function updateCollapseButtonVisibility() {
+        const moduleContents = document.querySelectorAll('.moduleContent');
+        const visibleModules = Array.from(moduleContents).filter(module => module.style.display === 'block');
+
+        const groupContents = document.querySelectorAll('.groupContent');
+        const visibleGroups = Array.from(groupContents).filter(group => group.style.display === 'block');
+
+        const collapseButton = document.getElementById('collapseButton');
+
+        // Display the collapse button if more than one module or more than one group is open
+        if (visibleModules.length > 1 || visibleGroups.length > 1) {
+            collapseButton.style.display = 'block';
+        } else {
+            collapseButton.style.display = 'none';
+        }
+    }
+
+    function collapseAll() {
+        // Collapse all module contents
+        const moduleContents = document.querySelectorAll('.moduleContent');
+        moduleContents.forEach(module => {
+            module.style.display = 'none';
+            const moduleId = module.id;
+            const moduleHeading = document.querySelector(`h2[onclick="toggleModule('${moduleId}')"]`);
+            moduleHeading.classList.remove('expandedHeading');
+        });
+
+        // Collapse all group contents and remove expanded style from group headings
+        const groupContents = document.querySelectorAll('.groupContent');
+        groupContents.forEach(group => {
+            group.style.display = 'none';
+            const groupTitle = group.previousElementSibling; // Assuming h3 is right before the groupContent div
+            if (groupTitle && groupTitle.classList.contains('expandedGroup')) {
+                groupTitle.classList.remove('expandedGroup');
+            }
+        });
+
+        // Hide the collapse button
+        const collapseButton = document.getElementById('collapseButton');
+        collapseButton.style.display = 'none';
+    }
+
+    // Window load event listener
+    window.addEventListener('load', initModules);
+</script>

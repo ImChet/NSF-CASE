@@ -1,0 +1,22 @@
+{
+    "module1": {
+        "commands": {
+            "module1-command1": "$ nmap a.b.c.d\nStarting Nmap 7.91 ( https://nmap.org ) at 2022-01-14 12:00 UTC\nNmap scan report for a.b.c.d\nHost is up (0.001s latency).\nNot shown: 999 closed ports\nPORT   STATE SERVICE\n21/tcp open  ftp\nNmap done: 1 IP address (1 host up) scanned in 0.02 seconds\n",
+            "module1-command2": "$ nmap -sV a.b.c.d\nStarting Nmap 7.91 ( https://nmap.org ) at 2022-01-14 12:00 UTC\nNmap scan report for a.b.c.d\nHost is up (0.001s latency).\nNot shown: 999 closed ports\nPORT   STATE SERVICE\n21/tcp open  ftp\n80/tcp open  http\nNmap done: 1 IP address (1 host up) scanned in 0.02 seconds\n",
+            "module1-command3": "$ nmap -p- a.b.c.d\nStarting Nmap 7.91 ( https://nmap.org ) at 2022-01-14 12:00 UTC\nNmap scan report for a.b.c.d\nHost is up (0.001s latency).\nNot shown: 999 closed ports\nPORT   STATE SERVICE\n21/tcp open  ftp\n22/tcp open  ssh\n23/tcp open  telnet\nNmap done: 1 IP address (1 host up) scanned in 0.02 seconds\n",
+            "module1-command4": "$ nmap -p 80 a.b.c.d\nStarting Nmap 7.91 ( https://nmap.org ) at 2022-01-14 12:00 UTC\nNmap scan report for a.b.c.d\nHost is up (0.001s latency).\nPORT   STATE SERVICE\n80/tcp open  http\nNmap done: 1 IP address (1 host up) scanned in 0.02 seconds\n",
+            "module1-command5": "$ nmap -p 21 a.b.c.d\nStarting Nmap 7.91 ( https://nmap.org ) at 2022-01-14 12:00 UTC\nNmap scan report for a.b.c.d\nHost is up (0.001s latency).\nPORT   STATE SERVICE\n21/tcp open  ftp\nNmap done: 1 IP address (1 host up) scanned in 0.02 seconds\n",
+            "module1-command6": "$ nmap -sS a.b.c.d\nStarting Nmap 7.91 ( https://nmap.org ) at 2022-01-14 12:00 UTC\nNmap scan report for a.b.c.d\nHost is up (0.001s latency).\nNot shown: 999 closed ports\nPORT   STATE SERVICE\n21/tcp open  ftp\n22/tcp open  ssh\nNmap done: 1 IP address (1 host up) scanned in 0.02 seconds\n"
+        }
+    },
+    "module10": {
+        "commands": {
+            "module10-command1": "List of files: file1.txt, file2.txt, file3.txt",
+            "module10-command2": "Changed directory to: /path/to/directory",
+            "module10-command3": "Created a new folder: new_folder",
+            "module10-command4": "Removed a file: file1.txt",
+            "module10-command5": "Echoed: Hello, Server!",
+            "module10-command6": "Contents of file.txt: Lorem ipsum dolor sit amet."
+        }
+    }
+}
