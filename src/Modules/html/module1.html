@@ -5,33 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../stylesheets/module1.css">
-    
+    <link rel="stylesheet" href="../stylesheets/questions.css">
+    <script src="../js/validate.js"></script>
     <title>Module 1: NMAP</title>
 </head>
     <div class="container">
         <div class="topContainer">
             <div class="resizableContainer" id="narrativeContainer">
                 <div class="containerContent">
-                  <h2 style="color: #ffd700; font-size: 24px; font-weight: bold;" id="moduleTitle"></h2>
+                  <h2 style="color: #ffd700; font-size: 24px; font-weight: bold;" id="moduleTitle">Module 1: NMAP</h2>
                   <div style="background-color: #444; padding: 10px; border-radius: 4px; border: 2px solid #ddd;">
-                    <!-- Use JavaScript to dynamically generate sections -->
-                    <div id="moduleSections"></div>
+                    <!-- REMOVED DYNAMIC GENERATION -->
+                    <div id="moduleSections">
+                        <div class="moduleSection">
+                            <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); text-decoration: none;">
+                                Welcome to the world of <a href="https://mtu.edu" style="color: #ffd700; text-decoration: underline;">cybersecurity espionage</a>!
+                            </div>
+                            <ul>
+                                <li style="font-size: 16px; font-weight: normal; color: white; font-style: normal; text-decoration: none;">Scan the network for hidden weaknesses.</li>
+                                <li style="font-size: 16px; font-weight: normal; color: white; font-style: normal; text-decoration: none;">Retrieve critical data without leaving a trace.</li>
+                                <li style="font-size: 16px; font-weight: normal; color: white; font-style: normal; text-decoration: none;">Communicate through a secure terminal interface.</li>
+                            </ul>
+                        </div>
+                        <div class="moduleSection">
+                            <div style="font-size: 18px; font-weight: normal; color: white; font-style: normal; text-decoration: none;">
+                                In this thrilling mission, you'll become a covert operative tasked with infiltrating an ultra-secure network. Your trusty ally on this adventure is the NMAP terminal, a powerful tool for scanning networks and uncovering vulnerabilities.
+                            </div>
+                        </div>
+                        <div class="moduleSection">
+                                <div style="font-size: 18px; font-weight: normal; color: white; font-style: normal; text-decoration: none;">
+                                    Your success hinges on your ability to decipher NMAP results and answer questions that will guide you deeper into this high-stakes digital adventure.
+                                </div>
+                            </div>
+                            <div style="font-size: 16px; font-weight: normal; color: rgb(255, 215, 0); font-style: italic; text-decoration: underline;">
+                                Summary of the module goes here.
+                            </div>
+                            <button class="returnButton"><a href="../../index.html">Return to Main Page</a></button>
+                    </div>
                   </div>
                 </div>
               </div>
             <div class="resizableContainer" id="questionFormContainer">
-                <div class="containerContent" id="questionForm">
+                <form class="containerContent" id="questionForm">
                     <h2 style="color: #ffd700;">Submit Questions</h2>
-                    <div id="questionsContainer"></div>
-                    <button class="submitQuestionsButton" onclick="checkAnswers()">Check Answers</button>
+                    <div id="questionsContainer">
+                        <div>
+                            <label class="prompt">What is the lowest port open?</label>
+                            <input type="text" id="Q1a" name="textAnswer1" oninput="updateValue(this)">
+                        </div>
+                        <div>
+                            <label class="prompt">What is the purpose of NMAP?</label>
+                            <div>
+                                <input type="radio" id="Q2a" name="singleChoiceAnswer1" value="Network scanning" style="display: none">
+                                <label class="radio-label" for="Q2a" >Network scanning</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q2b" name="singleChoiceAnswer1" value="Web development" style="display: none">
+                                <label class="radio-label" for="Q2b" >Web development</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q2c" name="singleChoiceAnswer1" value="Data analysis" style="display: none">
+                                <label class="radio-label" for="Q2c" >Data analysis</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q2d" name="singleChoiceAnswer1" value="Video editing" style="display: none">
+                                <label class="radio-label" for="Q2d" >Video editing</label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="prompt">Select all true statements about NMAP:</label>
+                            <div>
+                                <input type="checkbox" id="Q3a" name="multipleChoiceAnswer1" value="NMAP can perform host discovery" style="display: none;">
+                                <label class="checkbox-label"for="Q3a" >NMAP can perform host discovery</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="Q3b" name="multipleChoiceAnswer1" value="NMAP is a database management tool" style="display: none;">
+                                <label class="checkbox-label" for="Q3b" >NMAP is a database management tool</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="Q3c" name="multipleChoiceAnswer1" value="NMAP can be used to identify services on a network" style="display: none;">
+                                <label class="checkbox-label" for="Q3c" >NMAP can be used to identify services on a network</label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="prompt">What service is running on port 21 over TCP?</label>
+                            <select class="form-select" id="Q4a" name="dropdownAnswer2">
+                                <option value="HTTPS">HTTPS</option>
+                                <option value="FTP">FTP</option>
+                                <option value="SFTP">SFTP</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="submitQuestionsButton" id="module1" type="button" onclick="checkAnswers(this)">Check Answers</button>
                     <div id="resultMessage"></div>
                 </div>
             </div>
         </div>
-        <div class="resizableContainer" id="terminalContainer">
-            <div class="containerContent">
+        <!-- <div class="resizableContainer" id="terminalContainer">
+            <div class="containerContent" style="overflow: scroll"> 
                 <h2 style="color: #ffd700;">Remote Terminal</h2>
-                <div class="terminalOutputWrapper">
+                <div class="terminalOutputWrapper" style="height: 150px">
                     <textarea id="terminalOutput" readonly></textarea>
                 </div>
                 <div class="terminalCommands">
@@ -48,7 +121,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
     <script src="../js/module1.js"></script>
 </body>

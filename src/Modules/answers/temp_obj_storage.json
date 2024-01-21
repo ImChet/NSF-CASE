@@ -1,0 +1,94 @@
+// const moduleDescription = {
+//     title: {
+//         text: "Module 1: NMAP",
+//         style: {
+//         fontSize: "24px",
+//         fontWeight: "bold",
+//         color: "#ffd700",
+//         fontStyle: "normal",
+//         textDecoration: "none"
+//         }
+//     },
+//     sections: [
+//         {
+//         description: {
+//             text: `Welcome to the world of <a href='https://mtu.edu' style='color: #ffd700; text-decoration: underline;'>cybersecurity espionage</a>!`,
+//             style: {
+//             fontSize: "18px",
+//             fontWeight: "normal",
+//             color: "#ffd700",
+//             fontStyle: "bold",
+//             textDecoration: "none"
+//             }
+//         },
+//         bulletPoints: [
+//             {
+//             text: "Scan the network for hidden weaknesses.",
+//             style: {
+//                 fontSize: "16px",
+//                 fontWeight: "normal",
+//                 color: "white",
+//                 fontStyle: "normal",
+//                 textDecoration: "none"
+//             }
+//             },
+//             {
+//             text: "Retrieve critical data without leaving a trace.",
+//             style: {
+//                 fontSize: "16px",
+//                 fontWeight: "normal",
+//                 color: "white",
+//                 fontStyle: "normal",
+//                 textDecoration: "none"
+//             }
+//             },
+//             {
+//             text: "Communicate through a secure terminal interface.",
+//             style: {
+//                 fontSize: "16px",
+//                 fontWeight: "normal",
+//                 color: "white",
+//                 fontStyle: "normal",
+//                 textDecoration: "none"
+//             }
+//             }
+//         ]
+//         },
+//         {
+//         description: {
+//             text: "In this thrilling mission, you'll become a covert operative tasked with infiltrating an ultra-secure network. Your trusty ally on this adventure is the NMAP terminal, a powerful tool for scanning networks and uncovering vulnerabilities.",
+//             style: {
+//             fontSize: "18px",
+//             fontWeight: "normal",
+//             color: "white",
+//             fontStyle: "normal",
+//             textDecoration: "none"
+//             }
+//         },
+//         bulletPoints: []
+//         },
+//         {
+//         description: {
+//             text: "Your success hinges on your ability to decipher NMAP results and answer questions that will guide you deeper into this high-stakes digital adventure.",
+//             style: {
+//             fontSize: "18px",
+//             fontWeight: "normal",
+//             color: "white",
+//             fontStyle: "normal",
+//             textDecoration: "none"
+//             }
+//         },
+//         bulletPoints: []
+//         }
+//     ],
+//     summary: {
+//         text: "Summary of the module goes here.",
+//         style: {
+//         fontSize: "16px",
+//         fontWeight: "normal",
+//         color: "#ffd700",
+//         fontStyle: "italic",
+//         textDecoration: "underline"
+//         }
+//     }
+//     };
