@@ -75,7 +75,6 @@ function checkAnswers(element) {
     let temp = Object.values(correctAnswers);
 
     for(let i=1; i <= Object.values(correctAnswers).length; i++) {
-
         if(temp[i] == userAnswers[i])
             allCorrect = true;
         else 

@@ -1,36 +1,33 @@
-// const terminalOutput = document.getElementById('terminalOutput');
-// const ws = new WebSocket(`ws://localhost:3000`);
+// // Assuming xterm.js is included and Terminal is available
+// import { Terminal } from "xterm";
+// import { FitAddon } from "xterm-addon-fit";
+// import '../../../node_modules/xterm/css/xterm.css';
 
-// ws.onopen = () => {
-//     console.log(`Client: Client connected to the server.`);
-//     adjustTerminalHeight();
-// };
+// const terminal = new Terminal();
+// const fitAddon = new FitAddon();
+// terminal.loadAddon(fitAddon);
+// terminal.open(document.getElementById('terminalContainer'));
+// fitAddon.fit();
 
-// ws.onmessage = (event) => {
-//     terminalOutput.value += `${event.data}\n`;
-//     adjustTerminalHeight();
-// };
 
-// ws.onclose = () => {
-//     terminalOutput.value += 'Connection to the server closed.\n';
-//     adjustTerminalHeight();
-// };
+// terminal.onData(data => {
+//     // // Parse the command from the input data
+//     const command = data.trim();
 
-// function adjustTerminalHeight() {
-//     const terminalOutput = document.getElementById('terminalOutput');
-    // const fixedHeight = 200; // Adjust the value as needed
-//     terminalOutput.style.height = `${fixedHeight}px`;
-//     terminalOutput.scrollTop = terminalOutput.scrollHeight;
-// }
+//     // Define custom commands and their outputs
+//     const commands = {
+//         'hello': 'Hello, world!',
+//         'date': new Date().toString(),
+//         // Add more custom commands here
+//     };
 
-// function sendExampleCommand() {
-//     const exampleCommands = document.getElementById('exampleCommands');
-//     const selectedCommand = exampleCommands.value;
-
-//     if (selectedCommand) {
-//         console.log(`Client: Sending command to the server.`);
-//         ws.send(selectedCommand);
+//     // // Check if the command is defined, and display its output
+//     if (commands.hasOwnProperty(command)) {
+//         terminal.write('\r\n' + commands[command]);
 //     } else {
-//         console.error("Client: No option selected");
+//         terminal.write('\r\nUnknown command\r\n');
 //     }
-// } 
+// });
+
+// term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ')
+

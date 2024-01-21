@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../stylesheets/module1.css">
     <link rel="stylesheet" href="../stylesheets/questions.css">
+    <link href="../../../node_modules/xterm/css/xterm.css">
+    <script type="application/javascript" src="../../../node_modules/xterm/lib/xterm.js"></script>
     <script src="../js/validate.js"></script>
     <title>Module 1: NMAP</title>
 </head>
@@ -100,29 +102,16 @@
                     <div id="resultMessage"></div>
                 </div>
             </div>
-        </div>
-        <!-- <div class="resizableContainer" id="terminalContainer">
-            <div class="containerContent" style="overflow: scroll"> 
-                <h2 style="color: #ffd700;">Remote Terminal</h2>
-                <div class="terminalOutputWrapper" style="height: 150px">
-                    <textarea id="terminalOutput" readonly></textarea>
-                </div>
-                <div class="terminalCommands">
-                    <label for="exampleCommands" style="color: #ffd700;">Example Commands:</label>
-                    <select id="exampleCommands" name="exampleCommands" style="width: calc(100% - 16px); padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #333; color: white;">
-                        <option value="module1-command1">nmap a.b.c.d</option>
-                        <option value="module1-command2">nmap -sV a.b.c.d</option>
-                        <option value="module1-command3">nmap -p- a.b.c.d</option>
-                        <option value="module1-command4">nmap -p 80 a.b.c.d</option>
-                        <option value="module1-command5">nmap -p 21 a.b.c.d</option>
-                        <option value="module1-command6">nmap -sS a.b.c.d</option>
-                    </select>
-                    <button class="sendCommandButton" onclick="sendExampleCommand()">Send Command</button>
+            <div class="resizableContainer" id="terminalContainer">
+                <div class="containerContent" style="overflow: scroll"> 
+                    <h2 style="color: #ffd700;">Remote Terminal</h2>
+                    <div id="terminal" style="height: 200px; width: inherit; border: 2px solid white">
+                    </div>
                 </div>
             </div>
         </div>
-    </div> -->
+        </div>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-    <script src="../js/module1.js"></script>
+    <script type="module" src="../js/module1.js"></script>
 </body>
 </html>

@@ -40,7 +40,7 @@ body {
 #narrativeContainer,
 #questionFormContainer {
   background-color: #333;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 /* Containers Specific Styling */
@@ -105,7 +105,7 @@ body {
   resize: none;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 /* Container Content Styling */
