@@ -1,11 +1,17 @@
-/* Import custom font */
+/* Import custom fonts */
 @font-face {
-    font-family: 'Kanit';
-    src: url('https://fonts.googleapis.com/css2?family=Kanit:wght@500&display=swap');
+  font-family: 'Roboto';
+  font-weight: 400, 700;
+  src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 }
 
 body {
-  font-family: 'Kanit', sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
   background-color: #333;
@@ -46,6 +52,7 @@ input[type="text"], input[type="password"] {
 }
 
 button {
+  font-family: 'Open Sans', sans-serif;
   background: #ffd700;
   background-size: 200% 200%;
   color: #fff;

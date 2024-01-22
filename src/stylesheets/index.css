@@ -1,11 +1,20 @@
-/* Import custom font */
+/* Import custom fonts */
 @font-face {
-    font-family: 'Kanit';
-    src: url('https://fonts.googleapis.com/css2?family=Kanit:wght@500&display=swap');
+  font-family: 'Roboto';
+  src: local('Roboto'), url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: local('Open Sans'), url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap') format('woff2');
+  font-weight: 400;
+  font-style: normal;
 }
 
 body {
-  font-family: "Kanit", sans-serif;
+  font-family: "Roboto", sans-serif; /* Use Roboto for body copy and headlines */
   margin: 0;
   padding: 20px;
   background-color: #222;
@@ -48,7 +57,7 @@ h1 {
 }
 
 .authors {
-  font-family: "Open Sans", sans-serif; /* Different font for descriptions */
+  font-family: "Open Sans", sans-serif; /* Use Open Sans for descriptions */
   font-size: 1em;
   padding: 20px;
   margin: 10px 0;
@@ -86,7 +95,7 @@ h2:hover {
 }
 
 .description {
-  font-family: "Open Sans", sans-serif; /* Different font for descriptions */
+  font-family: "Open Sans", sans-serif; /* Use Open Sans for descriptions */
   font-size: 1em;
   padding: 20px;
   margin: 10px 0;
@@ -170,7 +179,7 @@ h2,
 h3,
 .initiateButton,
 #collapseButton {
-  font-family: "Roboto Mono", monospace;
+  font-family: "Roboto", monospace;
   text-shadow: 2px 2px 4px #000;
 }
 
