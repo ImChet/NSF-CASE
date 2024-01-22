@@ -24,13 +24,13 @@ body {
 
 /* Resizable Container Styling */
 .resizableContainer {
+  flex: 1;
+  padding: 20px;
+  margin: 0 10px;
   min-width: 150px;
   min-height: 150px;
-  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 0 10px;
-  flex: 1;
   resize: none;
   overflow: hidden;
 }
@@ -55,7 +55,7 @@ body {
   padding: 8px;
   resize: none;
   overflow: auto;
-  margin: 0 10px; /* Adjust the margin for containers */
+  margin: 0 10px;
 }
 
 /* Flexbox Layout for Radio Buttons and Checkboxes */
@@ -67,42 +67,34 @@ body {
 
 /* Adjustments to the container to prevent horizontal scrolling */
 #questionFormContainer {
-  overflow-x: hidden; /* Hide horizontal overflow */
-}
-
-/* Terminal Output Styling */
-#terminalOutput {
-  border: 2px solid #ddd;
-  /* Remove the width: 100% and use max-width */
-  max-width: 100%; /* Limit the width to the container's width */
-  flex: 1;
-  padding: 8px;
-  box-sizing: border-box;
-  font-size: smaller;
-  font-family: monospace;
-  overflow-y: auto;
-}
-
-/* Terminal Output Wrapper Styling */
-.terminalOutputWrapper {
-  max-height: calc(100% - 16px);
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 /* Terminal Container Styling */
 #terminalContainer {
-  width: calc(100% - 16px);
-  height: calc(100% - 16px);
-  background-color: #333;
-  color: white;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   border: 2px solid #ffd700;
   border-radius: 4px;
   box-sizing: border-box;
   padding: 8px;
-  resize: none;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+#terminal {
   display: flex;
   flex-direction: column;
-  /* overflow: hidden; */
+  flex: 1;
+  overflow: auto;
+}
+
+.xterm {
+  border: 2px solid #fff;
+  padding-left: 6px;
 }
 
 /* Container Content Styling */
@@ -144,10 +136,9 @@ body {
 .returnButton {
   font-family: "Arial", sans-serif;
   font-weight: bold;
-  background-color: #ffd700; /* Example: Gold color */
-  
+  background-color: #ffd700;
   padding: 8px;
-  margin-top: 10px; /* Space above the button */
+  margin-top: 10px; 
   cursor: pointer;
   border: none;
   border-radius: 5px;
@@ -155,7 +146,7 @@ body {
     box-shadow 0.3s ease;
 }
 
-/* Remove link styling */
+/* Link styling */
 a {
   color: black;
 }
@@ -163,6 +154,7 @@ a:hover {
   color: #ffd700;
   text-decoration: none;
 }
+
 .sendCommandButton,
 .submitQuestionsButton {
   font-family: "Arial", sans-serif;
@@ -187,56 +179,62 @@ a:hover {
   transform: translateY(-2px);
 }
 
-/* Scrollbar Styling for Question Submission Container */
-.resizableContainer::-webkit-scrollbar {
-  width: 12px;
+/* Global Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
 }
 
-.resizableContainer::-webkit-scrollbar-thumb {
-  background-color: #ffd700;
-  border-radius: 10px;
+::-webkit-scrollbar-track {
+  background-color: #333; /* Track color */
 }
 
-.resizableContainer::-webkit-scrollbar-track {
-  background-color: #333;
+::-webkit-scrollbar-thumb {
+  background-color: #ffd700; /* Thumb color */
+  border-radius: 10px; /* Rounded corners for the thumb */
 }
 
-.resizableContainer::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Thumb color on hover */
 }
 
-/* Scrollbar Styling for Terminal Container */
-#terminalContainer::-webkit-scrollbar {
-  width: 12px;
-}
-
-#terminalContainer::-webkit-scrollbar-thumb {
-  background-color: #ffd700;
-  border-radius: 10px;
-}
-
-#terminalContainer::-webkit-scrollbar-track {
-  background-color: #333;
-}
-
-#terminalContainer::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
-}
-
-/* Scrollbar Styling for Terminal Output */
+/* Scrollbar for .resizableContainer, #terminalContainer, #terminalOutput */
+.resizableContainer::-webkit-scrollbar,
+#terminalContainer::-webkit-scrollbar,
 #terminalOutput::-webkit-scrollbar {
-  width: 12px;
+  /* No need to duplicate the 'width' property if it's the same for all */
 }
 
-#terminalOutput::-webkit-scrollbar-thumb {
-  background-color: #ffd700;
-  border-radius: 10px;
-}
-
+.resizableContainer::-webkit-scrollbar-track,
+#terminalContainer::-webkit-scrollbar-track,
 #terminalOutput::-webkit-scrollbar-track {
-  background-color: #333;
+  /* No need to duplicate the 'background-color' property if it's the same for all */
 }
 
+.resizableContainer::-webkit-scrollbar-thumb,
+#terminalContainer::-webkit-scrollbar-thumb,
+#terminalOutput::-webkit-scrollbar-thumb {
+  /* No need to duplicate the 'background-color' and 'border-radius' properties if they're the same for all */
+}
+
+.resizableContainer::-webkit-scrollbar-thumb:hover,
+#terminalContainer::-webkit-scrollbar-thumb:hover,
 #terminalOutput::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
+  /* No need to duplicate the 'background-color' property if it's the same for all */
+}
+
+/* Specific styles for xterm */
+.xterm .xterm-viewport::-webkit-scrollbar {
+  /* Specific styles for xterm scrollbar if different from above */
+}
+
+.xterm .xterm-viewport::-webkit-scrollbar-track {
+  /* Specific styles for xterm scrollbar track if different from above */
+}
+
+.xterm .xterm-viewport::-webkit-scrollbar-thumb {
+  /* Specific styles for xterm scrollbar thumb if different from above */
+}
+
+.xterm .xterm-viewport::-webkit-scrollbar-thumb:hover {
+  /* Specific styles for xterm scrollbar thumb hover if different from above */
 }

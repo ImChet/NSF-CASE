@@ -1,9 +1,53 @@
-let username = '\x1B[1;32mHuskyTerm@CASE\x1B[0m$';
+let username = '\x1B[1;33mHuskyTerm@CASE\x1B[0m:$';
 
 const socket = new WebSocket("ws://localhost:3000");
 var term = new window.Terminal({
-    cursorBlink: true
+    cursorBlink: true,
+    convertEol: true, // True if you want to convert newline characters to carriage return + newline
+    wordWrap: true,
+    theme: {
+        background: '#333',  // Set the background color
+        foreground: '#fff',  // Set the default foreground color
+        cursor: 'rgba(255,255,255,0.5)', // Set the cursor color
+        selection: 'rgba(255,255,255,0.3)', // Set the selection color
+        // Define ANSI colors
+        black: '#000000',
+        red: '#E06C75',
+        green: '#98C379',
+        yellow: '#E5C07B',
+        blue: '#61AFEF',
+        magenta: '#C678DD',
+        cyan: '#56B6C2',
+        white: '#FFFFFF',
+        brightBlack: '#5C6370',
+        brightRed: '#E06C75',
+        brightGreen: '#98C379',
+        brightYellow: '#E5C07B',
+        brightBlue: '#61AFEF',
+        brightMagenta: '#C678DD',
+        brightCyan: '#56B6C2',
+        brightWhite: '#FFFFFF'
+      }
 });
+
+// Fake loading messages for the connection process
+const loadingMessages = [
+    "Establishing connection to remote server...",
+    "Connected.",
+];
+
+let loadingMessageIndex = 0;
+
+function displayLoadingMessage() {
+    term.write('\r\n' + loadingMessages[loadingMessageIndex]);
+    loadingMessageIndex++;
+    if (loadingMessageIndex === loadingMessages.length) {
+        initTerminal();
+    } else {
+        setTimeout(displayLoadingMessage, 1000); // Display next loading message after a delay
+    }
+}
+
 term.open(document.getElementById('terminal'));
 
 const commands = {
@@ -14,7 +58,7 @@ const commands = {
 
 let command = '';
 
-function init() {
+function initTerminal() {
     if (term._initialized) {
         return;
     }
@@ -23,6 +67,7 @@ function init() {
 
     term.prompt = () => {
         term.write('\r\n' + username + ' '); // Display the username and prompt
+        term.scrollToBottom(); // Scroll to the bottom to ensure the prompt is visible
     };
     prompt(term);
 
@@ -73,12 +118,17 @@ socket.onmessage = (event) => {
 function runCommand(term, command) {
     if (command.length > 0) {
         term.write('\r\n'); // New line spacing for entered command
+
         if (commands.hasOwnProperty(command)) {
             term.write(commands[command]); // Display the output of the command
+        } else {
+            term.write('-bash: ' + command + ': command not found'); // Display an unrecognized command message
         }
+
         term.prompt(); // Display the prompt after command execution
+        term.scrollToBottom(); // Ensure the prompt is visible after executing the command
         return;
     }
 }
 
-init();
+displayLoadingMessage();
