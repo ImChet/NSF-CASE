@@ -7,15 +7,18 @@
     <link rel="stylesheet" href="../stylesheets/module1.css">
     <link rel="stylesheet" href="../stylesheets/questions.css">
     <link rel="stylesheet" href="../../../node_modules/xterm/css/xterm.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script type="application/javascript" src="../../../node_modules/xterm/lib/xterm.js"></script>
-    <script src="../js/validate.js"></script>
+    <script type="application/javascript" src="../js/fit-addon.js"></script>
+    <script type="application/javascript" src="../js/validate.js"></script>
     <title>Module 1: NMAP</title>
 </head>
     <div class="container">
         <div class="topContainer">
             <div class="resizableContainer" id="narrativeContainer">
                 <div class="containerContent">
-                  <h2 style="color: #ffd700; font-size: 24px; font-weight: bold;" id="moduleTitle">Module 1: NMAP</h2>
+                  <h2 id="moduleTitle">Module 1: NMAP</h2>
                   <div style="background-color: #444; padding: 10px; border-radius: 4px; border: 2px solid #ddd;">
                     <!-- REMOVED DYNAMIC GENERATION -->
                     <div id="moduleSections">
@@ -58,7 +61,7 @@
               </div>
             <div class="resizableContainer" id="questionFormContainer">
                 <form class="containerContent" id="questionForm">
-                    <h2 style="color: #ffd700;">Submit Questions</h2>
+                    <h2>Module Questions</h2>
                     <div id="questionsContainer">
                         <div>
                             <label class="prompt">What is the lowest port open?</label>
@@ -111,10 +114,10 @@
                     <div id="resultMessage"></div>
                 </div>
             </div>
-            <div class="resizableContainer" id="terminalContainer" style="height: 80%">
+            <div class="resizableContainer" id="terminalContainer">
                 <div class="containerContent">
-                    <h2 style="color: #ffd700;">Remote Terminal</h2>
-                    <div id="terminal" style="height: 80%; overflow:hidden">
+                    <h2>Remote Terminal</h2>
+                    <div id="terminal">
                     </div>
                 </div>
             </div>

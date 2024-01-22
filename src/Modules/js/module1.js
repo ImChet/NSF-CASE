@@ -2,6 +2,7 @@ let username = '\x1B[1;33mHuskyTerm@CASE\x1B[0m:$';
 
 const socket = new WebSocket("ws://localhost:3000");
 var term = new window.Terminal({
+    fontSize: 14,
     cursorBlink: true,
     convertEol: true, // True if you want to convert newline characters to carriage return + newline
     wordWrap: true,
@@ -16,7 +17,7 @@ var term = new window.Terminal({
 // Fake loading messages for the connection process
 const loadingMessages = [
     "Establishing connection to remote server...",
-    "Connected.",
+    "Connected.\n",
 ];
 
 let loadingMessageIndex = 0;
@@ -31,7 +32,19 @@ function displayLoadingMessage() {
     }
 }
 
+// Instantiate the FitAddon
+const fitAddon = new FitAddon();
+term.loadAddon(fitAddon);
+
 term.open(document.getElementById('terminal'));
+
+// Call fit to adjust the terminal's size to the container
+fitAddon.fit();
+
+// Optional: Adjust terminal size on window resize
+window.addEventListener('resize', () => {
+    fitAddon.fit();
+  });
 
 const commands = {
     'hello': 'Hello, world!',
