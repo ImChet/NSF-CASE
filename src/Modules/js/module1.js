@@ -1,8 +1,18 @@
+let username = '\x1B[1;32mHuskyTerm@CASE\x1B[0m$';
+
 const socket = new WebSocket("ws://localhost:3000");
 var term = new window.Terminal({
     cursorBlink: true
 });
 term.open(document.getElementById('terminal'));
+
+const commands = {
+    'hello': 'Hello, world!',
+    'date': new Date().toString(),
+    // Add more custom commands here
+};
+
+let command = '';
 
 function init() {
     if (term._initialized) {
@@ -12,7 +22,7 @@ function init() {
     term._initialized = true;
 
     term.prompt = () => {
-        term.write('\r\n$ ');
+        term.write('\r\n' + username + ' '); // Display the username and prompt
     };
     prompt(term);
 
@@ -27,12 +37,9 @@ function init() {
                 command = '';
                 break;
             case '\u007F': // Backspace (DEL)
-                // Do not delete the prompt
-                if (term._core.buffer.x > 2) {
+                if (command.length > 0) {
                     term.write('\b \b');
-                    if (command.length > 0) {
-                        command = command.substr(0, command.length - 1);
-                    }
+                    command = command.substr(0, command.length - 1);
                 }
                 break;
             case '\u0009':
@@ -48,14 +55,15 @@ function init() {
 }
 
 function clearInput(command) {
-    var inputLengh = command.length;
-    for (var i = 0; i < inputLengh; i++) {
+    var inputLength = command.length;
+    for (var i = 0; i < inputLength; i++) {
         term.write('\b \b');
     }
 }
+
 function prompt(term) {
     command = '';
-    term.write('\r\n$ ');
+    term.write('\r\n' + username + ' '); // Display the username and prompt
 }
 
 socket.onmessage = (event) => {
@@ -64,8 +72,11 @@ socket.onmessage = (event) => {
 
 function runCommand(term, command) {
     if (command.length > 0) {
-        clearInput(command);
-        socket.send(command + '\n');
+        term.write('\r\n'); // New line spacing for entered command
+        if (commands.hasOwnProperty(command)) {
+            term.write(commands[command]); // Display the output of the command
+        }
+        term.prompt(); // Display the prompt after command execution
         return;
     }
 }
