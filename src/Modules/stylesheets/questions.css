@@ -38,6 +38,15 @@
     color: white;
 }
 
+/* Style for questions to make them seem clickable */
+input[type="radio"]:hover,
+input[type="checkbox"]:hover,
+.radio-label:hover,
+.checkbox-label:hover,
+select:hover {
+  cursor: pointer;
+}
+
 /* Change when hovering over an option */
 /* #questionForm .radio-label:hover,
 #questionForm .checkbox-label:hover,
