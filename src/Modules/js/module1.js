@@ -37,12 +37,9 @@ function init() {
                 command = '';
                 break;
             case '\u007F': // Backspace (DEL)
-                // Do not delete the prompt
-                if (term._core.buffer.x > username.length + 2) {
+                if (command.length > 0) {
                     term.write('\b \b');
-                    if (command.length > 0) {
-                        command = command.substr(0, command.length - 1);
-                    }
+                    command = command.substr(0, command.length - 1);
                 }
                 break;
             case '\u0009':
@@ -78,7 +75,10 @@ function runCommand(term, command) {
         term.write('\r\n'); // New line spacing for entered command
         if (commands.hasOwnProperty(command)) {
             term.write(commands[command]); // Display the output of the command
+        } else {
+            term.write('Unrecognized command: ' + command); // Display an unrecognized command message
         }
+        
         term.prompt(); // Display the prompt after command execution
         return;
     }
