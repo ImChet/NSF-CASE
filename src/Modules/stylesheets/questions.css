@@ -48,13 +48,12 @@ select:hover {
 }
 
 /* Change when hovering over an option */
-/* #questionForm .radio-label:hover,
+#questionForm .radio-label:hover,
 #questionForm .checkbox-label:hover,
 #questionForm input:checked + label {
     border: 1px solid #ffd700;
     color: #ffd700;
-    cursor: pointer;
-} */
+}
 
 /* Change CSS to indicate the option is selected */
 #questionForm input:checked + label{
