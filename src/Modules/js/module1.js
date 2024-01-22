@@ -9,24 +9,7 @@ var term = new window.Terminal({
         background: '#333',  // Set the background color
         foreground: '#fff',  // Set the default foreground color
         cursor: 'rgba(255,255,255,0.5)', // Set the cursor color
-        selection: 'rgba(255,255,255,0.3)', // Set the selection color
-        // Define ANSI colors
-        black: '#000000',
-        red: '#E06C75',
-        green: '#98C379',
-        yellow: '#E5C07B',
-        blue: '#61AFEF',
-        magenta: '#C678DD',
-        cyan: '#56B6C2',
-        white: '#FFFFFF',
-        brightBlack: '#5C6370',
-        brightRed: '#E06C75',
-        brightGreen: '#98C379',
-        brightYellow: '#E5C07B',
-        brightBlue: '#61AFEF',
-        brightMagenta: '#C678DD',
-        brightCyan: '#56B6C2',
-        brightWhite: '#FFFFFF'
+        selection: 'rgba(255,255,255,0.3)'
       }
 });
 
