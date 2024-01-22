@@ -29,7 +29,6 @@ body {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow: auto;
   margin: 0 10px;
   flex: 1;
   resize: none;
@@ -40,12 +39,10 @@ body {
 #narrativeContainer,
 #questionFormContainer {
   background-color: #333;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 /* Containers Specific Styling */
-#terminalOutput,
-#terminalContainer,
 #questionFormContainer,
 #narrativeContainer {
   width: calc(100% - 16px);

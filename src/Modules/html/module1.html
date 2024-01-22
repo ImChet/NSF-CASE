@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../stylesheets/module1.css">
     <link rel="stylesheet" href="../stylesheets/questions.css">
-    <link href="../../../node_modules/xterm/css/xterm.css">
+    <link rel="stylesheet" href="../../../node_modules/xterm/css/xterm.css">
     <script type="application/javascript" src="../../../node_modules/xterm/lib/xterm.js"></script>
     <script src="../js/validate.js"></script>
     <title>Module 1: NMAP</title>
@@ -102,16 +102,16 @@
                     <div id="resultMessage"></div>
                 </div>
             </div>
-            <div class="resizableContainer" id="terminalContainer">
-                <div class="containerContent" style="overflow: scroll"> 
+            <div class="resizableContainer" id="terminalContainer" style="height: 80%">
+                <div class="containerContent">
                     <h2 style="color: #ffd700;">Remote Terminal</h2>
-                    <div id="terminal" style="height: 200px; width: inherit; border: 2px solid white">
+                    <div id="terminal" style="height: 80%; border: 2px solid white; overflow:hidden" >
                     </div>
                 </div>
             </div>
         </div>
         </div>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-    <script type="module" src="../js/module1.js"></script>
+    <script src="../js/module1.js"></script>
 </body>
 </html>

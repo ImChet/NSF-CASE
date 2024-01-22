@@ -1,33 +1,73 @@
-// // Assuming xterm.js is included and Terminal is available
-// import { Terminal } from "xterm";
-// import { FitAddon } from "xterm-addon-fit";
-// import '../../../node_modules/xterm/css/xterm.css';
+const socket = new WebSocket("ws://localhost:3000");
+var term = new window.Terminal({
+    cursorBlink: true
+});
+term.open(document.getElementById('terminal'));
 
-// const terminal = new Terminal();
-// const fitAddon = new FitAddon();
-// terminal.loadAddon(fitAddon);
-// terminal.open(document.getElementById('terminalContainer'));
-// fitAddon.fit();
+function init() {
+    if (term._initialized) {
+        return;
+    }
 
+    term._initialized = true;
 
-// terminal.onData(data => {
-//     // // Parse the command from the input data
-//     const command = data.trim();
+    term.prompt = () => {
+        term.write('\r\n$ ');
+    };
+    prompt(term);
 
-//     // Define custom commands and their outputs
-//     const commands = {
-//         'hello': 'Hello, world!',
-//         'date': new Date().toString(),
-//         // Add more custom commands here
-//     };
+    term.onData(e => {
+        switch (e) {
+            case '\u0003': // Ctrl+C
+                term.write('^C');
+                prompt(term);
+                break;
+            case '\r': // Enter
+                runCommand(term, command);
+                command = '';
+                break;
+            case '\u007F': // Backspace (DEL)
+                // Do not delete the prompt
+                if (term._core.buffer.x > 2) {
+                    term.write('\b \b');
+                    if (command.length > 0) {
+                        command = command.substr(0, command.length - 1);
+                    }
+                }
+                break;
+            case '\u0009':
+                console.log('tabbed', output, ["dd", "ls"]);
+                break;
+            default:
+                if (e >= String.fromCharCode(0x20) && e <= String.fromCharCode(0x7E) || e >= '\u00a0') {
+                    command += e;
+                    term.write(e);
+                }
+        }
+    });
+}
 
-//     // // Check if the command is defined, and display its output
-//     if (commands.hasOwnProperty(command)) {
-//         terminal.write('\r\n' + commands[command]);
-//     } else {
-//         terminal.write('\r\nUnknown command\r\n');
-//     }
-// });
+function clearInput(command) {
+    var inputLengh = command.length;
+    for (var i = 0; i < inputLengh; i++) {
+        term.write('\b \b');
+    }
+}
+function prompt(term) {
+    command = '';
+    term.write('\r\n$ ');
+}
 
-// term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ')
+socket.onmessage = (event) => {
+    term.write(event.data);
+}
 
+function runCommand(term, command) {
+    if (command.length > 0) {
+        clearInput(command);
+        socket.send(command + '\n');
+        return;
+    }
+}
+
+init();
