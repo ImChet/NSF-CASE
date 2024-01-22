@@ -22,7 +22,7 @@ function extractResponse() {
             while(queryRes != null){
                 // Debug
                 if(queryRes)
-                    console.log("Query: " + query + "\n" + queryRes.value);
+                    console.log("Query: " + query + "; " + queryRes.value);
 
                 // Append to answer
                 if(queryRes.checked || queryRes.type === "text" || queryRes.type === "select-one")
@@ -44,6 +44,8 @@ function extractResponse() {
     return answers;  
 }
 
+
+
 /* THIS NEEDS TO BE CHANGED ONCE WE GET THE SQLite3 DB SET UP */
 function getAnswers(idName) {
     // try {
@@ -57,10 +59,10 @@ function getAnswers(idName) {
     //     console.log(error);
     // } 
     const answers = {
-        "Q1" :  "21",
-        "Q2" : "Network scanning",
+        "Q1" :  ["21"],
+        "Q2" : ["Network scanning"],
         "Q3" : ["NMAP can perform host discovery", "NMAP can be used to identify services on a network"],
-        "Q4" : "FTP"
+        "Q4" : ["FTP"]
     }
 
     return answers;
@@ -70,15 +72,13 @@ function checkAnswers(element) {
     const userAnswers = Object.values(extractResponse()); // extractResponse returns and object; we just want the values
     const correctAnswers = getAnswers(element.id);        // EVENTUALLY THIS WE WILL BE RETURNED FROM A DATABASE; FOR NOW IT IS AN OBJECT
     const resultMessage = document.getElementById("resultMessage");
-    let query = '';
     
-    let temp = Object.values(correctAnswers);
+    let temp = Object.values(correctAnswers);           // We won't need this once we have the SQLite db setup
 
-    for(let i=1; i <= Object.values(correctAnswers).length; i++) {
-        if(temp[i] == userAnswers[i])
-            allCorrect = true;
-        else 
-            allCorrect = false;
+    for(let i=0; i < Object.values(correctAnswers).length; i++) {
+        allCorrect = arraysEqual(temp[i], userAnswers[i]);
+        if(allCorrect === false)
+            break;
     }
 
     if (allCorrect) {
@@ -99,9 +99,13 @@ function arraysEqual(arr1, arr2) {
     if (arr1.length !== arr2.length) {
         return false;
     }
-    const sortedArr1 = arr1.sort();
-    const sortedArr2 = arr2.sort();
-    return sortedArr1.every((element, index) => element === sortedArr2[index]);
+    let result = true
+    arr1.forEach((element, index) => {
+        console.log(`comparing: ${element} and ${arr2[index]}`)
+        if(String(element).valueOf() != String(arr2[index]).valueOf())
+            result = false;
+    });
+    return result;
 }
 
 // Confetti settings and function
