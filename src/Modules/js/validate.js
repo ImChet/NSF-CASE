@@ -1,9 +1,24 @@
 let allCorrect = false; // We assume they are wrong unless proven otherwise
 
+/**
+ * This helper function is needed for binding the user inputs on TEXT inputs.
+ * @param {string} element 
+ */
 function updateValue(element){
     document.getElementById(element.id).value = element.value;
 }
 
+/**
+ * This helper functions extracts the user's responses by 
+ * assuming that all questions are assigned the class prompt. 
+ * Using this list, creates an object of the structure
+ * {
+        "Q1" :  ["answer here"],
+        ...
+        "Qn" : ["answer here", "answer here"]
+    }
+ * @returns {object} answer
+ */
 function extractResponse() {
     const numQuestions = document.getElementsByClassName("prompt").length; // We assume that all question labels are given the class "prompt"
     let answers = {}
@@ -68,6 +83,12 @@ function getAnswers(idName) {
     return answers;
 }
 
+/**
+ * This calls extractResponse() and getAnswers() which return
+ * the user's answers and the correct answers respectively.
+ * It then displays a block indicating whether the answers were correct.
+ * @param {HTMLButtonElement} element instance of the submit button.
+ */
 function checkAnswers(element) {
     const userAnswers = Object.values(extractResponse()); // extractResponse returns and object; we just want the values
     const correctAnswers = getAnswers(element.id);        // EVENTUALLY THIS WE WILL BE RETURNED FROM A DATABASE; FOR NOW IT IS AN OBJECT
@@ -94,7 +115,12 @@ function checkAnswers(element) {
     resultMessage.style.display = "block";
 }
 
-// Function to check if two arrays have the same elements (disregarding order)
+/**
+ * Function to check if two arrays have the same elements (disregarding order)
+ * @param {Array} arr1 array containing the correct answers
+ * @param {Array} arr2 array containing the user answers
+ * @returns {boolean}
+ */
 function arraysEqual(arr1, arr2) {
     if (arr1.length !== arr2.length) {
         return false;
@@ -113,6 +139,9 @@ var duration = 15 * 1000;
 var animationEnd = Date.now() + duration;
 var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
 
+/**
+ * Help function to generate confetti on correct response.
+ */
 function launchConfetti() {
     function randomInRange(min, max) {
         return Math.random() * (max - min) + min;
