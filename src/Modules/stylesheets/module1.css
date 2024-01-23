@@ -109,6 +109,7 @@ blockquote {
   flex-direction: column;
   flex: 1;
   border: 2px solid #ffd700;
+  background-color: #333;
   border-radius: 4px;
   box-sizing: border-box;
   padding: 8px;
