@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/stylesheets/signin.css">
+</head>
+<body>
+    <form action="/signin" method="POST">
+        <div>
+            <h1>Sign In</h1>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Log In</button>
+        
+        <!-- Use a "button" element for the "Register" button -->
+        <button class="register-button" onclick="window.location.href = '/src/authentication/register.html';">Register</button>
+    </form>
+</body>
+</html>

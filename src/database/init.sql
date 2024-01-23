@@ -1,9 +1,11 @@
--- USE THIS FILE TO CREATE CONFIGS FOR DATABASE
-CREATE TABLE case_users (
+-- Create a table to store user information
+CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT
+    username TEXT NOT NULL,
+    password TEXT NOT NULL
 );
 
-INSERT INTO case_users (name) VALUES ('Husky T Blizzard');
-INSERT INTO case_users (name) VALUES ('John Doe');
-INSERT INTO case_users (name) VALUES ('Jane Doe');
+-- Insert sample users with hashed passwords
+INSERT INTO users (username, password) VALUES ('Husky T Blizzard', 'hashed_password_for_Husky');
+INSERT INTO users (username, password) VALUES ('John Doe', 'hashed_password_for_John');
+INSERT INTO users (username, password) VALUES ('Jane Doe', 'hashed_password_for_Jane');
