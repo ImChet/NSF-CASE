@@ -10,4 +10,4 @@
 
 
 #SQL Resources
-* SQL Syntax: [https://devhints.io/mysql]
+* SQL Syntax: [here](https://devhints.io/mysql)
