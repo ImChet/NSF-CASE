@@ -1,6 +1,6 @@
-{
-        "Q1" : "21",
-        "Q2" : "Network scanning",
-        "Q3" : ["NMAP can perform host discovery", "NMAP can be used to identify services on a network"],
-        "Q4" : "FTP"
+{ 
+       "Q1" : ["21"],
+       "Q2" : ["Network scanning"],
+       "Q3" : ["NMAP can perform host discovery", "NMAP can be used to identify services on a network"],
+       "Q4" : ["FTP"]
 }

@@ -5,7 +5,7 @@
 
 ## Give the helper scripts permission to execute
 1. `chmod +x dcomp_rebuild.sh`
-2. `chmod +x defile_rebuild.sh`
+2. `chmod +x dfile_rebuild.sh`
 
 ## Usage
 * Modify the `init.sql` file to change the default configurations for the SQLites database.
