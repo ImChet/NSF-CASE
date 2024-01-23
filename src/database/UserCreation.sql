@@ -18,6 +18,12 @@ CREATE TABLE Case_Users
 --https://devhints.io/mysql
 
 
+-- How to git commit 
+--git pull
+--git add -A
+--git commit -m "message here"
+--git push origin 4-create-database
+
 
   --  CREATE VIEW Admin_View as
   --  Select names, id, username, email, password;
