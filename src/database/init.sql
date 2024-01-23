@@ -9,7 +9,7 @@ CREATE TABLE Case_Users (
 
 -- Create Answers table
 CREATE TABLE Answers (
-    mod_name PRIMARY KEY TEXT NOT NULL, 
+    mod_name TEXT NOT NULL, 
     mod_data TEXT NOT NULL
 );
 
