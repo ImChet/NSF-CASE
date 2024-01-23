@@ -7,4 +7,7 @@
 * Using official Michigan Tech colors link [here](https://www.mtu.edu/umc/resources/brand/#palette)
 
 ### Existing bugs
-* 
+
+
+#SQL Resources
+* SQL Syntax: [https://devhints.io/mysql]
