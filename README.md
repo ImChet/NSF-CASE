@@ -9,5 +9,4 @@
 ### Existing bugs
 
 
-#SQL Resources
-* SQL Syntax: [here](https://devhints.io/mysql)
+
