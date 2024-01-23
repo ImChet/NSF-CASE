@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  case:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: case
+    stdin_open: true    # -i
+    tty: true           # -t
+volumes:
+  db:
