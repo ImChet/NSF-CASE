@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // Update the database path to point to 'case.db' within the 'database' folder
-const dbPath = path.join(__dirname, 'src', 'database', 'case.db'); // Corrected path for the database
+const dbPath = path.join(__dirname, 'src', 'database', 'case.sqlite'); // Corrected path for the database
 
 // Open the database and handle any errors
 const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
