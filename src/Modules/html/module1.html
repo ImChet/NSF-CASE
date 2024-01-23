@@ -5,50 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../stylesheets/module1.css">
-    
+    <link rel="stylesheet" href="../stylesheets/questions.css">
+    <link rel="stylesheet" href="../../../node_modules/xterm/css/xterm.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script type="application/javascript" src="../../../node_modules/xterm/lib/xterm.js"></script>
+    <script type="application/javascript" src="../js/fit-addon.js"></script>
+    <script type="application/javascript" src="../js/validate.js"></script>
     <title>Module 1: NMAP</title>
 </head>
     <div class="container">
         <div class="topContainer">
             <div class="resizableContainer" id="narrativeContainer">
                 <div class="containerContent">
-                  <h2 style="color: #ffd700; font-size: 24px; font-weight: bold;" id="moduleTitle"></h2>
+                  <h2 id="moduleTitle">Module 1: NMAP</h2>
                   <div style="background-color: #444; padding: 10px; border-radius: 4px; border: 2px solid #ddd;">
-                    <!-- Use JavaScript to dynamically generate sections -->
-                    <div id="moduleSections"></div>
+                    <!-- REMOVED DYNAMIC GENERATION -->
+                    <div id="moduleSections">
+                        <div class="moduleSection">
+                            <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); text-decoration: none;">
+                                Welcome to the world of <a href="https://mtu.edu" style="color: #ffd700; text-decoration: underline;">cybersecurity espionage</a>!
+                            </div>
+                            <ul>
+                                <li style="font-size: 16px; font-weight: normal; color: white; font-style: normal; text-decoration: none;">Scan the network for hidden weaknesses.</li>
+                                <li style="font-size: 16px; font-weight: normal; color: white; font-style: normal; text-decoration: none;">Retrieve critical data without leaving a trace.</li>
+                                <li style="font-size: 16px; font-weight: normal; color: white; font-style: normal; text-decoration: none;">Communicate through a secure terminal interface.</li>
+                            </ul>
+                        </div>
+                        <div class="moduleSection">
+                            <div style="font-size: 18px; font-weight: normal; color: white; font-style: normal; text-decoration: none;">
+                                In this thrilling mission, you'll become a covert operative tasked with infiltrating an ultra-secure network. Your trusty ally on this adventure is the NMAP terminal, a powerful tool for scanning networks and uncovering vulnerabilities.
+                            </div>
+                        </div>
+                        <div class="moduleSection">
+                                <div style="font-size: 18px; font-weight: normal; color: white; font-style: normal; text-decoration: none;">
+                                    Your success hinges on your ability to decipher NMAP results and answer questions that will guide you deeper into this high-stakes digital adventure.
+                                </div>
+                            </div>
+                            <div style="font-size: 16px; font-weight: normal; color: rgb(255, 215, 0); font-style: italic; text-decoration: underline;">
+                                YouTube video for this module below:
+                            </div>
+                            <!-- YouTube Video Embed // Replace Video ID "https://www.youtube.com/watch?v=ID" -->
+                            <div class="videoWrapper" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000;">
+                              <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                                      src="https://www.youtube.com/embed/REPLACE-ID"
+                                      frameborder="0"
+                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                      allowfullscreen>
+                              </iframe>
+                            </div>
+                            <button class="returnButton"><a href="../../index.html">Return to Main Page</a></button>
+                    </div>
                   </div>
                 </div>
               </div>
             <div class="resizableContainer" id="questionFormContainer">
-                <div class="containerContent" id="questionForm">
-                    <h2 style="color: #ffd700;">Submit Questions</h2>
-                    <div id="questionsContainer"></div>
-                    <button class="submitQuestionsButton" onclick="checkAnswers()">Check Answers</button>
+                <form class="containerContent" id="questionForm">
+                    <h2>Module Questions</h2>
+                    <div id="questionsContainer">
+                        <div>
+                            <label class="prompt">What is the lowest port open?</label>
+                            <input type="text" id="Q1a" name="textAnswer1" oninput="updateValue(this)">
+                        </div>
+                        <div>
+                            <label class="prompt">What is the purpose of NMAP?</label>
+                            <div>
+                                <input type="radio" id="Q2a" name="singleChoiceAnswer1" value="Network scanning" style="display: none">
+                                <label class="radio-label" for="Q2a" >Network scanning</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q2b" name="singleChoiceAnswer1" value="Web development" style="display: none">
+                                <label class="radio-label" for="Q2b" >Web development</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q2c" name="singleChoiceAnswer1" value="Data analysis" style="display: none">
+                                <label class="radio-label" for="Q2c" >Data analysis</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q2d" name="singleChoiceAnswer1" value="Video editing" style="display: none">
+                                <label class="radio-label" for="Q2d" >Video editing</label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="prompt">Select all true statements about NMAP:</label>
+                            <div>
+                                <input type="checkbox" id="Q3a" name="multipleChoiceAnswer1" value="NMAP can perform host discovery" style="display: none;">
+                                <label class="checkbox-label"for="Q3a" >NMAP can perform host discovery</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="Q3b" name="multipleChoiceAnswer1" value="NMAP is a database management tool" style="display: none;">
+                                <label class="checkbox-label" for="Q3b" >NMAP is a database management tool</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="Q3c" name="multipleChoiceAnswer1" value="NMAP can be used to identify services on a network" style="display: none;">
+                                <label class="checkbox-label" for="Q3c" >NMAP can be used to identify services on a network</label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="prompt">What service is running on port 21 over TCP?</label>
+                            <select class="form-select" id="Q4a" name="dropdownAnswer2">
+                                <option value="HTTPS">HTTPS</option>
+                                <option value="FTP">FTP</option>
+                                <option value="SFTP">SFTP</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="submitQuestionsButton" id="module1" type="button" onclick="checkAnswers(this)">Check Answers</button>
                     <div id="resultMessage"></div>
                 </div>
             </div>
-        </div>
-        <div class="resizableContainer" id="terminalContainer">
-            <div class="containerContent">
-                <h2 style="color: #ffd700;">Remote Terminal</h2>
-                <div class="terminalOutputWrapper">
-                    <textarea id="terminalOutput" readonly></textarea>
-                </div>
-                <div class="terminalCommands">
-                    <label for="exampleCommands" style="color: #ffd700;">Example Commands:</label>
-                    <select id="exampleCommands" name="exampleCommands" style="width: calc(100% - 16px); padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #333; color: white;">
-                        <option value="module1-command1">nmap a.b.c.d</option>
-                        <option value="module1-command2">nmap -sV a.b.c.d</option>
-                        <option value="module1-command3">nmap -p- a.b.c.d</option>
-                        <option value="module1-command4">nmap -p 80 a.b.c.d</option>
-                        <option value="module1-command5">nmap -p 21 a.b.c.d</option>
-                        <option value="module1-command6">nmap -sS a.b.c.d</option>
-                    </select>
-                    <button class="sendCommandButton" onclick="sendExampleCommand()">Send Command</button>
+            <div class="resizableContainer" id="terminalContainer">
+                <div class="containerContent">
+                    <h2>Remote Terminal</h2>
+                    <div id="terminal">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        </div>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
     <script src="../js/module1.js"></script>
 </body>

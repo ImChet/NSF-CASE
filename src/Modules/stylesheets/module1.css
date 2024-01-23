@@ -1,286 +1,267 @@
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #222;
-    color: white;
-    overflow: hidden;
+  font-family: "Open Sans", sans-serif; /* Primary Web Font */
+  margin: 0;
+  padding: 0;
+  background-color: #222;
+  color: white;
+  overflow: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Roboto", sans-serif; /* Primary Font Family for headlines */
+}
+
+blockquote {
+  font-family: "Georgia", serif; /* Secondary Print and Web Font for blockquotes */
+}
+
+/* Paragraph styles */
+p {
+  font-family: "Open Sans", sans-serif; /* Ensuring body copy uses Open Sans */
+  color: #fff;
+  line-height: 1.6; /* Adjust line height for readability */
+}
+
+/* Header 2 Style (Current Container Headers) */
+h2 {
+  font-family: "Roboto", sans-serif; /* Ensuring headlines use "Roboto" as Avenir Next is paid */
+  color: #ffd700;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+/* Example of specific blockquote styles */
+blockquote {
+  font-family: "Georgia", serif;
+  color: #ccc;
+  border-left: 4px solid #ffd700;
+  padding-left: 20px;
+  font-style: italic;
 }
 
 /* Main Container Styling */
 .container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 /* Top Container Styling */
 .topContainer {
-    flex: 1;
-    display: flex;
-    padding: 10px;
-    overflow: hidden;
+  display: flex;
+  padding: 10px;
+  overflow: hidden;
 }
 
 /* Resizable Container Styling */
 .resizableContainer {
-    min-width: 150px;
-    min-height: 150px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow: auto;
-    margin: 0 10px;
-    flex: 1;
-    resize: none;
-    overflow: hidden;
+  flex: 1;
+  padding: 10px;
+  margin: 0 5px;
+  min-width: 150px;
+  min-height: 150px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  resize: none;
+  overflow: hidden;
 }
 
 /* Containers Styling */
 #narrativeContainer,
 #questionFormContainer {
-    background-color: #333;
-    overflow: hidden;
-}
-
-/* Left-justify checkboxes and their labels */
-.question input[type="checkbox"], .question input[type="radio"] {
-    margin-right: 5px; /* Add some space between checkbox/radio and label */
-}
-
-/* Adjust border and border-radius to control spacing */
-.question label {
-    color: white;
-    margin-right: 10px;
-    padding: 4px; /* Add padding to labels */
-    flex: 1; /* Allows label to expand as needed */
-    border-radius: 0; /* Remove border radius */
-    border: none; /* Remove border */
+  background-color: #333;
+  overflow: hidden;
 }
 
 /* Containers Specific Styling */
-#terminalOutput,
-#terminalContainer,
 #questionFormContainer,
 #narrativeContainer {
-    width: calc(100% - 16px);
-    height: 100%;
-    background-color: #333;
-    color: white;
-    border: 2px solid #ffd700;
-    border-radius: 4px;
-    box-sizing: border-box;
-    padding: 8px;
-    resize: none;
-    overflow: auto;
-    margin: 0 10px; /* Adjust the margin for containers */
+  width: calc(100% - 16px);
+  height: 100%;
+  background-color: #333;
+  color: white;
+  border: 2px solid #ffd700;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 8px;
+  resize: none;
+  overflow: auto;
+  margin: 0 10px;
 }
 
 /* Flexbox Layout for Radio Buttons and Checkboxes */
 .question div {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-/* Customizing Radio Buttons and Checkboxes */
-input[type="radio"], input[type="checkbox"] {
-    accent-color: #ffd700;
-    transform: scale(1.2); /* Slightly smaller scale for checkboxes/radio buttons */
-}
-
-/* Hover and Active States Styling */
-input[type="radio"]:hover, input[type="checkbox"]:hover {
-    cursor: pointer;
-}
-
-input[type="radio"]:checked, input[type="checkbox"]:checked {
-    background-color: #ffd700;
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
 /* Adjustments to the container to prevent horizontal scrolling */
 #questionFormContainer {
-    overflow-x: hidden; /* Hide horizontal overflow */
-}
-
-/* Terminal Output Styling */
-#terminalOutput {
-    border: 2px solid #ddd;
-    /* Remove the width: 100% and use max-width */
-    max-width: 100%; /* Limit the width to the container's width */
-    flex: 1;
-    padding: 8px;
-    box-sizing: border-box;
-    font-size: smaller;
-    font-family: monospace;
-    overflow-y: auto;
-}
-    
-/* Terminal Output Wrapper Styling */
-.terminalOutputWrapper {
-    max-height: calc(100% - 16px);
-    overflow: hidden;
+  overflow-x: hidden;
 }
 
 /* Terminal Container Styling */
 #terminalContainer {
-    width: calc(100% - 16px);
-    height: calc(100% - 16px);
-    background-color: #333;
-    color: white;
-    border: 2px solid #ffd700;
-    border-radius: 4px;
-    box-sizing: border-box;
-    padding: 8px;
-    resize: none;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border: 2px solid #ffd700;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 8px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow: auto;
 }
+
+#terminal {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: auto;
+}
+
+.xterm {
+  border: 2px solid #fff;
+  padding-left: 6px;
+  height: auto;
+  width: auto;
+}
+
+#terminal, .xterm-viewport {
+  white-space: nowrap !important;
+  overflow-x: auto !important;
+}
+
 
 /* Container Content Styling */
 .containerContent {
-    margin-bottom: 20px;
-}
-
-/* Question Form Styling */
-#questionForm label {
-    display: block;
-    margin-bottom: 5px;
-    color: #ffd700;
-}
-
-/* Question Form Input and Select Styling */
-#questionForm input, #questionForm select {
-    width: calc(100% - 16px);
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: #333;
-    color: white;
-}
-
-/* Selected answer class */
-.selected-answer {
-    border: 2px solid gold !important;
+  margin-bottom: 20px;
 }
 
 /* Result Message Styling */
 #resultMessage {
-    display: none;
-    font-size: 18px;
-    font-weight: bold;
-    color: white;
-    border: 2px solid transparent;
-    border-radius: 4px;
-    padding: 10px;
-    text-align: center;
-    margin-top: 20px;
-    transition: background-image 0.5s ease;
-    animation: none;
+  display: none;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  padding: 10px;
+  text-align: center;
+  margin-top: 20px;
+  transition: background-image 0.5s ease;
+  animation: none;
 }
 
 /* Correct Result Message Styling */
 #resultMessage.correct {
-    background: green;
-    text-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
-    color: white;
-    text-shadow: 2px 2px 4px #000;
+  background: green;
+  text-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+  color: white;
+  text-shadow: 2px 2px 4px #000;
 }
 
 /* Incorrect Result Message Styling */
 #resultMessage.incorrect {
-    background: #FF5733;
-    text-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
-    color: white;
-    text-shadow: 2px 2px 4px #000;
+  background: #ff5733;
+  text-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+  color: white;
+  text-shadow: 2px 2px 4px #000;
 }
 
+/* Link styling */
+a {
+  color: black;
+}
+a:hover {
+  color: #ffd700;
+  text-decoration: none;
+}
+
+.sendCommandButton,
+.submitQuestionsButton,
 .returnButton {
-    font-family: 'Arial', sans-serif;
-    font-weight: bold;
-    background-color: #ffd700; /* Example: Gold color */
-    color: black;
-    padding: 8px;
-    margin-top: 10px; /* Space above the button */
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: "Arial", sans-serif;
+  font-weight: bolder;
+  background-color: #ffd700;
+  color: black;
+  padding: 8px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.sendCommandButton, .submitQuestionsButton {
-    font-family: 'Arial', sans-serif;
-    font-weight: bolder;
-    background-color: #ffd700;
-    color: black;
-    padding: 8px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+.sendCommandButton:hover,
+.submitQuestionsButton:hover,
+.returnButton:hover {
+  background-color: #555;
+  color: #ffd700;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
 }
 
-.sendCommandButton:hover, .submitQuestionsButton:hover, .returnButton:hover  {
-    background-color: #555;
-    color: #ffd700;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    transform: translateY(-2px);
+/* Global Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
 }
 
-/* Scrollbar Styling for Question Submission Container */
-.resizableContainer::-webkit-scrollbar {
-    width: 12px;
+::-webkit-scrollbar-track {
+  background-color: #333; /* Track color */
 }
 
-.resizableContainer::-webkit-scrollbar-thumb {
-    background-color: #ffd700;
-    border-radius: 10px;
+::-webkit-scrollbar-thumb {
+  background-color: #ffd700; /* Thumb color */
+  border-radius: 10px; /* Rounded corners for the thumb */
 }
 
-.resizableContainer::-webkit-scrollbar-track {
-    background-color: #333;
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Thumb color on hover */
 }
 
-.resizableContainer::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
-}
-
-/* Scrollbar Styling for Terminal Container */
-#terminalContainer::-webkit-scrollbar {
-    width: 12px;
-}
-
-#terminalContainer::-webkit-scrollbar-thumb {
-    background-color: #ffd700;
-    border-radius: 10px;
-}
-
-#terminalContainer::-webkit-scrollbar-track {
-    background-color: #333;
-}
-
-#terminalContainer::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
-}
-
-/* Scrollbar Styling for Terminal Output */
+/* Scrollbar for .resizableContainer, #terminalContainer, #terminalOutput */
+.resizableContainer::-webkit-scrollbar,
+#terminalContainer::-webkit-scrollbar,
 #terminalOutput::-webkit-scrollbar {
-    width: 12px;
+  /* No need to duplicate the 'width' property if it's the same for all */
 }
 
-#terminalOutput::-webkit-scrollbar-thumb {
-    background-color: #ffd700;
-    border-radius: 10px;
-}
-
+.resizableContainer::-webkit-scrollbar-track,
+#terminalContainer::-webkit-scrollbar-track,
 #terminalOutput::-webkit-scrollbar-track {
-    background-color: #333;
+  /* No need to duplicate the 'background-color' property if it's the same for all */
 }
 
+.resizableContainer::-webkit-scrollbar-thumb,
+#terminalContainer::-webkit-scrollbar-thumb,
+#terminalOutput::-webkit-scrollbar-thumb {
+  /* No need to duplicate the 'background-color' and 'border-radius' properties if they're the same for all */
+}
+
+.resizableContainer::-webkit-scrollbar-thumb:hover,
+#terminalContainer::-webkit-scrollbar-thumb:hover,
 #terminalOutput::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
+  /* No need to duplicate the 'background-color' property if it's the same for all */
+}
+
+/* Specific styles for xterm */
+.xterm .xterm-viewport::-webkit-scrollbar {
+  /* Specific styles for xterm scrollbar if different from above */
+}
+
+.xterm .xterm-viewport::-webkit-scrollbar-track {
+  /* Specific styles for xterm scrollbar track if different from above */
+}
+
+.xterm .xterm-viewport::-webkit-scrollbar-thumb {
+  /* Specific styles for xterm scrollbar thumb if different from above */
+}
+
+.xterm .xterm-viewport::-webkit-scrollbar-thumb:hover {
+  /* Specific styles for xterm scrollbar thumb hover if different from above */
 }

@@ -1,0 +1,64 @@
+/* Question Form Styling */
+#questionForm .prompt {
+    display: block;
+    margin-bottom: 5px;
+    color: white;
+    font-weight: bold;
+}
+
+/* Question Form Input[type=text] and Select Styling */
+#questionForm input[type=text],
+#questionForm select {
+    outline: none;
+    width: calc(100% - 16px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #333;
+    color: white;
+}
+
+/* Change the textbox to indicate typing */
+#questionForm input[type=text]:focus {
+    border: 1px solid #ffd700;
+}
+
+/* Style the radio and checkbox labels */
+#questionForm .radio-label,
+#questionForm .checkbox-label {
+    width: calc(100% - 16px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #333;
+    color: white;
+}
+
+/* Style for questions to make them seem clickable */
+input[type="radio"]:hover,
+input[type="checkbox"]:hover,
+.radio-label:hover,
+.checkbox-label:hover,
+select:hover {
+  cursor: pointer;
+}
+
+/* Change when hovering over an option */
+#questionForm .radio-label:hover,
+#questionForm .checkbox-label:hover,
+#questionForm input:checked + label {
+    border: 1px solid #ffd700;
+    color: #ffd700;
+}
+
+/* Change CSS to indicate the option is selected */
+#questionForm input:checked + label{
+    border: 1px solid #ffd700;
+    /* box-shadow: 0 0 0 2px #ffd700; */
+    color: #ffd700;
+    cursor: pointer;
+}
