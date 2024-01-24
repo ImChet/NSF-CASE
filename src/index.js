@@ -171,7 +171,13 @@ function createModuleElement(module, groupId) {
     const initiateButton = document.createElement('button');
     initiateButton.className = 'initiateButton';
     initiateButton.setAttribute('onclick', `initiateModule('${module.id}')`);
-    initiateButton.textContent = 'Initiate Module';
+
+    // Create the <span> tag for the button
+    const buttonSpan = document.createElement('span');
+    buttonSpan.textContent = 'Initiate Module';
+
+    // Append the <span> tag to the button
+    initiateButton.appendChild(buttonSpan);
 
     moduleContent.appendChild(moduleDescription);
     moduleContent.appendChild(initiateButton);

@@ -71,6 +71,7 @@ h1 {
   padding: 15px;
   margin: 10px 0;
   border-radius: 12px;
+  border: 2px solid #222;
 }
 
 .authors {
@@ -91,6 +92,7 @@ h1 {
   background-color: #ffd700 !important;
   color: #fff;
   padding: 15px;
+  border: 2px solid #222;
 }
 
 /* h2 is the Individual "Module" */
@@ -121,6 +123,12 @@ h2:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   color: #fff;
   text-align: left;
+  border: 1px solid #222;
+}
+
+.initiateButton {
+  font-family: "Roboto", monospace;
+  text-shadow: 2px 2px 4px #000;
 }
 
 .initiateButton {
@@ -130,7 +138,7 @@ h2:hover {
   color: #fff;
   padding: 8px;
   cursor: pointer;
-  border: none;
+  border: 1px solid #222;
   border-radius: 5px;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -164,12 +172,15 @@ h2:hover {
   animation: gradientAnimation 2s ease infinite;
 }
 
+
+
 /* Style for expanded group heading */
 /* h3 */
 .expandedGroup {
   background-color: #ffd700;
   color: #fff;
   padding: 15px;
+  border: 2px solid #222;
 }
 
 /* h3 is the Group "Module" */
@@ -194,7 +205,6 @@ h3:hover {
 h1,
 h2,
 h3,
-.initiateButton,
 #collapseButton {
   font-family: "Roboto", monospace;
   text-shadow: 2px 2px 4px #000;
@@ -212,7 +222,7 @@ p {
   background-color: #444;
   padding: 20px;
   margin: 10px 0;
-  border: none;
+  border: 2px solid #222;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
@@ -221,6 +231,7 @@ p {
 
 .moduleContent {
   display: none;
+  border: 2px solid #222;
 }
 
 #collapseButton {
@@ -230,7 +241,7 @@ p {
   color: #fff;
   padding: 8px;
   cursor: pointer;
-  border: none;
+  border: 1px solid #222;
   border-radius: 5px;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -258,7 +269,7 @@ p {
   color: #fff;
   padding: 8px;
   cursor: pointer;
-  border: none;
+  border: 1px solid #222;
   border-radius: 5px;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease,
     box-shadow 0.3s ease;
