@@ -1,3 +1,10 @@
+// Animated Background
+VANTA.TOPOLOGY({
+    el: "#animated-background",
+    color: 0x888888,
+    backgroundColor: 0x222222
+})
+
 let username = '\x1B[1;33mHuskyTerm@CASE\x1B[0m:$';
 
 const socket = new WebSocket("ws://localhost:3000");
