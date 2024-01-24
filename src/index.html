@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="stylesheets/index.css"> 
-    <script src="index.js"></script>
 </head>
 <body>
-    <button id="signInButton" class="hoverScale" onclick="window.location.href = 'signin.html';">Sign In</button>
+    <div id="animated-background"></div>
+    <button id="signInButton" class="hoverScale" onclick="window.location.href = '/src/authentication/signin.html';">Sign In</button>
     <button id="collapseButton" onclick="collapseAll()" class="hoverScale">Collapse All</button>
     <div id="groupButtons"></div>
 
@@ -22,5 +21,10 @@
             This website provides learning modules about Common Vulnerabilities and Exposures (CVE). Click on each module to learn more.
         </p>
     </div>
+    <!-- Animated background element -->
+    <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
+    <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
+    <script type="application/javascript" src="index.js"></script>
 </body>
-
+</html>

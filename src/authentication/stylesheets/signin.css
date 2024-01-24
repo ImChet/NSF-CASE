@@ -10,12 +10,19 @@
   src: url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 }
 
+ /* Style for the "Sign In" heading */
+ h1 {
+  color: #ffd700;
+  font-size: 24px; /* You can adjust the font size */
+  text-shadow: 2px 2px 4px #000;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
   background-color: #333;
-  color: #fff;
+  /* color: #fff; */
   text-align: center;
   height: 100vh;
   display: flex;
@@ -70,4 +77,44 @@ button:hover {
   background-image: linear-gradient(270deg, #ffd700, #ffcf40, #ffd700);
   background-size: 200% 200%;
   animation: gradientAnimation 2s ease infinite;
+}
+
+
+  /* Style for the "Register" button */
+  .register-button {
+    font-family: 'Open Sans', sans-serif;
+    background: #ffd700;
+    background-size: 200% 200%;
+    color: #fff;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px #000;
+}
+
+/* Hover effect for the "Register" button */
+.register-button:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+  background-image: linear-gradient(270deg, #ffd700, #ffcf40, #ffd700);
+  background-size: 200% 200%;
+  animation: gradientAnimation 2s ease infinite;
+}
+
+#animated-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }

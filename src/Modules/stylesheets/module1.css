@@ -1,10 +1,28 @@
+/* Animated Background */
+#animated-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+
 body {
   font-family: "Open Sans", sans-serif; /* Primary Web Font */
   margin: 0;
   padding: 0;
   background-color: #222;
   color: white;
-  overflow: hidden;
+  overflow: auto; /* Global Scroll Bar */
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -43,14 +61,16 @@ blockquote {
 .container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  /* height: 100vh; */
+  /* overflow: auto; */
 }
 
 /* Top Container Styling */
 .topContainer {
   display: flex;
   padding: 10px;
-  overflow: hidden;
+  /* overflow: auto; */
+  flex-wrap: wrap;
 }
 
 /* Resizable Container Styling */
@@ -58,26 +78,26 @@ blockquote {
   flex: 1;
   padding: 10px;
   margin: 0 5px;
-  min-width: 150px;
-  min-height: 150px;
+  /* min-width: 150px;
+  min-height: 150px; */
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   resize: none;
-  overflow: hidden;
+  /* overflow: auto; */
 }
 
 /* Containers Styling */
 #narrativeContainer,
 #questionFormContainer {
   background-color: #333;
-  overflow: hidden;
+  /* overflow: auto; */
 }
 
 /* Containers Specific Styling */
 #questionFormContainer,
 #narrativeContainer {
   width: calc(100% - 16px);
-  height: 100%;
+  height: auto;
   background-color: #333;
   color: white;
   border: 2px solid #ffd700;
@@ -85,7 +105,7 @@ blockquote {
   box-sizing: border-box;
   padding: 8px;
   resize: none;
-  overflow: auto;
+  /* overflow: auto; */
   margin: 0 10px;
 }
 
@@ -107,13 +127,15 @@ blockquote {
   flex-direction: column;
   flex: 1;
   border: 2px solid #ffd700;
+  background-color: #333;
   border-radius: 4px;
   box-sizing: border-box;
   padding: 8px;
+  margin: 0 10px;
   white-space: pre-wrap;
   word-break: break-word;
   overflow-wrap: break-word;
-  overflow: auto;
+  /* overflow: auto; */
 }
 
 #terminal {
@@ -207,6 +229,12 @@ a:hover {
 }
 
 /* Global Scrollbar Styling */
+html {
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #ffd700 #333; /* For Firefox */
+}
+
+/* For Chrome, Edge, and Safari */
 ::-webkit-scrollbar {
   width: 12px; /* Width of the scrollbar */
 }
@@ -218,6 +246,7 @@ a:hover {
 ::-webkit-scrollbar-thumb {
   background-color: #ffd700; /* Thumb color */
   border-radius: 10px; /* Rounded corners for the thumb */
+  border: 3px solid #333; /* Optional: Adds some space between the thumb and the track */
 }
 
 ::-webkit-scrollbar-thumb:hover {

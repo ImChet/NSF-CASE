@@ -1,3 +1,10 @@
+// Animated Background
+VANTA.TOPOLOGY({
+    el: "#animated-background",
+    color: 0x888888,
+    backgroundColor: 0x222222
+})
+
 let username = '\x1B[1;33mHuskyTerm@CASE\x1B[0m:$';
 
 const socket = new WebSocket("ws://localhost:3000");
@@ -7,7 +14,7 @@ var term = new window.Terminal({
     convertEol: true, // True if you want to convert newline characters to carriage return + newline
     wordWrap: true,
     theme: {
-        background: '#333',  // Set the background color
+        background: '#444',  // Set the background color
         foreground: '#fff',  // Set the default foreground color
         cursor: 'rgba(255,255,255,0.5)', // Set the cursor color
         selection: 'rgba(255,255,255,0.3)'
