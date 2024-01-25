@@ -1,0 +1,65 @@
+.initiateButton {
+  margin: auto;
+  padding: 1rem;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #00d166;
+  border: 1px solid #222;
+  border-radius: 6px;
+  box-shadow: 1px 1px 10px rgba(50,50,50,.4);
+  transition: .3s all ease;
+  letter-spacing: .1rem;
+  font-size: .85rem;
+  position: relative;
+  top: 0;
+  right: 0;
+  padding-left: 2.5rem;
+  
+  &:after,
+  &:before {
+    position: absolute;
+    font-family: "Roboto", monospace;
+    font-weight: bold;
+    font-size: 1rem;
+    color: darken(#00d166, 20%);
+    transition: .3s all ease;
+  }
+  
+  &:before {
+    content: '_';
+    position: absolute;
+    left: 1.4rem;
+    top: .9rem;
+  }
+  
+  &:after {
+    content: '>';
+    position: absolute;
+    left: .8rem;
+    top: 1rem;
+  }
+  
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transform: translateY(-1px);
+    top: -.1rem;
+    right: -.1rem;
+    cursor: pointer;
+    
+    
+    &:before {
+      content: '_';
+      position: absolute;
+      left: .8rem;
+      top: .7rem;
+      transform: translateY(-1px);
+    }
+  
+    &:after {
+      content: '>';
+      position: absolute;
+      left: 1.1rem;
+      top: 1rem;
+    }
+  }
+}
