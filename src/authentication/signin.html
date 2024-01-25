@@ -7,7 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/src/authentication/stylesheets/signin.css">
-
+    <script type="application/javascript" src="../authentication/js/google.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </head>
 <body>
     <div id="animated-background"></div>
@@ -27,8 +29,16 @@
         </div>
         
         <button type="submit">Log In</button>
-        <button class="register-button" onclick="window.location.href = '/src/authentication/register.html';">Register</button>
+        <button type="button" class="register-button" onclick="window.location.href = '/src/authentication/register.html';">Register</button>
+    
+    <!-- Google Sign-in button -->
+    <div id="googleButton"></div> 
+    <div id="g_id_onload"
+        data-client_id="398792302857-gj4s9331t22kljn6inunra5tblqlmmpe.apps.googleusercontent.com"
+        data-callback="handleCredentialResponse">
+    </div>
     </form>
+    
     <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
     <script type="application/javascript" src="../authentication/js/signin.js"></script>
