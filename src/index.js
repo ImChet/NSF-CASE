@@ -168,6 +168,7 @@ function createModuleElement(module, groupId) {
     moduleDescription.className = 'description';
     moduleDescription.innerHTML = `<p>${module.description}</p>`;
 
+    // Initiate Button Creation
     const initiateButton = document.createElement('button');
     initiateButton.className = 'initiateButton';
     initiateButton.setAttribute('onclick', `initiateModule('${module.id}')`);
