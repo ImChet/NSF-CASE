@@ -110,7 +110,8 @@ button:hover {
 }
 
 .input:focus ~ .user-label, .input:valid ~ .user-label {
-  transform: translateY(-1.5rem) scale(0.8);
+  transform: translateY(-1.6rem) scale(0.8);
+  background-color: rgba(68, 68, 68, 0.8);
   color: #ffd700;
 }
 
