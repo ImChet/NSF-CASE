@@ -1,5 +1,4 @@
 #/bin/sh
-
 # Remove previous image
 docker stop case
 docker rm case
@@ -9,7 +8,7 @@ docker volume rm db
 # Rebuild
 docker volume create db
 docker build -t case .
-docker run --name="case" -itd  -v db:/home/db/ case
+docker run --name="case" -p 3307:3306 -itd -v db:/var/lib/mysql case
 
-# Enter build
-docker exec -it --user admin-user case /bin/sh
+# THIS COMMAND CAUSES A CONNECTION TIMEOUT ERROR
+# mysql -uroot -h127.0.0.1 --port=3307 -p < init.sql
