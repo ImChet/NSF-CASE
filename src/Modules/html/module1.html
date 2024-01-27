@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Module 1: NMAP</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -10,9 +11,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script type="application/javascript" src="../../../node_modules/xterm/lib/xterm.js"></script>
-    <script type="application/javascript" src="../js/fit-addon.js"></script>
     <script type="application/javascript" src="../js/validate.js"></script>
-    <title>Module 1: NMAP</title>
+    
+    <!-- Terminal addon for resize -->
+    <script type="application/javascript" src="../js/fit-addon.js"></script>
+
+    <!-- This NEEDS to be added to each page which you dont want to user to see unless signed in -->
+    <script type="application/javascript" src="/src/authentication/js/userAuthenticationCheck.js"></script>
+
+    <!-- This NEEDS to be added to each page which you dont want to user to see unless signed in -->
+    <!-- <link rel="stylesheet" href="/src/stylesheets/contentBlock.css">  -->
+    
 </head>
 </body>
 <div id="animated-background"></div>
@@ -125,11 +134,21 @@
             </div>
         </div>
         </div>
-    <!-- Animated background element -->
-    <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
-    <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
-    <script type="application/javascript" src="index.js"></script>
+
+        <!-- Animated background element -->
+        <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+        <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
+        <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
+        <script>
+                // Animated Background
+                VANTA.TOPOLOGY({
+                    el: "#animated-background",
+                    color: 0x888888,
+                    backgroundColor: 0x222222
+                })
+        </script>
+
+    <!-- Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
     <script src="../js/module1.js"></script>
 </body>

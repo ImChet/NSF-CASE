@@ -1,10 +1,3 @@
-// Animated Background
-VANTA.TOPOLOGY({
-    el: "#animated-background",
-    color: 0x888888,
-    backgroundColor: 0x222222
-})
-
 let username = '\x1B[1;33mHuskyTerm@CASE\x1B[0m:$';
 
 const socket = new WebSocket("ws://localhost:3000");
@@ -84,13 +77,12 @@ function initTerminal() {
                 runCommand(term, command);
                 command = '';
                 break;
-            case '\u007F': // Backspace (DEL)
+                case '\u007F': // Backspace (DEL)
                 if (command.length > 0) {
                     term.write('\b \b');
                     command = command.substr(0, command.length - 1);
-                    command = command.substr(0, command.length - 1);
                 }
-                break;
+                break;            
             case '\u0009':
                 console.log('tabbed', output, ["dd", "ls"]);
                 break;

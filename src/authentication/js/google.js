@@ -83,7 +83,7 @@ function onSuccess(response, data) {
     sendLogToServer('Google Sign-In successful. User info:', userInfo);
     sendLogToServer('Session ID received from server:', data.sessionId);
     localStorage.setItem('sessionId', data.sessionId);
-    window.location.href = '/src/auth-test.html';
+    window.location.href = '/src/index.html';
 }
 
 // Function to handle failure after Google sign-in

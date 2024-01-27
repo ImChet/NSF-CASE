@@ -144,13 +144,6 @@ const modules = [
     },
     ];
 
-// Animated Background
-VANTA.TOPOLOGY({
-    el: "#animated-background",
-    color: 0x888888,
-    backgroundColor: 0x222222
-})
-
 // Function to create and append module elements
 function createModuleElement(module, groupId) {
     const parentGroup = document.getElementById(groupId);
