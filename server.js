@@ -1,90 +1,147 @@
-// ALL IN PROGRESS
-
+// Import required libraries and modules
 const express = require('express');
-const bodyParser = require('body-parser');
-const sqlite3 = require('sqlite3').verbose();
-const bcrypt = require('bcrypt');
-const path = require('path'); // Added for handling file paths
+const { OAuth2Client } = require('google-auth-library');
+const winston = require('winston');
+const mysql = require('mysql2/promise');
+const cors = require('cors');
 
+// Create an Express app
 const app = express();
-const port = 3000;
+const client = new OAuth2Client("398792302857-gj4s9331t22kljn6inunra5tblqlmmpe.apps.googleusercontent.com");
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
+// Database connection pool setup
+const pool = mysql.createPool({
+    host: 'localhost',
+    user: 'chet',
+    password: 'P@ssw0rd',
+    database: 'myappdb'
+});
 
-// Update the database path to point to 'case.db' within the 'database' folder
-const dbPath = path.join(__dirname, 'src', 'database', 'case.sqlite'); // Corrected path for the database
+// Initialize Winston logger
+const logger = winston.createLogger({
+    level: 'info',
+    format: winston.format.json(),
+    transports: [
+        new winston.transports.File({ filename: 'server.log' })
+    ],
+});
 
-// Open the database and handle any errors
-const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
-    if (err) {
-        console.error(err.message);
-        throw err; // If we can't connect to the database, the server shouldn't start
-    } else {
-        console.log('Connected to the SQLite database.');
-        db.serialize(() => {
-            db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, password TEXT NOT NULL)");
-        });
+// Function to initialize the database and create the required table
+const initializeDatabase = async () => {
+    try {
+        // Create or recreate the sessions table with required schema
+        await pool.query(`
+            DROP TABLE IF EXISTS sessions;
+        `);
+        await pool.query(`
+            CREATE TABLE sessions (
+                sessionId INT AUTO_INCREMENT PRIMARY KEY,
+                userId VARCHAR(255) NOT NULL,
+                expiresAt DATETIME NOT NULL
+            );
+        `);
+        logger.info('Database initialized successfully');
+    } catch (error) {
+        logger.error('Error initializing the database:', error);
+        throw error;
     }
-});
+};
 
-// Handle user registration
-app.post('/register', (req, res) => {
-    const { username, password } = req.body;
+// Initialize the database and create the required table
+initializeDatabase()
+    .then(() => {
+        // Start the server only after the database is initialized
+        app.use(express.json());
+        app.use(cors({ origin: 'http://localhost:5500', credentials: true }));
 
-    // Hash the password before storing it
-    bcrypt.hash(password, 10, (err, hash) => {
-        if (err) {
-            console.error(err.message);
-            return res.status(500).send('Registration failed');
-        }
+        // VerifyToken endpoint
+        app.post('/verifyToken', async (req, res) => {
+            const token = req.body.token;
+            logger.info('Received token for verification:', token);
 
-        // Insert user into the 'users' table
-        db.run("INSERT INTO users (username, password) VALUES (?, ?)", [username, hash], function (err) {
-            if (err) {
-                console.error(err.message);
-                return res.status(500).send('Registration failed');
-            }
+            try {
+                const ticket = await client.verifyIdToken({
+                    idToken: token,
+                    audience: "398792302857-gj4s9331t22kljn6inunra5tblqlmmpe.apps.googleusercontent.com",
+                });
+                const payload = ticket.getPayload();
 
-            console.log(`User registered with ID: ${this.lastID}`);
-            res.redirect('/signin.html');
-        });
-    });
-});
+                logger.info('Token verified successfully. User ID:', payload['sub']);
 
-// Handle user sign-in
-app.post('/signin', (req, res) => {
-    const { username, password } = req.body;
+                // Log session creation
+                const [result] = await pool.query('INSERT INTO sessions (userId, expiresAt) VALUES (?, ?)', [payload['sub'], new Date(Date.now() + 3600 * 1000)]);
+                const sessionId = result.insertId;
 
-    // Retrieve the hashed password from the database
-    db.get("SELECT * FROM users WHERE username = ?", [username], (err, row) => {
-        if (err) {
-            console.error(err.message);
-            return res.status(500).send('Sign-in failed');
-        }
-
-        if (!row) {
-            return res.status(401).send('Invalid credentials');
-        }
-
-        // Compare the provided password with the hashed password from the database
-        bcrypt.compare(password, row.password, (err, result) => {
-            if (err) {
-                console.error(err.message);
-                return res.status(500).send('Sign-in failed');
-            }
-
-            if (result) {
-                console.log(`User signed in with ID: ${row.id}`);
-                res.redirect('/index.html'); // Ensure that index.html is correctly served from the public directory
-            } else {
-                res.status(401).send('Invalid credentials');
+                logger.info('Session created with ID:', sessionId);
+                res.json({ verified: true, sessionId: sessionId });
+            } catch (error) {
+                logger.error('Token verification failed:', error);
+                res.status(401).json({ verified: false, error: error.message });
             }
         });
-    });
-});
 
-// Start the server
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
+        // VerifySession middleware
+        const verifySession = async (req, res, next) => {
+            const sessionId = req.headers['x-session-id'];
+            if (!sessionId) {
+                logger.warn('Session ID required');
+                return res.status(401).json({ message: 'Session ID required' });
+            }
+
+            // Log session ID being checked
+            logger.info('Checking session ID:', sessionId);
+
+            const [sessions] = await pool.query('SELECT * FROM sessions WHERE sessionId = ? AND expiresAt > NOW()', [sessionId]);
+            if (sessions.length === 0) {
+                logger.warn('Invalid or expired session');
+                return res.status(401).json({ message: 'Invalid or expired session' });
+            }
+
+            logger.info('Session verified successfully');
+            next();
+        };
+
+        app.get('/verifySession', verifySession, (req, res) => {
+            res.json({ authenticated: true });
+        });
+
+        app.listen(3000, () => {
+            console.log('Server running on port 3000');
+        });
+
+        // Logger
+        app.post('/client-logs', express.json(), async (req, res) => {
+            const { message, level, userId } = req.body;
+            const sessionUserId = await getUserIdFromSessionId(req.headers['x-session-id']);
+            
+            switch (level) {
+                case 'info':
+                    // Log to the server.log file
+                    logger.info(message, { userId: sessionUserId });
+                    break;
+                case 'warn':
+                    // Log to the server.log file
+                    logger.warn(message, { userId: sessionUserId });
+                    break;
+                case 'error':
+                    // Log to the server.log file
+                    logger.error(message, { userId: sessionUserId });
+                    break;
+                default:
+                    // Log to the server.log file
+                    logger.log('info', message, { userId: sessionUserId });
+            }
+            res.status(204).end();  // No content to send back
+        });
+
+        async function getUserIdFromSessionId(sessionId) {
+            // Implement the logic to retrieve the userId associated with the session from the database
+            // For example: const [session] = await pool.query('SELECT userId FROM sessions WHERE sessionId = ?', [sessionId]);
+            // Then, return the userId from the session
+            return sessionId?.userId || null;
+        }
+    })
+    .catch((error) => {
+        // Handle initialization error
+        console.error('Failed to initialize the database:', error);
+    });
