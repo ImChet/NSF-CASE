@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CASE Learning HOMEPAGE</title>
-    <link rel="stylesheet" href="stylesheets/home.css">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="/src/stylesheets/home.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <h1 class="h1">CASE Learning HOMEPAGE</h1>
-    <!-- Add a button to go to PROTECTED index.html -->
-    <a href="/src/index.html"><button>Go to Index</button></a>
-
-    <!-- Add a button to go to unprotected.html -->
-    <a href="/src/unprotected.html"><button>Go to Unprotected</button></a>
+    <div id="container">
+        <div id="message">
+            <!-- Messages will be inserted here by JavaScript -->
+        </div>
+        <a id="animate" href="/src/authentication/signin.html">Begin</a>
+    </div>
+    <script src="home.js"></script>
 </body>
 </html>
