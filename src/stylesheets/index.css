@@ -212,7 +212,7 @@ p {
   transform: translateY(-4px);
 }
 
-#signInButton {
+#signOutButton {
   position: fixed;
   bottom: 10px;
   left: 10px;
@@ -231,7 +231,7 @@ p {
   text-shadow: 2px 2px 4px #000;
 }
 
-#signInButton:hover {
+#signOutButton:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   transform: translateY(-4px);
 }

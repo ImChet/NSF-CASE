@@ -300,3 +300,33 @@ function collapseAll() {
 
 // Window load event listener
 window.addEventListener('load', initModules);
+
+
+// Handle Sign Out
+document.addEventListener('DOMContentLoaded', function () {
+    const signOutButton = document.getElementById('signOutButton');
+
+    signOutButton.addEventListener('click', function () {
+        fetch('http://localhost:3000/signout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Session-ID': localStorage.getItem('sessionId') // Include the session ID in the request headers
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // Sign-out successful, clear the session ID from localStorage
+                localStorage.removeItem('sessionId');
+                // Redirect the user to the sign-in page or any other desired location
+                window.location.href = '/src/authentication/signin.html';
+            } else {
+                // Handle sign-out error, you can show an alert or perform other actions
+                console.error('Sign-out failed');
+            }
+        })
+        .catch(error => {
+            console.error('Error during sign-out:', error);
+        });
+    });
+});
