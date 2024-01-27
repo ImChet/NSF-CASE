@@ -48,6 +48,5 @@ $(document).ready(function() {
             scramble(element[0], data.text, { delay: data.delay }, index === MESSAGES.length - 1);
         });
     }
-    
     animate();
 });
