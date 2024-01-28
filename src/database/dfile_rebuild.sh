@@ -9,6 +9,3 @@ docker volume rm db
 docker volume create db
 docker build -t case .
 docker run --name="case" -p 3307:3306 -itd -v db:/var/lib/mysql case
-
-# THIS COMMAND CAUSES A CONNECTION TIMEOUT ERROR
-# mysql -uroot -h127.0.0.1 --port=3307 -p < init.sql

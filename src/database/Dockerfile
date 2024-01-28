@@ -11,7 +11,12 @@ ENV MYSQL_DATABASE="CaseDB"
 ENV MYSQL_USER="CaseAdmin"
 ENV MYSQL_PASSWORD="CasePassword"
 
+# Copy custom configurations from 
+COPY mysqld.cnf /etc/mysql/conf.d/mysqld.cnf
+
 EXPOSE 3306
 
-# MySQL User
-USER mysql
+# Container User
+RUN useradd -ms /bin/bash maintainer
+WORKDIR /home/maintainer/
+USER maintainer
