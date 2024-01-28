@@ -8,4 +8,5 @@ docker volume rm db
 # Rebuild
 docker volume create db
 docker build -t case .
-docker run --name="case" -p 3307:3306 -itd -v db:/var/lib/mysql case
+docker run --name="case" -p 3307:3306 -itd \
+    -v db:/var/lib/mysql case

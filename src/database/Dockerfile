@@ -11,12 +11,15 @@ ENV MYSQL_DATABASE="CaseDB"
 ENV MYSQL_USER="CaseAdmin"
 ENV MYSQL_PASSWORD="CasePassword"
 
-# Copy custom configurations from 
+# Copy custom configurations from local
 COPY mysqld.cnf /etc/mysql/conf.d/mysqld.cnf
+COPY init.sql /docker-entrypoint-initdb.d/init.sql
 
+# Expose MySQL port
 EXPOSE 3306
 
-# Container User
-RUN useradd -ms /bin/bash maintainer
-WORKDIR /home/maintainer/
-USER maintainer
+# Create container user account
+RUN useradd -ms /bin/bash admin
+
+# Switch to admin user
+USER admin

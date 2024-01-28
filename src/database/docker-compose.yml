@@ -1,38 +1,13 @@
-# version: '3.8'
+version: '3.8'
 services:
   case:
-    image: mysql:latest
-    environment:
-      - MYSQL_LOG_CONSOLE=true
-      - MYSQL_ROOT_PASSWORD="password"
-      - MYSQL_DATABASE="CaseDB"
-      - MYSQL_USER="CaseAdmin"
-      - MYSQL_PASSWORD="CasePassword"
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: case
+    stdin_open: true    # -i
+    tty: true           # -t
     ports:
       - "3307:3306"
-    volumes:
-      - db:/var/lib/mysql
 volumes:
   db:
-
-#   ENV MYSQL_LOG_CONSOLE=true
-# ENV MYSQL_ROOT_PASSWORD="password"
-# ENV MYSQL_DATABASE="CaseDB"
-# ENV MYSQL_USER="CaseAdmin"
-# ENV MYSQL_PASSWORD="CasePassword"
-# version: "3.5"
-# services:
-#     mysql:
-#         image: mysql:latest
-#         ports:
-#             - 3307:3307
-#         environment:
-#             MYSQL_ROOT_PASSWORD: SomeRootPassword1!
-#             MYSQL_USER: caseUser
-#             MYSQL_PASSWORD: Password1!
-#             MYSQL_DATABASE: nsf_case
-#         volumes:
-#             - ./docker/setup.sql:/docker-entrypoint-initdb.d
-#             - db_data:/var/lib/mysql
-# volumes:
-#     db_data:
