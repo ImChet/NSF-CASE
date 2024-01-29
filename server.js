@@ -121,32 +121,39 @@ initializeDatabase()
         // Non-Google Register Endpoint
         app.post('/register', async (req, res) => {
             const { username, password } = req.body;
-        
+
             // Check password complexity using the same logic as client-side
             if (!isPasswordComplex(password)) {
                 return res.status(400).json({ success: false, message: 'Password does not meet complexity requirements.' });
             }
-        
-            const [users] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
-            if (users.length > 0) {
-                return res.status(409).json({ success: false, message: 'Username already exists' });
+
+            try {
+                // Check if username exists
+                const [users] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
+                if (users.length > 0) {
+                    return res.status(409).json({ success: false, message: 'Username already exists' });
+                }
+
+                // Hash the password
+                bcrypt.hash(password, saltRounds, async (err, hashedPassword) => {
+                    if (err) {
+                        logger.error('Error hashing password:', err);
+                        return res.status(500).json({ success: false, message: 'Error registering new user' });
+                    }
+
+                    try {
+                        // Insert the new user with a parameterized query
+                        await pool.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword]);
+                        res.status(201).json({ success: true, message: 'User registered successfully' });
+                    } catch (error) {
+                        logger.error('Error registering new user:', error);
+                        res.status(500).json({ success: false, message: 'Error registering new user' });
+                    }
+                });
+            } catch (error) {
+                logger.error('Error checking username:', error);
+                res.status(500).json({ success: false, message: 'Error registering new user' });
             }
-        
-            // Hash the password
-            bcrypt.hash(password, saltRounds, async (err, hashedPassword) => {
-                if (err) {
-                    logger.error('Error hashing password:', err);
-                    return res.status(500).json({ success: false, message: 'Error registering new user' });
-                }
-        
-                try {
-                    await pool.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword]);
-                    res.status(201).json({ success: true, message: 'User registered successfully' });
-                } catch (error) {
-                    logger.error('Error registering new user:', error);
-                    res.status(500).json({ success: false, message: 'Error registering new user' });
-                }
-            });
         });
 
         // Non-Google Sign In Endpoint
@@ -182,36 +189,36 @@ initializeDatabase()
         // Sign-out Endpoint
         app.post('/signout', async (req, res) => {
             const sessionId = req.headers['x-session-id'];
-            
+
             if (!sessionId) {
                 return res.status(401).json({ message: 'Session ID required for sign out' });
             }
-        
+
             try {
                 // Check if the session exists in the sessions table
                 const [sessions] = await pool.query('SELECT * FROM sessions WHERE sessionId = ?', [sessionId]);
-                
+
                 if (sessions.length === 0) {
                     // Session not found, return an error response
                     return res.status(401).json({ message: 'Invalid session ID' });
                 }
-        
+
                 // Delete the session to sign the user out
                 await pool.query('DELETE FROM sessions WHERE sessionId = ?', [sessionId]);
-        
+
                 // Check if the session was associated with a Google account
                 if (sessions[0].userId.startsWith('google:')) {
                     // Handle sign-out for Google users (you may need to implement Google sign-out logic here)
                     // For Google sign-out, you can revoke the access token or perform any necessary actions.
                     // Example:
                     // await revokeGoogleAccessToken(sessions[0].userId.substring(7)); // Remove 'google:' prefix
-                    
+
                     // Return a success response
                     return res.status(200).json({ message: 'Sign-out successful' });
                 } else {
                     // Handle sign-out for local users (clear their session)
                     // Local users can be signed out by deleting the session from the sessions table.
-                    
+
                     // Return a success response
                     return res.status(200).json({ message: 'Sign-out successful' });
                 }
@@ -221,6 +228,7 @@ initializeDatabase()
                 return res.status(500).json({ message: 'Error during sign-out' });
             }
         });
+
 
         app.listen(3000, () => {
             console.log('Server running on port 3000');

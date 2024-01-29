@@ -29,7 +29,7 @@ window.onload = function () {
         document.getElementById("googleButton"),
         { theme: "filled_black", size: "large", text: "continue_with", click_listener: onGoogleSignInButtonClick }
     );
-    google.accounts.id.prompt();
+    // google.accounts.id.prompt();
 }
 
 // Function to handle Google sign-in button click

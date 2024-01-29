@@ -7,9 +7,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/src/authentication/stylesheets/register.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">  
 </head>
 <body>
     <div id="animated-background"></div>
+
+    <div class="toast">
+        <div class="toast-content">
+            <i class="fas fa-exclamation-circle fa-3x warning"></i>
+          <div class="message">
+            <span class="text text-1">Error:</span>
+            <span class="text text-2">Username is already taken.</span>
+          </div>
+        </div>
+        <i class="fa-solid fa-xmark close"></i>
+        <div class="progress"></div> <!-- Progress bar -->
+      </div>
+      
+    
     <form action="/register" method="POST">
         <h1>Registration</h1>
         
