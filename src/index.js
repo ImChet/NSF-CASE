@@ -1,31 +1,31 @@
 const modules = [
     {
         "id": "module1",
-        "groupID": "group1",
-        "title": "Module 1: NMAP",
-        "description": "NMAP Module that teaches you about the basics of reconnaissance of a remote target."
+        "groupID": "Malware",
+        "title": "Module 1: WannaCry",
+        "description": "The WannaCry ransomware attack occurred in May 2017, targeting computers worldwide by encrypting files and demanding ransom payments in Bitcoin."
     },
     {
         "id": "module2",
-        "groupID": "group1",
+        "groupID": "Malware",
         "title": "Module 2",
         "description": "Description of Module 2 goes here."
     },
     {
         "id": "module3",
-        "groupID": "group1",
+        "groupID": "Malware",
         "title": "Module 3",
         "description": "Description of Module 3 goes here."
     },
     {
         "id": "module4",
-        "groupID": "group1",
+        "groupID": "Malware",
         "title": "Module 4",
         "description": "Description of Module 4 goes here."
     },
     {
         "id": "module5",
-        "groupID": "group1",
+        "groupID": "Malware",
         "title": "Module 5",
         "description": "Description of Module 5 goes here."
     },
@@ -123,9 +123,9 @@ const modules = [
 
     const groupModules = [
     {
-        "id": "group1",
-        "groupID": "group1",
-        "title": "Group 1"
+        "id": "Malware",
+        "groupID": "Malware",
+        "title": "Malware"
     },
     {
         "id": "group2",

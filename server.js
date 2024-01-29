@@ -229,6 +229,27 @@ initializeDatabase()
             }
         });
 
+        // Execute Command endpoint
+        app.post('/execute-command', async (req, res) => {
+            const { command } = req.body; // Extract the command from the request body
+        
+            // Define responses or actions for each command
+            const commandResponses = {
+                'hello': 'Hello, world!\r\n',
+                'date': () => `Current Date and Time: ${new Date().toString()}\r\n`,
+                // Add other commands and their responses or functions here
+            };
+        
+            if (command in commandResponses) {
+                const response = commandResponses[command];
+                // If the command response is a function, execute it to get the response
+                const result = typeof response === 'function' ? response() : response;
+                res.send(result);
+            } else {
+                res.send(`Command not recognized: ${command}\r\n`);
+            }
+        });
+
 
         app.listen(3000, () => {
             console.log('Server running on port 3000');

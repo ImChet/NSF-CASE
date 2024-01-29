@@ -27,49 +27,78 @@
 <div id="animated-background"></div>
     <div class="container">
         <div class="topContainer">
+            <!-- Description -->
             <div class="resizableContainer" id="narrativeContainer">
                 <div class="containerContent">
-                  <h2 id="moduleTitle">Module 1: NMAP</h2>
+                  <h2 id="moduleTitle">Module 1: WannaCry</h2>
                   <div style="background-color: #444; padding: 10px; border-radius: 4px; border: 2px solid #ddd;">
-                    <!-- REMOVED DYNAMIC GENERATION -->
                     <div id="moduleSections">
                         <div class="moduleSection">
-                            <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); text-decoration: none;">
-                                Welcome to the world of <a href="https://mtu.edu" style="color: #ffd700; text-decoration: underline;">cybersecurity espionage</a>!
-                            </div>
-                            <ul>
-                                <li style="font-size: 16px; font-weight: normal; color: white; font-style: normal; text-decoration: none;">Scan the network for hidden weaknesses.</li>
-                                <li style="font-size: 16px; font-weight: normal; color: white; font-style: normal; text-decoration: none;">Retrieve critical data without leaving a trace.</li>
-                                <li style="font-size: 16px; font-weight: normal; color: white; font-style: normal; text-decoration: none;">Communicate through a secure terminal interface.</li>
-                            </ul>
-                        </div>
-                        <div class="moduleSection">
-                            <div style="font-size: 18px; font-weight: normal; color: white; font-style: normal; text-decoration: none;">
-                                In this thrilling mission, you'll become a covert operative tasked with infiltrating an ultra-secure network. Your trusty ally on this adventure is the NMAP terminal, a powerful tool for scanning networks and uncovering vulnerabilities.
-                            </div>
-                        </div>
-                        <div class="moduleSection">
-                                <div style="font-size: 18px; font-weight: normal; color: white; font-style: normal; text-decoration: none;">
-                                    Your success hinges on your ability to decipher NMAP results and answer questions that will guide you deeper into this high-stakes digital adventure.
-                                </div>
-                            </div>
-                            <div style="font-size: 16px; font-weight: normal; color: rgb(255, 215, 0); font-style: italic; text-decoration: underline;">
-                                YouTube video for this module below:
+                            <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); font-style: normal; text-decoration: underline;">
+                                Introductory Module Video:</a>
                             </div>
                             <!-- YouTube Video Embed // Replace Video ID "https://www.youtube.com/watch?v=ID" -->
                             <div class="videoWrapper" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000;">
-                              <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                                      src="https://www.youtube.com/embed/REPLACE-ID"
-                                      frameborder="0"
-                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                      allowfullscreen>
-                              </iframe>
+                                <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                                        src="https://www.youtube.com/embed/"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen>
+                                </iframe>
                             </div>
+                            <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); font-style: normal; text-decoration: underline;">
+                                WannaCry Overview:</a>
+                            </div>
+                            <div>
+                                <!-- Add Blank Spacer -->
+                            </div>
+
+                        </div>
+                        <div class="moduleSection">
+                            <div style="font-size: 16px; font-weight: normal; color: white; font-style: normal; font-style: normal;">
+                                In May of 2017, the ransomware worm known as WannaCry infected numerous
+                                organizations, causing significant damage. Over 200,000 systems were infected across
+                                150 countries, with damages in the hundreds of millions of dollars. Prominent victims of
+                                WannaCry included Boeing, Honda, the NHS of England and Scotland, and the
+                                University of Montreal. The ransomware demanded a $300 Bitcoin payment in
+                                exchange for the decryption of the victim’s files, with the amount increasing over time if
+                                left unpaid. On the same day of WannaCry's release, a hardcoded kill switch was
+                                discovered and promptly registered by a security researcher. While this did not help
+                                systems already infected, it effectively halted further spread of WannaCry within a
+                                matter of hours.
+                            </div>
+                        </div>
+                        <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); font-style: normal; text-decoration: underline;">
+                            Vulnerability Details:</a>
+                        </div>
+                        <div class="moduleSection">
+                            <div style="font-size: 16px; font-weight: normal; color: white; font-style: normal; font-style: normal;">
+                                WannaCry used the previously undisclosed EternalBlue vulnerability
+                                (CVE-2017-0144), which takes advantage of SMBv1 mishandling specially crafted
+                                packets, allowing for remote code execution.
+                                A backdoor implant tool known as DoublePulsar is also used. The tool is able to
+                                run in system memory, allowing it to stealthily install malware on the host.
+                                Both EternalBlue and DoublePulsar were believed to be originally developed by
+                                the NSA, and later stolen by the hacking group known as The Shadow Brokers,
+                                meaning they were not publicly known. Such vulnerabilities are called “Zero Days”,
+                                referring to the amount of days the vulnerability’s existence has been known. Since
+                                previously unknown, security professionals have to begin developing patches the same
+                                day of release.
+                            </div>
+                        </div>
                             <button class="returnButton"><a href="../../index.html">Return to Main Page</a></button>
                     </div>
                   </div>
                 </div>
               </div>
+              <!-- Terminal -->
+              <div class="resizableContainer" id="terminalContainer">
+                <h2>Remote Terminal</h2>
+                <div id="terminalDescription" style="font-size: 16px; font-weight: normal; color: white;">You are acting as an attacker that is looking to compromise a small organization’s network with the goal of infecting them with ransomware. You are currently connected to the network using WiFi.</div>
+                <div id="terminal"></div>
+            </div>
+            </div>
+            <!-- Questions -->
             <div class="resizableContainer" id="questionFormContainer">
                 <form class="containerContent" id="questionForm">
                     <h2>Module Questions</h2>
@@ -125,16 +154,9 @@
                     <div id="resultMessage"></div>
                 </div>
             </div>
-            <div class="resizableContainer" id="terminalContainer">
-                <div class="containerContent">
-                    <h2>Remote Terminal</h2>
-                    <div id="terminal">
-                    </div>
-                </div>
-            </div>
         </div>
-        </div>
-
+    </div>
+    </div>
         <!-- Animated background element -->
         <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
         <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
