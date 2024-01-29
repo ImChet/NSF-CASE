@@ -6,9 +6,9 @@ USE CaseDB;
 -- Create Users table
 CREATE TABLE IF NOT EXISTS Users (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    email varchar(100) NOT NULL,
     userId varchar(30) UNIQUE NOT NULL,
-    pass varchar(255) NOT NULL,
-    email varchar(100) NOT NULL
+    pass varchar(255) NOT NULL
 );
 
 -- -- Insert into Users table
@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS Users (
 CREATE TABLE sessions (
     sessionId INTEGER AUTO_INCREMENT PRIMARY KEY,
     userId VARCHAR(255) UNIQUE NOT NULL,
+    startedAt DATETIME NOT NULL,
     expiresAt DATETIME NOT NULL,
     FOREIGN KEY(userId) references Users(userId)
 );

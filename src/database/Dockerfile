@@ -13,13 +13,15 @@ ENV MYSQL_PASSWORD="CasePassword"
 
 # Copy custom configurations from local
 COPY mysqld.cnf /etc/mysql/conf.d/mysqld.cnf
-COPY init.sql /docker-entrypoint-initdb.d/init.sql
+COPY sql/init.sql /docker-entrypoint-initdb.d/init.sql
+COPY sql/procedures.sql /docker-entrypoint-initdb.d/procedures.sql
 
 # Expose MySQL port
 EXPOSE 3306
 
 # Create container user account
 RUN useradd -ms /bin/bash admin
+WORKDIR /home/admin/
 
 # Switch to admin user
 USER admin
