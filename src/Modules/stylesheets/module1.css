@@ -121,6 +121,14 @@ blockquote {
   overflow-x: hidden;
 }
 
+#questionsContainer {
+  background-color: #444;
+  padding: 10px;
+  border-radius: 4px;
+  border: 2px solid #ddd;
+  margin-bottom: 10px;
+}
+
 /* Terminal Container Styling */
 #terminalContainer {
   display: flex;
