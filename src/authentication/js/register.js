@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Check if the registration was successful based on the server's response
                 if (data.success) {
                     // If successful, redirect the user to the sign-in page
-                    window.location.href = '/src/authentication/signin.html';
+                    window.location.href = '/src/authentication/html/signin.html';
                 }
             })
             .catch(error => {

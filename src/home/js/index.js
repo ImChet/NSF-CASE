@@ -319,7 +319,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Sign-out successful, clear the session ID from localStorage
                 localStorage.removeItem('sessionId');
                 // Redirect the user to the sign-in page or any other desired location
-                window.location.href = '/src/authentication/signin.html';
+                window.location.href = '/src/authentication/html/signin.html';
             } else {
                 // Handle sign-out error, you can show an alert or perform other actions
                 console.error('Sign-out failed');

@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/src/authentication/stylesheets/signin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    <script type="application/javascript" src="../authentication/js/google.js"></script>
+    <script type="application/javascript" src="/src/authentication/js/google.js"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </head>
@@ -43,7 +43,7 @@
         </div>
         
         <button type="submit">Log In</button>
-        <button type="button" class="register-button" onclick="window.location.href = '/src/authentication/register.html';">Register</button>
+        <button type="button" class="register-button" onclick="window.location.href = '/src/authentication/html/register.html';">Register</button>
     
     <!-- Google Sign-in button -->
     <div id="googleButton"></div> 
@@ -68,6 +68,6 @@
         })
     </script>
     
-    <script type="application/javascript" src="../authentication/js/signin.js"></script>
+    <script type="application/javascript" src="/src/authentication/js/signin.js"></script>
 </body>
 </html>
