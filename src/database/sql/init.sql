@@ -6,7 +6,8 @@ USE CaseDB;
 
 -- Create Logs table
 CREATE TABLE IF NOT EXISTS Logs (
-    log_time DATETIME NOT NULL PRIMARY KEY,
+    log_id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    log_time DATETIME NOT NULL,
     log_data JSON NOT NULL
 );
 

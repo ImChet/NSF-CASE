@@ -311,7 +311,7 @@ document.addEventListener('DOMContentLoaded', function () {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-Session-ID': localStorage.getItem('sessionId') // Include the session ID in the request headers
+                'X-Session-ID': localStorage.getItem('sessionId'),
             }
         })
         .then(response => {

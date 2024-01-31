@@ -4,18 +4,8 @@ function sendLogToServer(message, level = 'info') {
     fetch('http://localhost:3000/client-logs', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message, level, userId: getUserIdFromLocalStorage() }),
+        body: JSON.stringify({ message, level}),
     }).catch(error => console.error('Failed to send log to server:', error));
-}
-
-// Function to get the userId from local storage
-function getUserIdFromLocalStorage() {
-    return localStorage.getItem('userId');
-}
-
-// Function to handle Google credential response
-function handleCredentialResponse(response) {
-    sendLogToServer("Encoded JWT ID token: " + response.credential);
 }
 
 // Window onload event handler
@@ -34,7 +24,7 @@ window.onload = function () {
 
 // Function to handle Google sign-in button click
 function onGoogleSignInButtonClick() {
-    sendLogToServer(); // You can add functionality here if needed
+    // sendLogToServer(); // You can add functionality here if needed
 }
 
 // Function to parse JWT token

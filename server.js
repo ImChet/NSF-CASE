@@ -8,17 +8,11 @@ const bcrypt = require('bcrypt');
 const { stringify } = require('querystring');
 const saltRounds = 10; // Adjust based on security requirements
 
+process.env.TZ = 'UTC'; // UTC Time Zone
+
 // Create an Express app
 const app = express();
 const client = new OAuth2Client("398792302857-gj4s9331t22kljn6inunra5tblqlmmpe.apps.googleusercontent.com");
-
-// Database connection pool setup
-// const pool = mysql.createPool({
-//     host: 'localhost',
-//     user: 'chet',
-//     password: 'P@ssw0rd',
-//     database: 'myappdb'
-// });
 
 const pool = mysql.createPool({
     host: 'localhost',
@@ -28,49 +22,29 @@ const pool = mysql.createPool({
     port: 3307
 });
 
+// Database Logger Function
+async function logToDatabase(logLevel, logMessage, additionalInfo = {}) {
+    const logData = JSON.stringify({ level: logLevel, message: logMessage, ...additionalInfo });
+    const logTime = new Date().toISOString().slice(0, 19).replace('T', ' '); // Format current time for MySQL
 
-// Initialize Winston logger
-const logger = winston.createLogger({
-    level: 'info',
-    format: winston.format.json(),
-    transports: [
-        new winston.transports.File({ filename: 'server.log' })
-    ],
-});
-
-// // Function to initialize the database and create the required table
-// const initializeDatabase = async () => {
-//     try {
-//         // Create or recreate the sessions table with required schema
-//         await pool.query(`
-//             DROP TABLE IF EXISTS sessions;
-//         `);
-//         await pool.query(`
-//             CREATE TABLE sessions (
-//                 sessionId INT AUTO_INCREMENT PRIMARY KEY,
-//                 userId VARCHAR(255) NOT NULL,
-//                 expiresAt DATETIME NOT NULL
-//             );
-//         `);
-//         logger.info('Database initialized successfully');
-//     } catch (error) {
-//         logger.error('Error initializing the database:', error);
-//         throw error;
-//     }
-// };
+    try {
+        // Insert log entry without specifying log_id, as it's auto-incremented
+        await pool.query('INSERT INTO Logs (log_time, log_data) VALUES (?, ?)', [logTime, logData]);
+    } catch (error) {
+        console.error('Error logging to database:', error);
+    }
+}
 
 
 initializeDatabaseConnection = async () => {
        try {
         // Connect to the Database CaseDB
-        await pool.query(`
-            USE CaseDB;
-        `);
-        // Example of Call procedure
-        // await pool.query('CALL registerUser("email@mtu.edu", "John Doe", "Password");')
-        logger.info('Database connection successfull.');
+        await pool.query(`USE CaseDB;`);
+        // Clear leftover Sessions from last spin-up to prevent conflicts
+        await pool.query(`TRUNCATE Sessions;`);
+        logToDatabase('info', 'Database connection successfull.')
     } catch (error) {
-        logger.error('Error connecting to the database:', error);
+        logToDatabase('error', `Error connecting to the database: ${error}`)
         throw error;
     }
 };
@@ -87,26 +61,23 @@ initializeDatabaseConnection()
         // VerifyToken endpoint
         app.post('/verifyToken', async (req, res) => {
             const token = req.body.token;
-            logger.info('Received token for verification:', token);
-
+            logToDatabase('info', `Received token for verification: ${token}`)
             try {
                 const ticket = await client.verifyIdToken({
                     idToken: token,
                     audience: "398792302857-gj4s9331t22kljn6inunra5tblqlmmpe.apps.googleusercontent.com",
                 });
                 const payload = ticket.getPayload();
+                
+                logToDatabase('info', `Token verified successfully. UserId: ${payload['sub']}`)
 
-                logger.info('Token verified successfully. User ID:', payload['sub']);
-
-                // Log session creation
-                // const [result] = await pool.query('INSERT INTO sessions (userId, expiresAt) VALUES (?, ?)', [payload['sub'], new Date(Date.now() + 3600 * 1000)]);
-                const [result] = await pool.query('INSERT INTO Sessions (userId, startedAt, expiresAt) VALUES (?, ?, ?)', [payload['sub'], new Date(Date.now()), new Date(Date.now() + 12 * 3600 * 1000)]); // 12 Hours
+                const [result] = await pool.query('INSERT INTO Sessions (userId, startedAt, expiresAt) VALUES (?, ?, ?)', [payload['sub'], new Date(Date.now()), new Date(Date.now() + 4 * 3600 * 1000)]); // 4 Hours
                 const sessionId = result.insertId;
+                logToDatabase('info', `SessionID created: ${sessionId}, for userId: ${payload['sub']}`)
 
-                logger.info('Session created with ID:', sessionId);
                 res.json({ verified: true, sessionId: sessionId });
             } catch (error) {
-                logger.error('Token verification failed:', error);
+                logToDatabase('error', `Token verification failed: ${error}`)
                 res.status(401).json({ verified: false, error: error.message });
             }
         });
@@ -115,22 +86,18 @@ initializeDatabaseConnection()
         const verifySession = async (req, res, next) => {
             const sessionId = req.headers['x-session-id'];
             if (!sessionId) {
-                logger.warn('Session ID required');
+                logToDatabase('warn', "Session ID required")
                 return res.status(401).json({ message: 'Session ID required' });
             }
-
             // Log session ID being checked
-            logger.info('Checking session ID:', sessionId);
+            logToDatabase('info', `Checking session ID: ${sessionId}`)
 
-            // const [sessions] = await pool.query('SELECT * FROM sessions WHERE sessionId = ? AND expiresAt > NOW()', [sessionId]);
             const [sessions] = await pool.query('SELECT * FROM Sessions WHERE sessionId = ? AND expiresAt > NOW()', [sessionId]);
-            console.log()
             if (sessions.length === 0) {
-                logger.warn('Invalid or expired session');
+                logToDatabase('warn', "Invalid or expired session")
                 return res.status(401).json({ message: 'Invalid or expired session' });
             }
-
-            logger.info('Session verified successfully');
+            logToDatabase('info', `Session verified successfully for sessionId: ${sessionId}`)
             next();
         };
 
@@ -160,7 +127,6 @@ initializeDatabaseConnection()
 
             try {
                 // Check if username exists
-                // const [users] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
                 const [users] = await pool.query('SELECT * FROM Users WHERE userId = ?', [username]);
                 if (users.length > 0) {
                     return res.status(409).json({ success: false, message: 'Username already exists' });
@@ -169,22 +135,21 @@ initializeDatabaseConnection()
                 // Hash the password
                 bcrypt.hash(password, saltRounds, async (err, hashedPassword) => {
                     if (err) {
-                        logger.error('Error hashing password:', err);
+                        logToDatabase('error', `Error hashing password: ${err}`)
                         return res.status(500).json({ success: false, message: 'Error registering new user' });
                     }
 
                     try {
                         // Insert the new user with a parameterized query
-                        // await pool.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword]);
                         await pool.query('INSERT INTO Users (userId, pass) VALUES (?, ?)', [username, hashedPassword]);
                         res.status(201).json({ success: true, message: 'User registered successfully' });
                     } catch (error) {
-                        logger.error('Error registering new user:', error);
+                        logToDatabase('error', `Error registering new user: ${error}`)
                         res.status(500).json({ success: false, message: 'Error registering new user' });
                     }
                 });
             } catch (error) {
-                logger.error('Error checking username:', error);
+                logToDatabase('error', `Error checking username: ${error}`)
                 res.status(500).json({ success: false, message: 'Error registering new user' });
             }
         });
@@ -192,9 +157,8 @@ initializeDatabaseConnection()
         // Non-Google Sign In Endpoint
         app.post('/signin', async (req, res) => {
             const { username, password } = req.body;
-            logger.info(`Attempting to sign in user: ${username}`);
+            logToDatabase('info', `Attempting to sign in user: ${username}`)
 
-            // const [users] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
             const [users] = await pool.query('SELECT * FROM Users WHERE userId = ?', [username]);
             if (users.length === 0) {
                 return res.status(401).json({ authenticated: false, message: 'Invalid username or password' });
@@ -204,21 +168,18 @@ initializeDatabaseConnection()
             const decodedPassword = decodeURIComponent(password);
             bcrypt.compare(decodedPassword, user.pass, async (err, result) => {
                 if (err) {
-                    logger.error('Error during password comparison:', err);
+                    logToDatabase('error', `Error during password comparison: ${err}`)
                     return res.status(500).json({ authenticated: false, message: 'Error during sign in' });
                 }
 
                 if (!result) {
-                    logger.warn(`Authentication failed for user ${username}`);
+                    logToDatabase('warn', `Authentication failed for user ${username}`)
                     return res.status(401).json({ authenticated: false, message: 'Invalid username or password' });
                 }
-
-                // const [sessionResult] = await pool.query('INSERT INTO sessions (userId, expiresAt) VALUES (?, ?)', [user.id, new Date(Date.now() + 3600 * 1000)]);
-                const [sessionResult] = await pool.query('INSERT INTO Sessions (userId, startedAt, expiresAt) VALUES (?, ?, ?)', [user.id, new Date(Date.now()), new Date(Date.now() + 12 * 3600 * 1000)]); // 12 Hours
-
+                const [sessionResult] = await pool.query('INSERT INTO Sessions (userId, startedAt, expiresAt) VALUES (?, ?, ?)', [user.id, new Date(Date.now()), new Date(Date.now() + 4 * 3600 * 1000)]); // 4 Hours
                 const sessionId = sessionResult.insertId;
-                logger.info(`User signed in successfully: ${username}`);
-                logger.info(`Session created for user ${user.id} with ID: ${sessionId}`);
+                logToDatabase('info', `User signed in successfully: ${username}`)
+                logToDatabase('info', `Session created for user: ${username}, userId: ${user.id}, sessionId: ${sessionId}`)
                 res.json({ authenticated: true, sessionId: sessionId });
             });
         });
@@ -226,14 +187,12 @@ initializeDatabaseConnection()
         // Sign-out Endpoint
         app.post('/signout', async (req, res) => {
             const sessionId = req.headers['x-session-id'];
-
             if (!sessionId) {
                 return res.status(401).json({ message: 'Session ID required for sign out' });
             }
 
             try {
                 // Check if the session exists in the sessions table
-                // const [sessions] = await pool.query('SELECT * FROM sessions WHERE sessionId = ?', [sessionId]);
                 const [sessions] = await pool.query('SELECT * FROM Sessions WHERE sessionId = ?', [sessionId]);
 
                 if (sessions.length === 0) {
@@ -242,7 +201,6 @@ initializeDatabaseConnection()
                 }
 
                 // Delete the session to sign the user out
-                // await pool.query('DELETE FROM sessions WHERE sessionId = ?', [sessionId]);
                 await pool.query('DELETE FROM Sessions WHERE sessionId = ?', [sessionId]);
 
                 // Check if the session was associated with a Google account
@@ -251,13 +209,11 @@ initializeDatabaseConnection()
                     // For Google sign-out, you can revoke the access token or perform any necessary actions.
                     // Example:
                     // await revokeGoogleAccessToken(sessions[0].userId.substring(7)); // Remove 'google:' prefix
-
                     // Return a success response
                     return res.status(200).json({ message: 'Sign-out successful' });
                 } else {
                     // Handle sign-out for local users (clear their session)
                     // Local users can be signed out by deleting the session from the sessions table.
-
                     // Return a success response
                     return res.status(200).json({ message: 'Sign-out successful' });
                 }
@@ -294,30 +250,14 @@ initializeDatabaseConnection()
             console.log('Server running on port 3000');
         });
 
-        // Logger
+        // Client-Logs Endpoint
         app.post('/client-logs', express.json(), async (req, res) => {
-            const { message, level, userId } = req.body;
-            const sessionUserId = await getUserIdFromSessionId(req.headers['x-session-id']);
+            const { message, level } = req.body;
             
-            switch (level) {
-                case 'info':
-                    // Log to the server.log file
-                    logger.info(message, { userId: sessionUserId });
-                    break;
-                case 'warn':
-                    // Log to the server.log file
-                    logger.warn(message, { userId: sessionUserId });
-                    break;
-                case 'error':
-                    // Log to the server.log file
-                    logger.error(message, { userId: sessionUserId });
-                    break;
-                default:
-                    // Log to the server.log file
-                    logger.log('info', message, { userId: sessionUserId });
-            }
+            await logToDatabase(level, message);
+
             res.status(204).end();  // No content to send back
-        });
+        })
 
         /**
          * Retrieve the user ID associated with a given session ID from the database.

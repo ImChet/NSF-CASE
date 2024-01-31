@@ -4,14 +4,10 @@ function sendLogToServer(message, level = 'info') {
     fetch('http://localhost:3000/client-logs', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message, level, userId: getUserIdFromLocalStorage() }),
+        body: JSON.stringify({ message, level }),
     }).catch(error => console.error('Failed to send log to server:', error));
 }
 
-// Function to get the userId from local storage
-function getUserIdFromLocalStorage() {
-    return localStorage.getItem('userId');
-}
 
 // Window onload event handler
 window.onload = function () {
