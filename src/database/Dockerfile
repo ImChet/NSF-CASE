@@ -1,34 +1,27 @@
-FROM alpine:latest
+# Use MySQL as the base image
+FROM mysql:latest
 
-# Install SQLite
-RUN apk --no-cache add sqlite
-RUN apk add sqlite-dev
-RUN apk add vim
+# Set Environment Variables
+# All environment variables can be found here:
+# https://dev.mysql.com/doc/refman/8.0/en/docker-mysql-more-topics.html#docker_var_mysql-log-console
+# CHANGE ALL OF THIS IN PROD BUILD
+ENV MYSQL_LOG_CONSOLE=true
+ENV MYSQL_ROOT_PASSWORD="password"
+ENV MYSQL_DATABASE="CaseDB"
+ENV MYSQL_USER="CaseAdmin"
+ENV MYSQL_PASSWORD="CasePassword"
 
-# Create a directory to store the database
-VOLUME /home/db/
-WORKDIR /home/db/
+# Copy custom configurations from local
+COPY mysqld.cnf /etc/mysql/conf.d/mysqld.cnf
+COPY sql/init.sql /docker-entrypoint-initdb.d/init.sql
+COPY sql/procedures.sql /docker-entrypoint-initdb.d/procedures.sql
 
-# Copy your SQLite config file into the container
-COPY init.sql /home/db/
+# Expose MySQL port
+EXPOSE 3306
 
-# Create a user group 'admins'
-RUN addgroup -S admins
+# Create container user account
+RUN useradd -ms /bin/bash admin
+WORKDIR /home/admin/
 
-# Create a user 'admin-user' under 'admins'
-RUN adduser -S -D -h /home/db/ admin-user admins
-
-# Chown all the files to the app user.
-RUN chown -R admin-user:admins /home/db/*
-
-# Switch to 'admin-user'
-USER admin-user
-
-# Add permissions
-RUN sh -c "touch /home/db/case.sqlite"
-RUN chmod +x /home/db/case.sqlite
-RUN sh -c "sqlite3 case.sqlite < init.sql"
-
-
-# Expose the port if needed
-# EXPOSE 1433
+# Switch to admin user
+USER admin

@@ -4,6 +4,3 @@ docker volume rm database_db    # Docker on my device automatically names the vo
 
 # Rebuild
 docker-compose up -d --build case
-
-# Enter container
-docker exec -it case /bin/sh

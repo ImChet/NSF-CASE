@@ -10,3 +10,4 @@
 
 
 
+* Ran into some issues with bash scripts appending `\r` at the end of everyline.

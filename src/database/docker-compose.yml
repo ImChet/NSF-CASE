@@ -7,5 +7,7 @@ services:
     container_name: case
     stdin_open: true    # -i
     tty: true           # -t
+    ports:
+      - "3307:3306"
 volumes:
   db:

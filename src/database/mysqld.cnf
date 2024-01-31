@@ -1,0 +1,12 @@
+[client]
+port=3306
+
+[mysqld]
+port=3306
+socket=/var/lib/mysql/mysql.sock
+key_buffer_size=16M
+max_allowed_packet=256M
+connect_timeout=1000000000
+
+[mysqldump]
+quick
