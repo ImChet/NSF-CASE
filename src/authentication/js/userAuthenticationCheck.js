@@ -24,7 +24,7 @@ window.onload = function () {
         // If no session ID is found, log an error and redirect to the sign-in page
         sendLogToServer('No session ID found, redirecting to sign-in page...', 'warn'); // Added log
         sendLogToServer('Redirecting to sign-in page...', 'info'); // Added log
-        window.location.href = '/src/authentication/signin.html';
+        window.location.href = '/src/authentication/html/signin.html';
         return;
     }
 
@@ -53,11 +53,11 @@ window.onload = function () {
         } else {
             sendLogToServer('User not authenticated. Redirecting to signin.', 'warn');
             sendLogToServer('Redirecting to sign-in page...', 'info');
-            window.location.href = '/src/authentication/signin.html';
+            window.location.href = '/src/authentication/html/signin.html';
         }
     })
     .catch(error => {
         sendLogToServer('Error during session verification process: ' + error.message, 'error');
-        window.location.href = '/src/authentication/signin.html';
+        window.location.href = '/src/authentication/html/signin.html';
     });
 };

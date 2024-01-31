@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             if (data.authenticated) {
                 localStorage.setItem('sessionId', data.sessionId);
-                window.location.href = '/src/index.html'; // Redirect to home page on successful login
+                window.location.href = '/src/home/html/index.html'; // Redirect to home page on successful login
             } else {
                 // Replace the default message in the toast
                 toast.classList.add('active');

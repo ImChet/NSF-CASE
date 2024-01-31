@@ -250,7 +250,7 @@ function initiateModule(moduleId) {
     console.log(`Module ${moduleId} initiated.`);
 
     // Generate the URL based on the module name and folder
-    const moduleUrl = `Modules/html/${moduleId.toLowerCase()}.html`;
+    const moduleUrl = `/src/Modules/html/${moduleId.toLowerCase()}.html`;
 
     // Redirect to the generated URL
     window.location.href = moduleUrl;
