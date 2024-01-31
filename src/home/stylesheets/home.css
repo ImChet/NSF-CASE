@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    background: #333333;
+    color: rgb(212, 178, 108);
+    height: 100vh; /* Ensures the body takes the full viewport height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#container {
+    position: relative; /* Changed to relative for natural flow of child elements */
+    width: 100%;
+    max-width: 600px; /* Set a max-width for the content if needed */
+    text-align: center; /* Centers the text within the container */
+}
+
+#message {
+    font-family: 'Courier', monospace;
+    margin: 0;
+    padding: 0;
+    font-size: 18px; /* Adjust the font size as needed */
+    /* The positioning is removed so the text and button flow naturally */
+}
+
+#animate {
+    color: rgb(212, 178, 108);
+    text-decoration: underline; /* Adds underline to the link */
+    font-size: 18px; /* Slightly larger than the message text */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    margin-top: 5px; /* Adjust the margin as needed */
+    display: inline-block;
+    font-family: 'Courier', monospace; /* Same font as the message */
+}
+
+.ghost {
+    opacity: 0.0;
+    position: relative;
+}
+
+.glitch {
+  opacity: 0.25;
+  position: relative;
+}

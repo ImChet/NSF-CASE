@@ -110,7 +110,8 @@ button:hover {
 }
 
 .input:focus ~ .user-label, .input:valid ~ .user-label {
-  transform: translateY(-1.5rem) scale(0.8);
+  transform: translateY(-1.6rem) scale(0.8);
+  background-color: rgba(68, 68, 68, 0.8);
   color: #ffd700;
 }
 
@@ -135,4 +136,163 @@ html, body {
   height: 100%;
   z-index: -1;
   overflow: hidden;
+}
+
+/* Tooltip Styling */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  font-family: "Arial", sans-serif;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 100%;
+  margin-left: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -10px;
+  margin-top: -10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent transparent #333;
+}
+
+.tooltip .icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #ffd700;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 20px;
+}
+
+/* Add a class for the disabled button */
+.button-disabled {
+  cursor: not-allowed;
+  background: #ccc; /* Gray out the button */
+  pointer-events: none; /* Disable hover effects and clicks */
+}
+
+.toast {
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  border-radius: 8px; /* Change to match the form's border-radius */
+  background-color: rgba(68, 68, 68, 0.8); /* Use the same background color as the form */
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  transform: translateX(calc(100% + 30px));
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+  font-family: 'Roboto', sans-serif; /* Use the same font as the form */
+  color: #f5f5f5; /* Use the same font color as the form */
+}
+
+.toast.active {
+  transform: translateX(0%);
+}
+
+.toast-content {
+  display: flex;
+  align-items: flex-start; /* Left-align content */
+}
+
+.toast-content .warning {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  min-width: 35px;
+  /* background-color: #ffd700;  */
+  color: #fff;
+  font-size: 30px;
+  border-radius: 50%;
+}
+
+.toast-content .message {
+  display: flex;
+  flex-direction: column;
+  margin: 0 20px;
+}
+
+.message .text {
+  font-size: 16px;
+  font-weight: 400;
+  color: #f5f5f5;
+  text-align: left;
+}
+
+.message .text.text-1 {
+  font-weight: 600;
+  color: #ffd700; 
+}
+
+.toast .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  padding: 5px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.toast .close:hover {
+  opacity: 1;
+}
+
+.toast .progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+}
+
+.toast .progress:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #ffd700;
+}
+
+.progress.active:before {
+  animation: progress 5s linear forwards;
+}
+
+
+@keyframes progress {
+  100% {
+    right: 100%;
+  }
+}
+
+.toast.active ~ button {
+  pointer-events: none;
 }

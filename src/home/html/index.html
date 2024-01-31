@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CASE Learning Modules</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/home/stylesheets/index.css"> 
+    <link rel="stylesheet" href="/src/home/stylesheets/initiate.css">
+    
+    <!-- This NEEDS to be added to each page which you dont want to user to see unless signed in -->
+    <script type="application/javascript" src="/src/authentication/js/userAuthenticationCheck.js"></script>
+
+    <!-- Need to implement a more elegant solution that doesnt break everything to temporarily hide things when unathenticated users try to view pages -->
+    <!-- <link rel="stylesheet" href="stylesheets/contentBlock.css">  -->
+
+</head>
+<body>
+    <div id="animated-background"></div>
+    <!-- <button id="signOutButton" class="hoverScale" onclick="window.location.href = '/src/authentication/signin.html';">Sign Out</button> -->
+    <button id="signOutButton" class="hoverScale">Sign Out</button>
+    <button id="collapseButton" onclick="collapseAll()" class="hoverScale">Collapse All</button>
+    <div id="groupButtons"></div>
+
+    <h1 class="h1">CASE Learning Modules</h1>
+
+    <div class="nonClickableButton description">
+        <p>
+            Website synopsis goes here......
+        </p>
+    </div>
+
+    <!-- Animated background element -->
+    <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
+    <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
+    <script>
+            // Animated Background
+            VANTA.TOPOLOGY({
+                el: "#animated-background",
+                color: 0x888888,
+                backgroundColor: 0x222222
+            })
+    </script>
+
+    <script type="application/javascript" src="/src/home/js/index.js"></script>
+</body>
+</html>

@@ -75,7 +75,7 @@ blockquote {
 
 /* Resizable Container Styling */
 .resizableContainer {
-  flex: 1;
+  /* flex: 1; */
   padding: 10px;
   margin: 0 5px;
   /* min-width: 150px;
@@ -121,6 +121,14 @@ blockquote {
   overflow-x: hidden;
 }
 
+#questionsContainer {
+  background-color: #444;
+  padding: 10px;
+  border-radius: 4px;
+  border: 2px solid #ddd;
+  margin-bottom: 10px;
+}
+
 /* Terminal Container Styling */
 #terminalContainer {
   display: flex;
@@ -138,6 +146,14 @@ blockquote {
   /* overflow: auto; */
 }
 
+#terminalDescription {
+  background-color: #444;
+  padding: 10px;
+  border-radius: 4px;
+  border: 2px solid #ddd;
+  margin-bottom: 10px;
+}
+
 #terminal {
   display: flex;
   flex-direction: column;
@@ -148,6 +164,7 @@ blockquote {
 .xterm {
   border: 2px solid #fff;
   padding-left: 6px;
+  padding-right: 6px;
   height: auto;
   width: auto;
 }
@@ -160,7 +177,7 @@ blockquote {
 
 /* Container Content Styling */
 .containerContent {
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 
 /* Result Message Styling */
@@ -229,7 +246,7 @@ a:hover {
 }
 
 /* Global Scrollbar Styling */
-html {
+body {
   scrollbar-width: thin; /* For Firefox */
   scrollbar-color: #ffd700 #333; /* For Firefox */
 }

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/authentication/stylesheets/register.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">  
+</head>
+<body>
+    <div id="animated-background"></div>
+
+    <div class="toast">
+        <div class="toast-content">
+            <i class="fas fa-exclamation-circle fa-3x warning"></i>
+          <div class="message">
+            <span class="text text-1">Error:</span>
+            <span class="text text-2">Username is already taken.</span>
+          </div>
+        </div>
+        <i class="fa-solid fa-xmark close"></i>
+        <div class="progress"></div> <!-- Progress bar -->
+      </div>
+      
+    
+    <form action="/register" method="POST">
+        <h1>Registration</h1>
+        
+        <!-- Username Input -->
+        <div class="input-group">
+            <input required="" type="text" id="username" name="username" autocomplete="off" class="input">
+            <label class="user-label">Username</label>
+        </div>
+        
+        <!-- Password Input -->
+        <div class="input-group">
+            <input required="" type="password" id="password" name="password" autocomplete="off" class="input">
+            <label class="user-label">Password</label>
+        </div>
+
+        <button type="submit" id="registerButton" disabled>Register</button>
+
+        <!-- Password Complexity Tooltip -->
+        <div class="tooltip">
+            <div class="icon">i</div>
+            <div class="tooltiptext">
+                Your password must be at least 8 characters long, contain at least one letter and one digit.
+            </div>
+        </div>
+
+    </form>
+
+    <!-- Animated background element -->
+    <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <script>
+        VANTA.NET({
+            el: "#animated-background",
+            mouseControls: false,
+            touchControls: false,
+            gyroControls: false,
+            minHeight: 400.00,
+            minWidth: 400.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0xffd700,
+            backgroundColor: 0x333333
+        })
+    </script>
+    <script type="application/javascript" src="/src/authentication/js/register.js"></script>
+</body>
+</html>
