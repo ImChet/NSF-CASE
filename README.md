@@ -7,7 +7,4 @@
 * Using official Michigan Tech colors link [here](https://www.mtu.edu/umc/resources/brand/#palette)
 
 ### Existing bugs
-
-
-
 * Ran into some issues with bash scripts appending `\r` at the end of everyline.
