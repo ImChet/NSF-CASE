@@ -1,4 +1,6 @@
 #/bin/sh
+# cd /src/database/
+
 # Remove previous image
 docker stop case
 docker rm case

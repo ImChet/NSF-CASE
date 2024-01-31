@@ -3,24 +3,33 @@
 CREATE DATABASE IF NOT EXISTS CaseDB;
 USE CaseDB;
 
--- Create Users table
+
+-- Create Logs table
+CREATE TABLE IF NOT EXISTS Logs (
+    log_time DATETIME NOT NULL PRIMARY KEY,
+    log_data JSON NOT NULL
+);
+
+
+-- Create Users table INCREASE USERNAME SIZE
 CREATE TABLE IF NOT EXISTS Users (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
-    email varchar(100) NOT NULL,
     userId varchar(30) UNIQUE NOT NULL,
     pass varchar(255) NOT NULL
 );
 
--- -- Insert into Users table
--- INSERT INTO Users(username, pass, email) VALUES("Jane Doe", "hello", "email@mtu.edu");
-
 -- Create Sessions table
-CREATE TABLE sessions (
+CREATE TABLE Sessions (
     sessionId INTEGER AUTO_INCREMENT PRIMARY KEY,
     userId VARCHAR(255) UNIQUE NOT NULL,
     startedAt DATETIME NOT NULL,
-    expiresAt DATETIME NOT NULL,
-    FOREIGN KEY(userId) references Users(userId)
+    expiresAt DATETIME NOT NULL
+);
+
+-- Create Commands Table
+CREATE TABLE Commands (
+    mod_name varchar(40) PRIMARY KEY NOT NULL,
+    command_data JSON NOT NULL
 );
 
 -- Create Answers table

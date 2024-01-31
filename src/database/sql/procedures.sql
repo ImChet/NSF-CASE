@@ -8,9 +8,9 @@ delimiter ;
 
 -- Start a new session for a user
 delimiter //
-create procedure startSession(userId varchar(20), expiresAt DATETIME)
+create procedure startSession(googleUserId varchar(20), expiresAt DATETIME)
     begin
-        insert into sessions(userId, startedAt, expiresAt) values(userId, NOW(), expiresAt);
+        insert into Sessions(googleUserId, startedAt, expiresAt) values(userId, NOW(), expiresAt);
     end//
 delimiter ;
 
@@ -18,6 +18,6 @@ delimiter ;
 delimiter //
 create procedure termSession(currId varchar(20))
     begin
-        DELETE FROM sessions WHERE userId=currId;
+        DELETE FROM Sessions WHERE userId=currId;
     end//
 delimiter ;

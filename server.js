@@ -5,6 +5,7 @@ const winston = require('winston');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
+const { stringify } = require('querystring');
 const saltRounds = 10; // Adjust based on security requirements
 
 // Create an Express app
@@ -12,12 +13,21 @@ const app = express();
 const client = new OAuth2Client("398792302857-gj4s9331t22kljn6inunra5tblqlmmpe.apps.googleusercontent.com");
 
 // Database connection pool setup
+// const pool = mysql.createPool({
+//     host: 'localhost',
+//     user: 'chet',
+//     password: 'P@ssw0rd',
+//     database: 'myappdb'
+// });
+
 const pool = mysql.createPool({
     host: 'localhost',
-    user: 'chet',
-    password: 'P@ssw0rd',
-    database: 'myappdb'
+    user: 'CaseAdmin',
+    password: 'CasePassword',
+    database: 'CaseDB',
+    port: 3307
 });
+
 
 // Initialize Winston logger
 const logger = winston.createLogger({
@@ -28,29 +38,47 @@ const logger = winston.createLogger({
     ],
 });
 
-// Function to initialize the database and create the required table
-const initializeDatabase = async () => {
-    try {
-        // Create or recreate the sessions table with required schema
+// // Function to initialize the database and create the required table
+// const initializeDatabase = async () => {
+//     try {
+//         // Create or recreate the sessions table with required schema
+//         await pool.query(`
+//             DROP TABLE IF EXISTS sessions;
+//         `);
+//         await pool.query(`
+//             CREATE TABLE sessions (
+//                 sessionId INT AUTO_INCREMENT PRIMARY KEY,
+//                 userId VARCHAR(255) NOT NULL,
+//                 expiresAt DATETIME NOT NULL
+//             );
+//         `);
+//         logger.info('Database initialized successfully');
+//     } catch (error) {
+//         logger.error('Error initializing the database:', error);
+//         throw error;
+//     }
+// };
+
+
+initializeDatabaseConnection = async () => {
+       try {
+        // Connect to the Database CaseDB
         await pool.query(`
-            DROP TABLE IF EXISTS sessions;
+            USE CaseDB;
         `);
-        await pool.query(`
-            CREATE TABLE sessions (
-                sessionId INT AUTO_INCREMENT PRIMARY KEY,
-                userId VARCHAR(255) NOT NULL,
-                expiresAt DATETIME NOT NULL
-            );
-        `);
-        logger.info('Database initialized successfully');
+        // Example of Call procedure
+        // await pool.query('CALL registerUser("email@mtu.edu", "John Doe", "Password");')
+        logger.info('Database connection successfull.');
     } catch (error) {
-        logger.error('Error initializing the database:', error);
+        logger.error('Error connecting to the database:', error);
         throw error;
     }
 };
 
+
+
 // Initialize the database and create the required table
-initializeDatabase()
+initializeDatabaseConnection()
     .then(() => {
         // Start the server only after the database is initialized
         app.use(express.json());
@@ -71,7 +99,8 @@ initializeDatabase()
                 logger.info('Token verified successfully. User ID:', payload['sub']);
 
                 // Log session creation
-                const [result] = await pool.query('INSERT INTO sessions (userId, expiresAt) VALUES (?, ?)', [payload['sub'], new Date(Date.now() + 3600 * 1000)]);
+                // const [result] = await pool.query('INSERT INTO sessions (userId, expiresAt) VALUES (?, ?)', [payload['sub'], new Date(Date.now() + 3600 * 1000)]);
+                const [result] = await pool.query('INSERT INTO Sessions (userId, startedAt, expiresAt) VALUES (?, ?, ?)', [payload['sub'], new Date(Date.now()), new Date(Date.now() + 12 * 3600 * 1000)]); // 12 Hours
                 const sessionId = result.insertId;
 
                 logger.info('Session created with ID:', sessionId);
@@ -93,7 +122,9 @@ initializeDatabase()
             // Log session ID being checked
             logger.info('Checking session ID:', sessionId);
 
-            const [sessions] = await pool.query('SELECT * FROM sessions WHERE sessionId = ? AND expiresAt > NOW()', [sessionId]);
+            // const [sessions] = await pool.query('SELECT * FROM sessions WHERE sessionId = ? AND expiresAt > NOW()', [sessionId]);
+            const [sessions] = await pool.query('SELECT * FROM Sessions WHERE sessionId = ? AND expiresAt > NOW()', [sessionId]);
+            console.log()
             if (sessions.length === 0) {
                 logger.warn('Invalid or expired session');
                 return res.status(401).json({ message: 'Invalid or expired session' });
@@ -129,7 +160,8 @@ initializeDatabase()
 
             try {
                 // Check if username exists
-                const [users] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
+                // const [users] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
+                const [users] = await pool.query('SELECT * FROM Users WHERE userId = ?', [username]);
                 if (users.length > 0) {
                     return res.status(409).json({ success: false, message: 'Username already exists' });
                 }
@@ -143,7 +175,8 @@ initializeDatabase()
 
                     try {
                         // Insert the new user with a parameterized query
-                        await pool.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword]);
+                        // await pool.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword]);
+                        await pool.query('INSERT INTO Users (userId, pass) VALUES (?, ?)', [username, hashedPassword]);
                         res.status(201).json({ success: true, message: 'User registered successfully' });
                     } catch (error) {
                         logger.error('Error registering new user:', error);
@@ -161,13 +194,15 @@ initializeDatabase()
             const { username, password } = req.body;
             logger.info(`Attempting to sign in user: ${username}`);
 
-            const [users] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
+            // const [users] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
+            const [users] = await pool.query('SELECT * FROM Users WHERE userId = ?', [username]);
             if (users.length === 0) {
                 return res.status(401).json({ authenticated: false, message: 'Invalid username or password' });
             }
 
             const user = users[0];
-            bcrypt.compare(password, user.password, async (err, result) => {
+            const decodedPassword = decodeURIComponent(password);
+            bcrypt.compare(decodedPassword, user.pass, async (err, result) => {
                 if (err) {
                     logger.error('Error during password comparison:', err);
                     return res.status(500).json({ authenticated: false, message: 'Error during sign in' });
@@ -178,7 +213,9 @@ initializeDatabase()
                     return res.status(401).json({ authenticated: false, message: 'Invalid username or password' });
                 }
 
-                const [sessionResult] = await pool.query('INSERT INTO sessions (userId, expiresAt) VALUES (?, ?)', [user.id, new Date(Date.now() + 3600 * 1000)]);
+                // const [sessionResult] = await pool.query('INSERT INTO sessions (userId, expiresAt) VALUES (?, ?)', [user.id, new Date(Date.now() + 3600 * 1000)]);
+                const [sessionResult] = await pool.query('INSERT INTO Sessions (userId, startedAt, expiresAt) VALUES (?, ?, ?)', [user.id, new Date(Date.now()), new Date(Date.now() + 12 * 3600 * 1000)]); // 12 Hours
+
                 const sessionId = sessionResult.insertId;
                 logger.info(`User signed in successfully: ${username}`);
                 logger.info(`Session created for user ${user.id} with ID: ${sessionId}`);
@@ -196,7 +233,8 @@ initializeDatabase()
 
             try {
                 // Check if the session exists in the sessions table
-                const [sessions] = await pool.query('SELECT * FROM sessions WHERE sessionId = ?', [sessionId]);
+                // const [sessions] = await pool.query('SELECT * FROM sessions WHERE sessionId = ?', [sessionId]);
+                const [sessions] = await pool.query('SELECT * FROM Sessions WHERE sessionId = ?', [sessionId]);
 
                 if (sessions.length === 0) {
                     // Session not found, return an error response
@@ -204,7 +242,8 @@ initializeDatabase()
                 }
 
                 // Delete the session to sign the user out
-                await pool.query('DELETE FROM sessions WHERE sessionId = ?', [sessionId]);
+                // await pool.query('DELETE FROM sessions WHERE sessionId = ?', [sessionId]);
+                await pool.query('DELETE FROM Sessions WHERE sessionId = ?', [sessionId]);
 
                 // Check if the session was associated with a Google account
                 if (sessions[0].userId.startsWith('google:')) {
