@@ -293,7 +293,7 @@ function collapseAll() {
         }
     });
 
-    // Hide the collapse button
+    // Hide the collapse button to user
     const collapseButton = document.getElementById('collapseButton');
     collapseButton.style.display = 'none';
 }

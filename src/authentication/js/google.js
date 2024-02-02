@@ -22,7 +22,7 @@ window.onload = function () {
     // google.accounts.id.prompt();
 }
 
-// Function to handle Google sign-in button click
+// Function to handle Google sign-in button click by user
 function onGoogleSignInButtonClick() {
     // sendLogToServer(); // You can add functionality here if needed
 }

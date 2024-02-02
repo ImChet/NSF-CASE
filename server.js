@@ -273,6 +273,6 @@ initializeDatabaseConnection()
         }
     })
     .catch((error) => {
-        // Handle initialization error
+        // Handle initialization errors here
         console.error('Failed to initialize the database:', error);
     });

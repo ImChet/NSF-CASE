@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add an event listener to close the toast when the close icon is clicked
+    // Add an event listener to close the toast when the close icon is clicked by user
     closeIcon.addEventListener('click', () => {
         hideToast();
         clearTimeout(timer1);

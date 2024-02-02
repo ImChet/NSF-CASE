@@ -1,4 +1,4 @@
--- Use this to create file configurations
+-- Use this to create file configurations 
 -- create the databases
 CREATE DATABASE IF NOT EXISTS CaseDB;
 USE CaseDB;

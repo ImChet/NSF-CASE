@@ -1,4 +1,4 @@
--- -- Add new users for the platform
+-- -- Add new users for the platform procedure
 -- delimiter //
 -- create procedure registerUser(userId VARCHAR(255), pass varchar(256))
 --     begin

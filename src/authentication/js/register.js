@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(response => {
                 if (response.status === 409) {
-                    // Username is already taken, show the toast
+                    // Username is already taken, show the toast to user
                     toast.classList.add('active');
                     progress.classList.add('active');
 

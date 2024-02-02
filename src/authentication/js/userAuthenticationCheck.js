@@ -28,7 +28,7 @@ window.onload = function () {
     sendLogToServer('Session ID found: ' + sessionId, 'info'); // Added log
     sendLogToServer('Session ID found, starting session check with session ID: ' + sessionId, 'info');
 
-    // Send a request to the server to verify the session
+    // Send a request to the server to verify the session for the user
     fetch('http://localhost:3000/verifySession', {
         method: 'GET',
         headers: { 'X-Session-ID': sessionId }
