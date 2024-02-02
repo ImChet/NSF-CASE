@@ -1,2 +1,5 @@
-node_modules/*
+# dependencies
+node_modules
+
+# Logging
 server.log
