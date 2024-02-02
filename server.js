@@ -37,7 +37,7 @@ async function logToDatabase(logLevel, logMessage, additionalInfo = {}) {
 
 
 initializeDatabaseConnection = async () => {
-       try {
+    try {
         // Connect to the Database CaseDB
         await pool.query(`USE CaseDB;`);
         // Clear leftover Sessions from last spin-up to prevent conflicts
@@ -61,21 +61,34 @@ initializeDatabaseConnection()
         // VerifyToken endpoint
         app.post('/verifyToken', async (req, res) => {
             const token = req.body.token;
-            logToDatabase('info', `Received token for verification: ${token}`)
+            logToDatabase('info', `Received token for verification: ${token}`);
             try {
                 const ticket = await client.verifyIdToken({
                     idToken: token,
                     audience: "398792302857-gj4s9331t22kljn6inunra5tblqlmmpe.apps.googleusercontent.com",
                 });
                 const payload = ticket.getPayload();
-                
-                logToDatabase('info', `Token verified successfully. UserId: ${payload['sub']}`)
 
-                const [result] = await pool.query('INSERT INTO Sessions (userId, startedAt, expiresAt) VALUES (?, ?, ?)', [payload['sub'], new Date(Date.now()), new Date(Date.now() + 4 * 3600 * 1000)]); // 4 Hours
+                logToDatabase('info', `Token verified successfully. UserId: ${payload['sub']}`);
+                console.log('info', `Token verified successfully. UserId: ${payload['email']}`);
+
+                // Check if user exists. If they do not. Create them :)
+                const [userExists] = await pool.query(`SELECT * FROM Users WHERE userId="${payload.email}"`);
+
+                if (userExists == 0) {
+                    bcrypt.hash("P@ssw0rd", saltRounds, async (err, hashedPassword) => {
+                        // Insert the new user with a parameterized query
+                        await pool.query(`CALL registerUser("${payload.email}", "${hashedPassword}");`);
+                    });
+                }
+
+
+                const [result] = await pool.query('INSERT INTO Sessions (userId, startedAt, expiresAt) VALUES (?, ?, ?)', [payload['email'], new Date(Date.now()), new Date(Date.now() + 4 * 3600 * 1000)]); // 4 Hours
+            
                 const sessionId = result.insertId;
-                logToDatabase('info', `SessionID created: ${sessionId}, for userId: ${payload['sub']}`)
+                logToDatabase('info', `SessionID created: ${sessionId}, for userId: ${payload['email']}`)
 
-                res.json({ verified: true, sessionId: sessionId });
+                // res.json({ verified: true, sessionId: sessionId });
             } catch (error) {
                 logToDatabase('error', `Token verification failed: ${error}`)
                 res.status(401).json({ verified: false, error: error.message });
@@ -157,7 +170,7 @@ initializeDatabaseConnection()
         // Non-Google Sign In Endpoint
         app.post('/signin', async (req, res) => {
             const { username, password } = req.body;
-            logToDatabase('info', `Attempting to sign in user: ${username}`)
+            console.log(`Attempting to sign in user: ${username}`);
 
             const [users] = await pool.query('SELECT * FROM Users WHERE userId = ?', [username]);
             if (users.length === 0) {
@@ -176,7 +189,7 @@ initializeDatabaseConnection()
                     logToDatabase('warn', `Authentication failed for user ${username}`)
                     return res.status(401).json({ authenticated: false, message: 'Invalid username or password' });
                 }
-                const [sessionResult] = await pool.query('INSERT INTO Sessions (userId, startedAt, expiresAt) VALUES (?, ?, ?)', [user.id, new Date(Date.now()), new Date(Date.now() + 4 * 3600 * 1000)]); // 4 Hours
+                const [sessionResult] = await pool.query('INSERT INTO Sessions (userId, startedAt, expiresAt) VALUES (?, ?, ?)', [username, new Date(Date.now()), new Date(Date.now() + 4 * 3600 * 1000)]); // 4 Hours
                 const sessionId = sessionResult.insertId;
                 logToDatabase('info', `User signed in successfully: ${username}`)
                 logToDatabase('info', `Session created for user: ${username}, userId: ${user.id}, sessionId: ${sessionId}`)
@@ -227,14 +240,14 @@ initializeDatabaseConnection()
         // Execute Command endpoint
         app.post('/execute-command', async (req, res) => {
             const { command } = req.body; // Extract the command from the request body
-        
+
             // Define responses or actions for each command
             const commandResponses = {
                 'hello': 'Hello, world!\r\n',
                 'date': () => `Current Date and Time: ${new Date().toString()}\r\n`,
                 // Add other commands and their responses or functions here
             };
-        
+
             if (command in commandResponses) {
                 const response = commandResponses[command];
                 // If the command response is a function, execute it to get the response
@@ -253,7 +266,7 @@ initializeDatabaseConnection()
         // Client-Logs Endpoint
         app.post('/client-logs', express.json(), async (req, res) => {
             const { message, level } = req.body;
-            
+
             await logToDatabase(level, message);
 
             res.status(204).end();  // No content to send back

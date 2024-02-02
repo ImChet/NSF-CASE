@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS Logs (
 -- Create Users table INCREASE USERNAME SIZE
 CREATE TABLE IF NOT EXISTS Users (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
-    userId varchar(30) UNIQUE NOT NULL,
+    userId varchar(30) UNIQUE NOT NULL, 
     pass varchar(255) NOT NULL
 );
 
@@ -24,7 +24,8 @@ CREATE TABLE Sessions (
     sessionId INTEGER AUTO_INCREMENT PRIMARY KEY,
     userId VARCHAR(255) UNIQUE NOT NULL,
     startedAt DATETIME NOT NULL,
-    expiresAt DATETIME NOT NULL
+    expiresAt DATETIME NOT NULL,
+    CONSTRAINT user_fk FOREIGN KEY (userId) REFERENCES Users(userId)
 );
 
 -- Create Commands Table
