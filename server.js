@@ -70,48 +70,86 @@ initializeDatabaseConnection()
                 const payload = ticket.getPayload();
 
                 logToDatabase('info', `Token verified successfully. UserId: ${payload['sub']}`);
-                console.log('info', `Token verified successfully. UserId: ${payload['email']}`);
 
-                // Check if user exists. If they do not. Create them :)
-                const [userExists] = await pool.query(`SELECT * FROM Users WHERE userId="${payload.email}"`);
+                const userId = payload['email'];
 
-                if (userExists == 0) {
+                // Check if the user exists in the Users table
+                const [userExists] = await pool.query('SELECT * FROM Users WHERE userId = ?', [userId]);
+
+                if (userExists.length === 0) {
+                    // User does not exist, create a new user
                     bcrypt.hash("P@ssw0rd", saltRounds, async (err, hashedPassword) => {
-                        // Insert the new user with a parameterized query
-                        await pool.query(`CALL registerUser("${payload.email}", "${hashedPassword}");`);
+                        if (err) {
+                            logToDatabase('error', `Error hashing password: ${err}`)
+                            return res.status(500).json({ success: false, message: 'Error registering new user' });
+                        }
+                        try {
+                            // Insert the new user with a parameterized query
+                            await pool.query('INSERT INTO Users (userId, pass) VALUES (?, ?)', [userId, hashedPassword]);
+                            logToDatabase('info', `New user registered successfully: ${userId}`);
+
+                            // Create a new session after registering the user
+                            const [result] = await pool.query('INSERT INTO Sessions (userId, startedAt, expiresAt) VALUES (?, ?, ?)', [userId, new Date(Date.now()), new Date(Date.now() + 4 * 3600 * 1000)]); // 4 Hours
+                            const sessionId = result.insertId;
+                            logToDatabase('info', `New session created for userId: ${userId}, sessionId: ${sessionId}`);
+
+                            // Include sessionId in the response JSON
+                            res.json({ verified: true, sessionId: sessionId });
+                        } catch (error) {
+                            logToDatabase('error', `Error registering new user: ${error}`)
+                            return res.status(500).json({ success: false, message: 'Error registering new user' });
+                        }
                     });
+                } else {
+                    // User exists, proceed to check or create session
+                    const [existingSessions] = await pool.query('SELECT * FROM Sessions WHERE userId = ? AND expiresAt > NOW()', [userId]);
+
+                    if (existingSessions.length > 0) {
+                        // Update existing session instead of creating a new one
+                        const sessionId = existingSessions[0].sessionId;
+                        logToDatabase('info', `Session already exists for userId: ${userId}. Updating session: ${sessionId}`);
+                        await pool.query('UPDATE Sessions SET expiresAt = ? WHERE sessionId = ?', [new Date(Date.now() + 4 * 3600 * 1000), sessionId]); // Update expiration time
+
+                        // Include sessionId in the response JSON
+                        res.json({ verified: true, sessionId: sessionId });
+                    } else {
+                        // Create a new session
+                        const [result] = await pool.query('INSERT INTO Sessions (userId, startedAt, expiresAt) VALUES (?, ?, ?)', [userId, new Date(Date.now()), new Date(Date.now() + 4 * 3600 * 1000)]); // 4 Hours
+                        const sessionId = result.insertId;
+                        logToDatabase('info', `New session created for userId: ${userId}, sessionId: ${sessionId}`);
+
+                        // Include sessionId in the response JSON
+                        res.json({ verified: true, sessionId: sessionId });
+                    }
                 }
-
-
-                const [result] = await pool.query('INSERT INTO Sessions (userId, startedAt, expiresAt) VALUES (?, ?, ?)', [payload['email'], new Date(Date.now()), new Date(Date.now() + 4 * 3600 * 1000)]); // 4 Hours
-            
-                const sessionId = result.insertId;
-                logToDatabase('info', `SessionID created: ${sessionId}, for userId: ${payload['email']}`)
-
-                // res.json({ verified: true, sessionId: sessionId });
             } catch (error) {
-                logToDatabase('error', `Token verification failed: ${error}`)
+                logToDatabase('error', `Token verification failed: ${error}`);
                 res.status(401).json({ verified: false, error: error.message });
             }
         });
+
+
+
 
         // VerifySession middleware
         const verifySession = async (req, res, next) => {
             const sessionId = req.headers['x-session-id'];
             if (!sessionId) {
-                logToDatabase('warn', "Session ID required")
                 return res.status(401).json({ message: 'Session ID required' });
             }
-            // Log session ID being checked
-            logToDatabase('info', `Checking session ID: ${sessionId}`)
 
-            const [sessions] = await pool.query('SELECT * FROM Sessions WHERE sessionId = ? AND expiresAt > NOW()', [sessionId]);
-            if (sessions.length === 0) {
-                logToDatabase('warn', "Invalid or expired session")
-                return res.status(401).json({ message: 'Invalid or expired session' });
+            try {
+                // Retrieve user ID associated with session ID from the database
+                const userId = await getUserIdFromSessionId(sessionId);
+                if (!userId) {
+                    return res.status(401).json({ message: 'Invalid or expired session' });
+                }
+
+                next();
+            } catch (error) {
+                console.error('Error verifying session:', error);
+                return res.status(500).json({ message: 'Internal server error' });
             }
-            logToDatabase('info', `Session verified successfully for sessionId: ${sessionId}`)
-            next();
         };
 
         app.get('/verifySession', verifySession, (req, res) => {
@@ -279,11 +317,25 @@ initializeDatabaseConnection()
          * @returns {string|null} The user ID if found, or null if not found.
          */
         async function getUserIdFromSessionId(sessionId) {
-            // Implement the logic to retrieve the user ID associated with the session from the database
-            // Example: const [session] = await pool.query('SELECT userId FROM sessions WHERE sessionId = ?', [sessionId]);
-            // Then, return the userId from the session
-            return sessionId?.userId || null;
+            try {
+                // Query the database to retrieve the user ID associated with the session ID
+                const [sessions] = await pool.query('SELECT userId FROM Sessions WHERE sessionId = ? AND expiresAt > NOW()', [sessionId]);
+
+                // Check if a session with the provided session ID exists
+                if (sessions.length > 0) {
+                    // Return the user ID associated with the session
+                    return sessions[0].userId;
+                } else {
+                    // Session not found or expired, return null
+                    return null;
+                }
+            } catch (error) {
+                // Log any errors that occur during the database query
+                console.error('Error retrieving user ID from session ID:', error);
+                throw error; // Rethrow the error to handle it at a higher level
+            }
         }
+
     })
     .catch((error) => {
         // Handle initialization errors here
