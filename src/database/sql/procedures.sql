@@ -6,7 +6,6 @@ create procedure checkUserExists(username VARCHAR(255))
     end//
 delimiter ;
 
-
 -- Add new users for the platform procedure
 delimiter //
 create procedure registerUser(userId VARCHAR(255), pass varchar(256))
@@ -36,3 +35,4 @@ CREATE FUNCTION startSession(id varchar(255), len INTEGER)
         RETURN (sessId);
     END//
 DELIMITER ;
+

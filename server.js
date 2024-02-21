@@ -71,6 +71,7 @@ initializeDatabaseConnection()
                 });
                 const payload = ticket.getPayload();
 
+
                 logToDatabase('info', `Token verified successfully. UserId: ${payload['email']}`);
 
                 const userId = payload['email'];
@@ -220,7 +221,6 @@ initializeDatabaseConnection()
                     logToDatabase('warn', `Authentication failed for user ${username}`)
                     return res.status(401).json({ authenticated: false, message: 'Invalid username or password' });
                 }
-
                 const [sessionResult] = await pool.query(`SELECT startSession("${username}", ${SESSION_LENGTH})`);
                 const sessionId = Object.values(sessionResult[0]);
                 logToDatabase('info', `User signed in successfully: ${username}`)
