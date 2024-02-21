@@ -1,4 +1,12 @@
--- -- Add new users for the platform procedure
+-- Verify if user exists
+delimiter //
+create procedure checkUserExists(username VARCHAR(255))
+    begin
+        SELECT userId FROM Users WHERE userId=username;
+    end//
+delimiter ;
+
+-- Add new users for the platform procedure
 delimiter //
 create procedure registerUser(userId VARCHAR(255), pass varchar(256))
     begin
@@ -7,17 +15,24 @@ create procedure registerUser(userId VARCHAR(255), pass varchar(256))
 delimiter ;
 
 -- Start a new session for a Google user
-delimiter //
-create procedure startSession(userId varchar(20), expiresAt DATETIME)
-    begin
-        INSERT INTO Sessions (userId, startedAt, expiresAt) VALUES (userId, Now(), expiresAt);
-    end//
-delimiter ;
+DELIMITER //
+CREATE FUNCTION startSession(id varchar(255), len INTEGER) 
+    RETURNS VARCHAR(20) 
+    DETERMINISTIC
+    BEGIN
+        -- Determine if session exists
+        declare sessId INTEGER DEFAULT NULL;
+        SELECT sessionId INTO sessId FROM Sessions WHERE userId=id;
 
--- End session for a user
--- delimiter //
--- create procedure termSession(currId varchar(20))
---     begin
---         DELETE FROM Sessions WHERE userId=currId;
---     end//
--- delimiter ;
+        -- Start session or extend existing session on above query
+        IF sessId IS NOT NULL THEN
+            UPDATE Sessions SET expiresAt=DATE_ADD(NOW(),interval len hour) WHERE sessionId=sessId;
+        ELSE
+            INSERT INTO Sessions (userId, startedAt, expiresAt) VALUES (id, Now(), DATE_ADD(NOW(),interval len hour));
+        END IF;
+
+        SELECT sessionId INTO sessId FROM Sessions WHERE userId=id;        
+        RETURN (sessId);
+    END//
+DELIMITER ;
+
