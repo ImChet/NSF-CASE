@@ -93,10 +93,12 @@ function getAnswers(idName) {
     db.close();
 
     const answers = {
-        "Q1" :  ["21"],
-        "Q2" : ["Network scanning"],
-        "Q3" : ["NMAP can perform host discovery", "NMAP can be used to identify services on a network"],
-        "Q4" : ["FTP"]
+        "Q1" : ["Exploiting the EternalBlue vulnerability"],
+        "Q2" : ["Ransomware"],
+        "Q3" : ["It served as a backdoor for malware installation"],
+        "Q4" : ["Activation of a hardcoded kill switch"],
+        "Q5" : ["Disabling SMBv1 and applying security patches"],
+        "Q6" : ["u46U0o"]
     }
 
     return answers;
@@ -128,6 +130,7 @@ function checkAnswers(element) {
         launchConfetti(); // Launch confetti
     } else {
         resultMessage.innerText = "Some answers are incorrect. Please review your answers and try again.";
+        conso
         resultMessage.classList.remove("correct"); // Remove the correct class
         resultMessage.classList.add("incorrect"); // Add the incorrect class
     }
