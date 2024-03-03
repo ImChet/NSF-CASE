@@ -1,31 +1,31 @@
 const modules = [
     {
         "id": "module1",
-        "groupID": "Malware",
+        "groupID": "Comprehensive",
         "title": "Module 1: WannaCry",
         "description": "The WannaCry ransomware attack occurred in May 2017, targeting computers worldwide by encrypting files and demanding ransom payments in Bitcoin."
     },
     {
         "id": "module2",
-        "groupID": "Malware",
-        "title": "Module 2",
-        "description": "Description of Module 2 goes here."
+        "groupID": "Comprehensive",
+        "title": "Module 2: Target Breach",
+        "description": "The 2013 cyber attack on Target involved a breach through a third-party vendor phishing attack, compromising millions of customer data and significantly impacting Target's reputation."
     },
     {
         "id": "module3",
-        "groupID": "Malware",
+        "groupID": "Comprehensive",
         "title": "Module 3",
         "description": "Description of Module 3 goes here."
     },
     {
         "id": "module4",
-        "groupID": "Malware",
+        "groupID": "Comprehensive",
         "title": "Module 4",
         "description": "Description of Module 4 goes here."
     },
     {
         "id": "module5",
-        "groupID": "Malware",
+        "groupID": "Comprehensive",
         "title": "Module 5",
         "description": "Description of Module 5 goes here."
     },
@@ -58,90 +58,20 @@ const modules = [
         "groupID": "group2",
         "title": "Module 10",
         "description": "Description of Module 10 goes here."
-    },
-    {
-        "id": "module11",
-        "groupID": "group3",
-        "title": "Module 11",
-        "description": "Description of Module 11 goes here."
-    },
-    {
-        "id": "module12",
-        "groupID": "group3",
-        "title": "Module 12",
-        "description": "Description of Module 12 goes here."
-    },
-    {
-        "id": "module13",
-        "groupID": "group3",
-        "title": "Module 13",
-        "description": "Description of Module 13 goes here."
-    },
-    {
-        "id": "module14",
-        "groupID": "group3",
-        "title": "Module 14",
-        "description": "Description of Module 14 goes here."
-    },
-    {
-        "id": "module15",
-        "groupID": "group3",
-        "title": "Module 15",
-        "description": "Description of Module 15 goes here."
-    },
-    {
-        "id": "module16",
-        "groupID": "group4",
-        "title": "Module 16",
-        "description": "Description of Module 16 goes here."
-    },
-    {
-        "id": "module17",
-        "groupID": "group4",
-        "title": "Module 17",
-        "description": "Description of Module 17 goes here."
-    },
-    {
-        "id": "module18",
-        "groupID": "group4",
-        "title": "Module 18",
-        "description": "Description of Module 18 goes here."
-    },
-    {
-        "id": "module19",
-        "groupID": "group4",
-        "title": "Module 19",
-        "description": "Description of Module 19 goes here."
-    },
-    {
-        "id": "module20",
-        "groupID": "group4",
-        "title": "Module 20",
-        "description": "Description of Module 20 goes here."
     }
     ];
 
     const groupModules = [
     {
-        "id": "Malware",
-        "groupID": "Malware",
-        "title": "Malware"
+        "id": "Comprehensive",
+        "groupID": "Comprehensive",
+        "title": "Comprehensive"
     },
     {
         "id": "group2",
         "groupID": "group2",
         "title": "Group 2"
-    },
-    {
-        "id": "group3",
-        "groupID": "group3",
-        "title": "Group 3"
-    },
-    {
-        "id": "group4",
-        "groupID": "group4",
-        "title": "Group 4"
-    },
+    }
     ];
 
 // Function to create and append module elements
