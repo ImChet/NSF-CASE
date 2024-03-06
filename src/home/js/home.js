@@ -1,9 +1,9 @@
 const MESSAGES = [
-    { delay: 0, text: "Incoming transmission..." },
-    { delay: 1200, text: "Lorem ipsum dolor sit amet." },
-    { delay: 2200, text: "Ut enim ad minim veniam." },
-    { delay: 3600, text: "Duis aute irure dolor..." },
-    { delay: 5200, text: "Excepteur sint occaecat cupidatat non proident?" }
+    { delay: 0, text: "It’s not a question of if, but when" },
+    { delay: 1200, text: "Give a man an zero-day and he’ll have access for a day, teach a man to phish and he’ll have access for life" },
+    { delay: 2200, text: "There are only two types of organizations, Those that have been hacked, and those that don’t know it yet" },
+    { delay: 3600, text: "The most secure computer is the computer that’s off" },
+    { delay: 5200, text: "If it’s smart, it’s vulnerable" }
 ];
 
 $(document).ready(function() {

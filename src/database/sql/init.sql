@@ -44,9 +44,23 @@ CREATE TABLE IF NOT EXISTS Answers (
 -- Here is an example of how to insert data into the database
 INSERT INTO Answers VALUES("module 1",
     '{ 
-        "Q1" : ["21"],
-        "Q2" : ["Network scanning"],
-        "Q3" : ["NMAP can perform host discovery", "NMAP can be used to identify services on a network"],
-        "Q4" : ["FTP"]
+        "Q1" : ["Exploiting the EternalBlue vulnerability"],
+        "Q2" : ["Ransomware"],
+        "Q3" : ["It served as a backdoor for malware installation"],
+        "Q4" : ["Activation of a hardcoded kill switch"],
+        "Q5" : ["Disabling SMBv1 and applying security patches"],
+        "Q6" : ["u46U0o"]
+    }'
+);
+
+INSERT INTO Answers VALUES("module 2",
+    '{ 
+        "Q1" : ["Phishing email to Target contractor"],
+        "Q2" : ["Took advantage of default username/password combinations on an administrative server"],
+        "Q3" : ["Command and control server, used by attackers to maintain communication with and exfiltrate data from compromised systems within a target network"],
+        "Q4" : ["Netcat is a networking utility for reading and writing to network connections using TCP or UDP"],
+        "Q5" : ["Netcat was utilized to download additional hacking tools, mainly to conduct reconnaissance within the network"],
+        "Q6" : ["Train employees to recognize phishing emails and the next steps they should take if they believe they have received a phishing email"],
+        "Q7" : ["HivRzt"]
     }'
 );

