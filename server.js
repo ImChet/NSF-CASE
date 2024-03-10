@@ -17,11 +17,11 @@ const app = express();
 const client = new OAuth2Client("398792302857-gj4s9331t22kljn6inunra5tblqlmmpe.apps.googleusercontent.com");
 
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'CaseAdmin',
-    password: 'CasePassword',
-    database: 'CaseDB',
-    port: 3307
+    host: '127.0.0.1',
+    user: 'cybercase_admin',
+    password: 'NS=+KLPN445^^IO#$HGTJ14567',
+    database: 'cybercase_db',
+    port: 3307,
 });
 
 // Database Logger Function
@@ -41,7 +41,7 @@ async function logToDatabase(logLevel, logMessage, additionalInfo = {}) {
 initializeDatabaseConnection = async () => {
     try {
         // Connect to the Database CaseDB
-        await pool.query(`USE CaseDB;`);
+        await pool.query(`USE cybercase_db;`);
         // Clear leftover Sessions from last spin-up to prevent conflicts
         await pool.query(`TRUNCATE Sessions;`);
         logToDatabase('info', 'Database connection successfull.')
@@ -79,6 +79,7 @@ initializeDatabaseConnection()
                 // Check if the user exists in the Users table
 
                 const [userExists] = await pool.query(`CALL checkUserExists("${userId}")`);
+                // console.log(userExists);
                 if (userExists[0].length === 0) {
                     // User does not exist, create a new user
                     bcrypt.hash("P@ssw0rd", saltRounds, async (err, hashedPassword) => {
@@ -91,8 +92,6 @@ initializeDatabaseConnection()
                             await pool.query(`CALL registerUser("${userId}", "${hashedPassword}")`);
                             logToDatabase('info', `New user registered successfully: ${userId}`);
 
-                            // Include sessionId in the response JSON
-                            res.json({ verified: true, sessionId: sessionId });
                         } catch (error) {
                             logToDatabase('error', `Error registering new user: ${error}`)
                             return res.status(500).json({ success: false, message: 'Error registering new user' });
@@ -103,13 +102,13 @@ initializeDatabaseConnection()
                 // Create a new session
                 // Procedure checks if there is a prexisting session that can be extended by SESSION_LENGTH amount of time
                 const [result] = await pool.query(`SELECT startSession("${userId}", ${SESSION_LENGTH})`); // 4 Hours
-                const sessionId = Object.values(result[0]);
+                const sessionId = Object.values(result[0])[0];
 
                 // DEBUGGING
-                if (debug) {
+                if (DEBUG === true) {
                     console.log(`Query returned: `);
                     console.log(`${result}`);
-                    console.log(`sessionId: ${Object.values(result[0])}`);
+                    console.log(`sessionId: ${Object.values(result[0])[0]}`);
                 }
 
                 logToDatabase('info', `New session created for userId: ${userId}, sessionId: ${sessionId}`);
@@ -314,7 +313,7 @@ initializeDatabaseConnection()
             try {
                 // Query the database to retrieve the user ID associated with the session ID
                 const [sessions] = await pool.query('SELECT userId FROM Sessions WHERE sessionId = ? AND expiresAt > NOW()', [sessionId]);
-
+                console.log(sessions);
                 // Check if a session with the provided session ID exists
                 if (sessions.length > 0) {
                     // Return the user ID associated with the session

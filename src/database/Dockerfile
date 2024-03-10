@@ -7,9 +7,10 @@ FROM mysql:latest
 # CHANGE ALL OF THIS IN PROD BUILD
 ENV MYSQL_LOG_CONSOLE=true
 ENV MYSQL_ROOT_PASSWORD="password"
-ENV MYSQL_DATABASE="CaseDB"
-ENV MYSQL_USER="CaseAdmin"
-ENV MYSQL_PASSWORD="CasePassword"
+ENV MYSQL_DATABASE="cybercase_db"
+# ENV MYSQL_USER="cybercase_admin"
+# ENV MYSQL_PASSWORD="testing"
+# ENV MYSQL_PASSWORD="NS=+KLPN445^^IO#$HGTJ14567"
 
 # Copy custom configurations from local
 COPY mysqld.cnf /etc/mysql/conf.d/mysqld.cnf
