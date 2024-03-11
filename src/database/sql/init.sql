@@ -4,10 +4,10 @@ CREATE DATABASE IF NOT EXISTS cybercase_db;
 USE cybercase_db;
 SELECT "created cybercase_db";
 
+-- create custom user
 CREATE USER `cybercase_admin` IDENTIFIED BY 'NS=+KLPN445^^IO#$HGTJ14567';
--- GRANT USAGE ON *.* TO `cybercase_admin`@`%`;
+GRANT USAGE ON *.* TO `cybercase_admin`@`%`;
 GRANT ALL PRIVILEGES on `cybercase_db`.* to `cybercase_admin`@`%`;
--- REVOKE ALL PRIVILEGES ON 'cybercase\_db'.* TO 'cybercase_admin'@'%';
 
 
 -- Create Logs table
