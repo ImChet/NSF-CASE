@@ -1,5 +1,6 @@
 let username = '\x1B[1;33mHuskyTerm@CASE\x1B[0m:$';
 
+// Create an instance of the (emulated) Linux terminal
 var term = new window.Terminal({
     fontSize: 14,
     cursorBlink: true,
@@ -13,10 +14,9 @@ var term = new window.Terminal({
     }
 });
 
-// Instantiate the FitAddon
+// Instantiate the FitAddon -- REQUIRED TO SMOOTH STYLING
 const fitAddon = new FitAddon();
 term.loadAddon(fitAddon);
-
 term.open(document.getElementById('terminal'));
 
 // Call fit to adjust the terminal's size to the container
@@ -26,12 +26,6 @@ fitAddon.fit();
 window.addEventListener('resize', () => {
     fitAddon.fit();
 });
-
-// const commands = {
-//     'hello': 'Hello, world!',
-//     'date': new Date().toString(),
-//     // Add more custom commands here
-// };
 
 let command = '';
 

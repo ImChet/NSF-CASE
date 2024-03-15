@@ -36,3 +36,37 @@ CREATE FUNCTION startSession(id varchar(255), len INTEGER)
     END//
 DELIMITER ;
 
+-- Validate user answers
+DELIMITER //
+CREATE FUNCTION checkAnswers(mname VARCHAR(40), mdata JSON) 
+    RETURNS INTEGER
+    DETERMINISTIC
+    BEGIN
+        DECLARE result INTEGER;
+        DECLARE ans JSON;
+
+        -- Store the answers in the ans variable
+        SELECT mod_data INTO ans FROM Answers WHERE mod_name = mname;
+
+        -- Compare JSON objects
+        SELECT mdata = ans INTO result;
+
+        -- Return 1 if correct 0 if incorrect
+        RETURN result;    
+    END //
+DELIMITER ;
+
+-- Utility function that can be used if we want to just retrieve the answers
+DELIMITER //
+CREATE FUNCTION getAnswers(mname VARCHAR(40)) 
+    RETURNS JSON
+    DETERMINISTIC
+    BEGIN
+        -- Store the answers in the ans variable
+        DECLARE ans JSON DEFAULT NULL;
+        SELECT mod_data INTO ans FROM Answers WHERE mod_name = mname;
+
+        -- Return 1 if correct NULL if incorrect
+        RETURN ans;    
+    END //
+DELIMITER ;

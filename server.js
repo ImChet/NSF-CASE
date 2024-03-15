@@ -306,7 +306,6 @@ initializeDatabaseConnection()
             }
         });
 
-
         app.listen(3000, () => {
             console.log('Server running on port 3000');
         });
@@ -332,7 +331,7 @@ initializeDatabaseConnection()
                 const [sessions] = await pool.query('SELECT userId FROM Sessions WHERE sessionId = ? AND expiresAt > NOW()', [sessionId]);
 
                 // DEBUG
-                if(DEBUG === true)
+                if (DEBUG === true)
                     console.log(sessions);
                 // Check if a session with the provided session ID exists
                 if (sessions.length > 0) {
@@ -348,6 +347,32 @@ initializeDatabaseConnection()
                 throw error; // Rethrow the error to handle it at a higher level
             }
         }
+
+        // Validate answers
+        app.post("/check/:mod", async (req, res) => {
+            try {
+                // Get the module name
+                const answers = JSON.stringify(req.body);
+                const modName = req.params.mod;
+                console.log(`Checking: ${modName}`);
+
+                // Create the query
+                const [result] = await pool.query(`SELECT checkAnswers("${modName}", '${answers}')`);
+
+                // Results from query
+                if (DEBUG === true) {
+                    console.log("\n\nEntire response: ");
+                    console.log(result);
+                    console.log("Query response: ");
+                    console.log(Object.values(result[0]));
+                }
+
+                res.send(Object.values(result[0]));
+            } catch (error) {
+                console.error('Error during answer auth: ', error);
+                return res.status(500).json({ message: 'Error during answer auth' });
+            }
+        });
 
     })
     .catch((error) => {

@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS Answers (
 
 -- Insert Answers into database
 -- Here is an example of how to insert data into the database
-INSERT INTO Answers VALUES("module 1",
+INSERT INTO Answers VALUES("module1",
     '{ 
         "Q1" : ["Exploiting the EternalBlue vulnerability"],
         "Q2" : ["Ransomware"],
@@ -59,7 +59,8 @@ INSERT INTO Answers VALUES("module 1",
     }'
 );
 
-INSERT INTO Answers VALUES("module 2",
+
+INSERT INTO Answers VALUES("module2",
     '{ 
         "Q1" : ["Phishing email to Target contractor"],
         "Q2" : ["Took advantage of default username/password combinations on an administrative server"],
