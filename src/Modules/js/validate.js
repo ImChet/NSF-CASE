@@ -78,9 +78,13 @@ async function checkAnswers(element) {
 
         };
 
-        const res = await fetch(`http://localhost:3000/check/${element.id}`, requestOptions);
-        console.log("res");
-        console.log(res);
+        const res = await fetch(`http://localhost:3000/check/${element.id}`, requestOptions)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
 
         if (allCorrect) {
             resultMessage.innerText = "Congratulations, all answers are correct! You can move on to the next module.";
@@ -89,7 +93,6 @@ async function checkAnswers(element) {
             launchConfetti(); // Launch confetti
         } else {
             resultMessage.innerText = "Some answers are incorrect. Please review your answers and try again.";
-            conso
             resultMessage.classList.remove("correct"); // Remove the correct class
             resultMessage.classList.add("incorrect"); // Add the incorrect class
         }
