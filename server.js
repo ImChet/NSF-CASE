@@ -299,6 +299,9 @@ initializeDatabaseConnection()
                 'hping3 -S 192.168.1.28 –flood -p 80': () => `HPING 4.2.2.1 (eth1 4.2.2.1): S set, 40 headers + 0 data bytes\nhping in flood mode, no replies will be shown\n`,
                 'ping 192.168.168.1.28 -c 10': () => `PING 192.168.1.22 (192.168.1.22) 56(84) bytes of data.\n10 packets transmitted, 0 received, +4 errors, 100% packet loss, time 9333ms\n`,
                 'help-module3': () => `Available Module 3 Commands:\n- ping 192.168.168.1.28 -c 10\n- hping3 -S 192.168.1.28 -p 80 -c 1\n- hping3 -S 192.168.1.28 –flood -p 80\n- ping 192.168.168.1.28 -c 10\nFor more information on each command, please refer to the respective tool's documentation.\r\n`,
+
+                'nc 192.168.1.100 63329 < sunburst.cs': () => `Downloading and executing Sunburst malware...`,
+                'help-module4': () => `Available Module 4 Commands:\n- nc 192.168.1.100 63329 < sunburst.cs\nFor more information on each command, please refer to the respective tool's documentation.\r\n`,
             };
 
 
