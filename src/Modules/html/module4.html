@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Module 4: SolarWinds</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/src/Modules/stylesheets/module3.css">
+    <link rel="stylesheet" href="/src/Modules/stylesheets/questions.css">
+    <link rel="stylesheet" href="/node_modules/xterm/css/xterm.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script type="application/javascript" src="/node_modules/xterm/lib/xterm.js"></script>
+    <script type="application/javascript" src="/src/Modules/js/validate.js"></script>
+    
+    <!-- Terminal addon for resize -->
+    <script type="application/javascript" src="/src/Modules/js/fit-addon.js"></script>
+
+    <!-- This NEEDS to be added to each page which you dont want to user to see unless signed in -->
+    <script type="application/javascript" src="/src/authentication/js/userAuthenticationCheck.js"></script>
+    
+</head>
+</body>
+<div id="animated-background"></div>
+    <div class="container">
+        <div class="topContainer">
+            <!-- Description -->
+            <div class="resizableContainer" id="narrativeContainer">
+                <div class="containerContent">
+                  <h2 id="moduleTitle">Module 4: SolarWinds</h2>
+                  <div style="background-color: #444; padding: 10px; border-radius: 4px; border: 2px solid #ddd;">
+                    <div id="moduleSections">
+                        <div class="moduleSection">
+                            <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); font-style: normal; text-decoration: underline;">
+                                Introductory Module Video:</a>
+                            </div>
+                            <!-- YouTube Video Embed // Replace Video ID "https://www.youtube.com/watch?v=ID" -->
+                            <div class="videoWrapper" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000;">
+                                <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                                        src="https://www.youtube.com/embed/"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen>
+                                </iframe>
+                            </div>
+                            <div class="spacer" style="height: 1em;"></div>
+                            <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); font-style: normal; text-decoration: underline;">
+                                Overview:
+                            </div>
+                            </div>
+                            <div class="moduleSection">
+                                <div style="font-size: 16px; font-weight: normal; color: white; font-style: normal; font-style: normal;">
+                                    The SolarWinds hack, discovered in December 2020, was a sophisticated cyberattack targeting SolarWinds, a prominent IT management software company. Hackers, believed to be state-sponsored, inserted a malicious code into SolarWinds' Orion software updates, which were then distributed to thousands of SolarWinds customers, including numerous government agencies and major corporations. This backdoor allowed the attackers to infiltrate networks, steal sensitive data, and conduct espionage undetected for months. The breach raised significant concerns about the security of software supply chains and the vulnerability of critical infrastructure to cyber threats.
+                                </div>
+                            </div>
+                            <div class="spacer" style="height: 1em;"></div>
+                            <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); font-style: normal; text-decoration: underline;">
+                                Vulnerability Details:
+                            </div>
+                            <div class="moduleSection">
+                                <div style="font-size: 16px; font-weight: normal; color: white; font-style: normal; font-style: normal;">
+                                    Hackers infiltrated SolarWinds' software development environment and injected malicious code into the Orion software updates. This code was then unwittingly distributed to thousands of SolarWinds customers when they downloaded and installed updates for the Orion platform. The attackers meticulously crafted the malware to remain undetected, leveraging techniques such as code obfuscation and encryption, and even mimicking legitimate software behavior to evade detection by security measures. The compromised updates were signed with legitimate SolarWinds digital certificates, making it difficult to detect the malicious activity.
+                                </div>
+                            </div>
+                            <div class="spacer" style="height: 1em;"></div>
+                        <button class="returnButton"><a href="/src/home/html/index.html">Return to Main Page</a></button>                            
+                    </div>
+                  </div>
+                </div>
+              </div>
+<!-- Terminal -->
+<div class="resizableContainer" id="terminalContainer">
+    <h2>Remote Terminal</h2>
+    <div id="terminalDescription" style="font-size: 16px; font-weight: normal; color: white;">In this lab, we are going to recreate a simplified version of solarwinds breach and how it was performed. The attackers injected malicious code into a .DLL file called SolarWinds.Orion.Core.BusinessLayer.dll, which they used to establish their backdoor connection.
+
+Below is an example of what the SolarWinds.Orion.Core.BusinessLayer.dll file could have looked like, written in C#. The attackers obfuscated their code to appear as if it was performing normal business operations by keeping in line with the variable syntax style and naming conventions used by the original authors.
+<code style="color: rgb(255, 215, 0);">
+internal void RefreshInternal()
+{
+    if (Log.get_IsDebugEnabled())
+    {
+        Log.DebugFormat("Running scheduled backgroundInventory check on engine (0)", (object)engineID);
+    }
+    try
+    {
+        // Your code logic goes here
+    }
+    catch (Exception)
+    {
+        // Exception handling logic goes here
+    }
+    if (backgroundInventory.IsRunning)
+    {
+        Log.Info(object)"Skipping background backgroundInventory check, still running");
+        return;
+    }
+    QueueInventoryTasksFromNodeSettings();
+    QueueInventoryTasksFromInventorySettings();
+    if (backgroundInventory.QueueSize > 0)
+    {
+        backgroundInventory.Start();
+    }
+}
+</code>
+<code style="color: rgb(255, 215, 0);">
+If (!OrionImprovementBusinessLayer.IsAlive)
+{
+	Thread thread = new Thread(OrionImprovementBusinessLayer.Initialize);
+	thread.IsBackground = true;
+	thread.Start();
+}
+</code>
+The objective of the attackers when editing the .dll file was to create a new thread that reached out to their outside server giving them backdoor access. This new thread could not interfere with the legitimate objective of the .dll so as to not draw suspicion. Remember, this is an extremely small piece of the file and injected code, and the real attack contained many many more lines to achieve this objective. Here, we are only reviewing a small piece
+
+After backdoor access had been established, the attackers uploaded their SUNBURST malware which, once unknowingly signed and pushed to SolarWInds clients, would be activated and begin siphoning data out to the attackers before deleting itself from their systems. Let’s assume that the thread we added above was actually opening a netcat listener on port 63329 looking for our SUNBURST malware. On our outside server we can then upload our malware using this command:
+	
+<code style="color: rgb(255, 215, 0);">nc 192.168.1.100 63329 < sunburst.cs</code>
+
+This is an oversimplified version, but hopefully this will provide a very basic understanding of how the attackers were able to communicate with their victims.
+</div>
+    <div id="terminal"></div>                
+</div>
+    <!-- Questions -->
+    <div class="resizableContainer" id="questionFormContainer">
+        <form class="containerContent" id="questionForm">
+            <h2>Module Questions</h2>
+            <div id="questionsContainer">
+                <div>
+                    <label class="prompt">How does asymmetric encryption differ from symmetric encryption?</label>
+                    <div>
+                        <input type="radio" id="Q1a" name="singleChoiceAnswer1" value="Asymmetric encryption uses two different keys for encryption and decryption, while symmetric encryption uses the same key for both encryption and decryption." style="display: none;">
+                        <label class="radio-label" for="Q1a">Asymmetric encryption uses two different keys for encryption and decryption, while symmetric encryption uses the same key for both encryption and decryption.</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q1b" name="singleChoiceAnswer1" value="Asymmetric encryption is faster than symmetric encryption." style="display: none;">
+                        <label class="radio-label" for="Q1b">Asymmetric encryption is faster than symmetric encryption.</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q1c" name="singleChoiceAnswer1" value="Symmetric encryption is more secure than asymmetric encryption." style="display: none;">
+                        <label class="radio-label" for="Q1c">Symmetric encryption is more secure than asymmetric encryption.</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q1d" name="singleChoiceAnswer1" value="Asymmetric encryption uses the same key for encryption and decryption, while symmetric encryption uses two different keys for encryption and decryption." style="display: none;">
+                        <label class="radio-label" for="Q1d">Asymmetric encryption uses the same key for encryption and decryption, while symmetric encryption uses two different keys for encryption and decryption.</label>
+                    </div>
+                </div>
+                <div>
+                    <label class="prompt">What is a rainbow table attack?</label>
+                    <div>
+                        <input type="radio" id="Q2a" name="singleChoiceAnswer2" value="A method of bypassing authentication by guessing the correct password." style="display: none;">
+                        <label class="radio-label" for="Q2a">A method of bypassing authentication by guessing the correct password.</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q2b" name="singleChoiceAnswer2" value="A type of social engineering attack." style="display: none;">
+                        <label class="radio-label" for="Q2b">A type of social engineering attack.</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q2c" name="singleChoiceAnswer2" value="A brute force attack where precomputed hashes are used to crack passwords." style="display: none;">
+                        <label class="radio-label" for="Q2c">A brute force attack where precomputed hashes are used to crack passwords.</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q2d" name="singleChoiceAnswer2" value="A denial-of-service attack aimed at exploiting vulnerabilities in web servers." style="display: none;">
+                        <label class="radio-label" for="Q2d">A denial-of-service attack aimed at exploiting vulnerabilities in web servers.</label>
+                    </div>
+                </div>
+                <div>
+                    <label class="prompt">What is the purpose of a VPN?</label>
+                    <div>
+                        <input type="radio" id="Q3a" name="singleChoiceAnswer3" value="To encrypt internet traffic and ensure privacy and anonymity online." style="display: none;">
+                        <label class="radio-label" for="Q3a">To encrypt internet traffic and ensure privacy and anonymity online.</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q3b" name="singleChoiceAnswer3" value="To block unauthorized access to a network." style="display: none;">
+                        <label class="radio-label" for="Q3b">To block unauthorized access to a network.</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q3c" name="singleChoiceAnswer3" value="To speed up internet connection by bypassing network congestion." style="display: none;">
+                        <label class="radio-label" for="Q3c">To speed up internet connection by bypassing network congestion.</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q3d" name="singleChoiceAnswer3" value="To monitor and analyze network traffic for security threats." style="display: none;">
+                        <label class="radio-label" for="Q3d">To monitor and analyze network traffic for security threats.</label>
+                    </div>
+                </div>
+                <div>
+                    <label class="prompt">What is the main advantage of using multi-factor authentication?</label>
+                    <div>
+                        <input type="radio" id="Q4a" name="singleChoiceAnswer4" value="It eliminates the need for passwords." style="display: none;">
+                        <label class="radio-label" for="Q4a">It eliminates the need for passwords.</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q4b" name="singleChoiceAnswer4" value="It provides an additional layer of security beyond passwords." style="display: none;">
+                        <label class="radio-label" for="Q4b">It provides an additional layer of security beyond passwords.</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q4c" name="singleChoiceAnswer4" value="It makes authentication faster and more convenient." style="display: none;">
+                        <label class="radio-label" for="Q4c">It makes authentication faster and more convenient.</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q4d" name="singleChoiceAnswer4" value="It allows users to share authentication credentials securely." style="display: none;">
+                        <label class="radio-label" for="Q4d">It allows users to share authentication credentials securely.</label>
+                    </div>
+                </div>
+                <div>
+                    <label class="prompt">What is the purpose of hashing in cryptography?</label>
+                    <div>
+                        <input type="radio" id="Q5a" name="singleChoiceAnswer5" value="To convert plaintext into ciphertext." style="display: none;">
+                        <label class="radio-label" for="Q5a">To convert plaintext into ciphertext.</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q5b" name="singleChoiceAnswer5" value="To digitally sign messages for authentication." style="display: none;">
+                        <label class="radio-label" for="Q5b">To digitally sign messages for authentication.</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q5c" name="singleChoiceAnswer5" value="To verify the integrity of data." style="display: none;">
+                        <label class="radio-label" for="Q5c">To verify the integrity of data.</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q5d" name="singleChoiceAnswer5" value="To generate a unique fixed-size string from input data." style="display: none;">
+                        <label class="radio-label" for="Q5d">To generate a unique fixed-size string from input data.</label>
+                    </div>
+                </div>
+            </div>
+            <button class="submitQuestionsButton" id="module3" type="button" onclick="checkAnswers(this)">Check Answers</button>
+            <div id="resultMessage"></div>
+        </form>
+    </div>           
+        </div>
+    </div>
+    </div>
+        <!-- Animated background element -->
+        <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+        <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
+        <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
+        <script>
+                // Animated Background
+                VANTA.TOPOLOGY({
+                    el: "#animated-background",
+                    color: 0x888888,
+                    backgroundColor: 0x222222
+                })
+        </script>
+
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="/src/Modules/js/module3.js"></script>
+</body>
+</html>

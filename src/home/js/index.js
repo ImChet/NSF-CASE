@@ -14,14 +14,14 @@ const modules = [
     {
         "id": "module3",
         "groupID": "Comprehensive",
-        "title": "Module 3",
-        "description": "Description of Module 3 goes here."
+        "title": "Module 3: DDoS",
+        "description": "In 2013, Distributed Denial of Service (DDoS) attacks peaking at a whopping 300 Gbps were initated against the website spamhaus.org lasting more than a week."
     },
     {
         "id": "module4",
         "groupID": "Comprehensive",
-        "title": "Module 4",
-        "description": "Description of Module 4 goes here."
+        "title": "Module 4: SolarWinds",
+        "description": "The SolarWinds hack, discovered in December 2020, was a sophisticated cyberattack targeting SolarWinds, a prominent IT management software company."
     },
     {
         "id": "module5",

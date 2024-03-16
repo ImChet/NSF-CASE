@@ -70,3 +70,25 @@ INSERT INTO Answers VALUES("module 2",
         "Q7" : ["HivRzt"]
     }'
 );
+
+INSERT INTO Answers VALUES("module 3",
+    '{ 
+        "Q1" : ["An attempt to disrupt the operations of a server, service, or network by flooding it with traffic"],
+        "Q2" : ["By sending spoofed DNS queries with the target IP address as the source to the resolvers"],
+        "Q3" : ["Utilizing packet manipulation tools/libraries in python, c, etc."],
+        "Q4" : ["Rate limiting involves setting limits on the number of requests or packets a server can receive within a certain time frame"],
+        "Q5" : ["As a result of increased awareness and improved security implemented by organizations, ISPs, and security companies"]
+    }'
+);
+
+INSERT INTO Answers VALUES("module 4",
+    '{ 
+        "Q1" : ["January 2019"],
+        "Q2" : ["Infrastructure monitoring and management platform"],
+        "Q3" : ["Attackers compromised the software supply chain through the Orion update mechanism"],
+        "Q4" : ["SolarWinds unknowingly signed and pushed the malware themselves when they updated Orion"],
+        "Q5" : ["Russian SVR"],
+        "Q6" : ["An executive order was issued by President Biden to deter and protect from future attacks of this nature"],
+        "Q7" : ["Supply chain attacks can be extremely hard to detect if they are performed correctly"]
+    }'
+);

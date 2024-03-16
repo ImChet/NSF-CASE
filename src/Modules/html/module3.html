@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Module 3: DDoS Attacks</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/src/Modules/stylesheets/module3.css">
+    <link rel="stylesheet" href="/src/Modules/stylesheets/questions.css">
+    <link rel="stylesheet" href="/node_modules/xterm/css/xterm.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script type="application/javascript" src="/node_modules/xterm/lib/xterm.js"></script>
+    <script type="application/javascript" src="/src/Modules/js/validate.js"></script>
+    
+    <!-- Terminal addon for resize -->
+    <script type="application/javascript" src="/src/Modules/js/fit-addon.js"></script>
+
+    <!-- This NEEDS to be added to each page which you dont want to user to see unless signed in -->
+    <script type="application/javascript" src="/src/authentication/js/userAuthenticationCheck.js"></script>
+    
+</head>
+</body>
+<div id="animated-background"></div>
+    <div class="container">
+        <div class="topContainer">
+            <!-- Description -->
+            <div class="resizableContainer" id="narrativeContainer">
+                <div class="containerContent">
+                  <h2 id="moduleTitle">Module 3: DDoS Attacks</h2>
+                  <div style="background-color: #444; padding: 10px; border-radius: 4px; border: 2px solid #ddd;">
+                    <div id="moduleSections">
+                        <div class="moduleSection">
+                            <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); font-style: normal; text-decoration: underline;">
+                                Introductory Module Video:</a>
+                            </div>
+                            <!-- YouTube Video Embed // Replace Video ID "https://www.youtube.com/watch?v=ID" -->
+                            <div class="videoWrapper" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000;">
+                                <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                                        src="https://www.youtube.com/embed/1q6rHXyB2yE"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen>
+                                </iframe>
+                            </div>
+                            <div class="spacer" style="height: 1em;"></div>
+                            <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); font-style: normal; text-decoration: underline;">
+                                Overview:
+                            </div>
+                            </div>
+                            <div class="moduleSection">
+                                <div style="font-size: 16px; font-weight: normal; color: white; font-style: normal; font-style: normal;">
+                                    On March 18, 2013, there were numerous DDoS attacks targeted at the website spamhaus.org, lasting a week. The attacks peaked at a whopping 300 Gbps. Hackers used a mass of systems to be able to launch attacks with high volume, taking the form of a DDoS (Distributed Denial of Service) Attack. These attacks are often done by using “botnets”, a mass of compromised systems that are centrally controlled by an attacker.
+                                </div>
+                            </div>
+                            <div class="spacer" style="height: 1em;"></div>
+                            <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); font-style: normal; text-decoration: underline;">
+                                Vulnerability Details:
+                            </div>
+                            <div class="moduleSection">
+                                <div style="font-size: 16px; font-weight: normal; color: white; font-style: normal; font-style: normal;">
+                                    The largest source of traffic in the attack came from DNS amplification. This type of attack is done by sending spoofed requests to misconfigured DNS servers, resulting in an overwhelming amount of traffic to be directed towards Spamhaus. These requests are crafted in such a way that the response from the DNS server is much larger in size than the original request. Even a small number of requests can generate a massive amount of traffic. First, the attacker sends a request for a large DNS zone file to various open DNS resolvers with the source IP spoofed to the victim’s address. The resolvers respond to the request, sending the DNS zone answer to the intended victim. The attacker’s original requests are only a small fraction of the responses, which means they can effectively amplify the attack multiple times the size of the bandwidth resources they actually have.
+                                </div>
+                            </div>
+                            <div class="spacer" style="height: 1em;"></div>
+                        <button class="returnButton"><a href="/src/home/html/index.html">Return to Main Page</a></button>                            
+                    </div>
+                  </div>
+                </div>
+              </div>
+<!-- Terminal -->
+<div class="resizableContainer" id="terminalContainer">
+    <h2>Remote Terminal</h2>
+    <div id="terminalDescription" style="font-size: 16px; font-weight: normal; color: white;">In this lab, you'll simulate the process of a DoS (Denial of Service) attack against a local system running a webserver. This exercise will help in understanding the fundamentals of how a DoS attack works, and its results on a small scale.
+
+Follow these hints:
+<ul>
+<li>Use the <code style="color: rgb(255, 215, 0);">help-module3</code> command to explore available commands.</li>
+<li>The target system is located at <code style="color: rgb(255, 215, 0);">192.168.1.22</code>. Assume port <code style="color: rgb(255, 215, 0);">80</code> is open.</li>
+<li>Determine that the system is up using ping.</li>
+<li>Send a test SYN packet to the system on port 80 to gauge the server’s response.</li>
+<li>Initiate the SYN Flood DoS attack on the system on port <code style="color: rgb(255, 215, 0);">80</code>.</li>
+<li>Determine the current status of the target system while the attack is ongoing</li>
+<ul></div>
+    <div id="terminal"></div>                
+</div>
+        <!-- Questions -->
+        <div class="resizableContainer" id="questionFormContainer">
+            <form class="containerContent" id="questionForm">
+                <h2>Module Questions</h2>
+                <div id="questionsContainer">
+                    <div>
+                        <label class="prompt">What is a DDoS attack?</label>
+                        <div>
+                            <input type="radio" id="Q1a" name="singleChoiceAnswer1" value="An attempt to increase the speed of a server or network" style="display: none;">
+                            <label class="radio-label" for="Q1a">An attempt to increase the speed of a server or network</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="Q1b" name="singleChoiceAnswer1" value="A method to encrypt sensitive data on a server" style="display: none;">
+                            <label class="radio-label" for="Q1b">A method to encrypt sensitive data on a server</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="Q1c" name="singleChoiceAnswer1" value="An attempt to disrupt the operations of a server, service, or network by flooding it with traffic" style="display: none;">
+                            <label class="radio-label" for="Q1c">An attempt to disrupt the operations of a server, service, or network by flooding it with traffic</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="Q1d" name="singleChoiceAnswer1" value="A strategy to enhance network security by blocking legitimate users" style="display: none;">
+                            <label class="radio-label" for="Q1d">A strategy to enhance network security by blocking legitimate users</label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="prompt">How did attackers maliciously use open DNS resolvers in DDoS attacks?</label>
+                        <div>
+                            <input type="radio" id="Q2a" name="singleChoiceAnswer2" value="By directly targeting the physical infrastructure of the server" style="display: none;">
+                            <label class="radio-label" for="Q2a">By directly targeting the physical infrastructure of the server</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="Q2b" name="singleChoiceAnswer2" value="By sending legitimate DNS queries to overload the server's response time" style="display: none;">
+                            <label class="radio-label" for="Q2b">By sending legitimate DNS queries to overload the server's response time</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="Q2c" name="singleChoiceAnswer2" value="By sending spoofed DNS queries with the target's IP address as the source to the resolvers" style="display: none;">
+                            <label class="radio-label" for="Q2c">By sending spoofed DNS queries with the target IP address as the source to the resolvers</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="Q2d" name="singleChoiceAnswer2" value="By deploying firewalls to block incoming traffic from open DNS resolvers" style="display: none;">
+                            <label class="radio-label" for="Q2d">By deploying firewalls to block incoming traffic from open DNS resolvers</label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="prompt">What are some possible ways to create a packet with spoofed IP addresses?</label>
+                        <div>
+                            <input type="radio" id="Q3a" name="singleChoiceAnswer3" value="Sending packets through a VPN for anonymity" style="display: none;">
+                            <label class="radio-label" for="Q3a">Sending packets through a VPN for anonymity</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="Q3b" name="singleChoiceAnswer3" value="Using legitimate IP addresses provided by the ISP" style="display: none;">
+                            <label class="radio-label" for="Q3b">Using legitimate IP addresses provided by the ISP</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="Q3c" name="singleChoiceAnswer3" value="Utilizing packet manipulation tools/libraries in python, c, etc." style="display: none;">
+                            <label class="radio-label" for="Q3c">Utilizing packet manipulation tools/libraries in python, c, etc.</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="Q3d" name="singleChoiceAnswer3" value="Requesting IP addresses from a DNS server" style="display: none;">
+                            <label class="radio-label" for="Q3d">Requesting IP addresses from a DNS server</label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="prompt">Explain how rate limiting and packet filtering could be used to prevent DDoS attacks.</label>
+                        <div>
+                            <input type="radio" id="Q4a" name="singleChoiceAnswer4" value="Rate limiting involves increasing the speed of incoming traffic to overwhelm the attacker" style="display: none;">
+                            <label class="radio-label" for="Q4a">Rate limiting involves increasing the speed of incoming traffic to overwhelm the attacker</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="Q4b" name="singleChoiceAnswer4" value="Packet filtering involves redirecting all incoming traffic to a single server for inspection" style="display: none;">
+                            <label class="radio-label" for="Q4b">Packet filtering involves redirecting all incoming traffic to a single server for inspection</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="Q4c" name="singleChoiceAnswer4" value="Rate limiting involves setting limits on the number of requests or packets a server can receive within a certain time frame" style="display: none;">
+                            <label class="radio-label" for="Q4c">Rate limiting involves setting limits on the number of requests or packets a server can receive within a certain time frame</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="Q4d" name="singleChoiceAnswer4" value="Packet filtering involves encrypting all incoming packets to prevent spoofing" style="display: none;">
+                            <label class="radio-label" for="Q4d">Packet filtering involves encrypting all incoming packets to prevent spoofing</label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="prompt">DDoS attacks have been prominent since the 2000s up until the early 2010s, and have tapered off in recent years. Why do you think this is the case?</label>
+                        <div>
+                            <input type="radio" id="Q5a" name="singleChoiceAnswer5" value="Due to increased collaboration among attackers to launch more sophisticated attacks" style="display: none;">
+                            <label class="radio-label" for="Q5a">Due to increased collaboration among attackers to launch more sophisticated attacks</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="Q5b" name="singleChoiceAnswer5" value="Because of a decline in internet usage globally" style="display: none;">
+                            <label class="radio-label" for="Q5b">Because of a decline in internet usage globally</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="Q5c" name="singleChoiceAnswer5" value="As a result of increased awareness and improved security implemented by organizations, ISPs, and security companies" style="display: none;">
+                            <label class="radio-label" for="Q5c">As a result of increased awareness and improved security implemented by organizations, ISPs, and security companies</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="Q5d" name="singleChoiceAnswer5" value="Because of advancements in technology that have made DDoS attacks obsolete" style="display: none;">
+                            <label class="radio-label" for="Q5d">Because of advancements in technology that have made DDoS attacks obsolete</label>
+                        </div>
+                    </div>
+                </div>
+                <button class="submitQuestionsButton" id="module3" type="button" onclick="checkAnswers(this)">Check Answers</button>
+                <div id="resultMessage"></div>
+            </form>
+        </div>                   
+        </div>
+    </div>
+    </div>
+        <!-- Animated background element -->
+        <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+        <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
+        <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
+        <script>
+                // Animated Background
+                VANTA.TOPOLOGY({
+                    el: "#animated-background",
+                    color: 0x888888,
+                    backgroundColor: 0x222222
+                })
+        </script>
+
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="/src/Modules/js/module3.js"></script>
+</body>
+</html>
