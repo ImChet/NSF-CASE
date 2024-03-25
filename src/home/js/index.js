@@ -26,8 +26,8 @@ const modules = [
     {
         "id": "module5",
         "groupID": "Comprehensive",
-        "title": "Module 5",
-        "description": "Description of Module 5 goes here."
+        "title": "Module 5: Anthem",
+        "description": "Anthem, a major health insurance provider, was compromised in 2015 by hackers who gained access to its database."
     },
     {
         "id": "module6",

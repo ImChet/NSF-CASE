@@ -113,10 +113,12 @@ If (!OrionImprovementBusinessLayer.IsAlive)
 The objective of the attackers when editing the .dll file was to create a new thread that reached out to their outside server giving them backdoor access. This new thread could not interfere with the legitimate objective of the .dll so as to not draw suspicion. Remember, this is an extremely small piece of the file and injected code, and the real attack contained many many more lines to achieve this objective. Here, we are only reviewing a small piece
 
 After backdoor access had been established, the attackers uploaded their SUNBURST malware which, once unknowingly signed and pushed to SolarWInds clients, would be activated and begin siphoning data out to the attackers before deleting itself from their systems. Let’s assume that the thread we added above was actually opening a netcat listener on port 63329 looking for our SUNBURST malware. On our outside server we can then upload our malware using this command:
-	
+
 <code style="color: rgb(255, 215, 0);">nc 192.168.1.100 63329 < sunburst.cs</code>
 
 This is an oversimplified version, but hopefully this will provide a very basic understanding of how the attackers were able to communicate with their victims.
+
+Use the <code style="color: rgb(255, 215, 0);">help-module3</code> command to explore available commands.
 </div>
     <div id="terminal"></div>                
 </div>
@@ -126,104 +128,142 @@ This is an oversimplified version, but hopefully this will provide a very basic 
             <h2>Module Questions</h2>
             <div id="questionsContainer">
                 <div>
-                    <label class="prompt">How does asymmetric encryption differ from symmetric encryption?</label>
-                    <div>
-                        <input type="radio" id="Q1a" name="singleChoiceAnswer1" value="Asymmetric encryption uses two different keys for encryption and decryption, while symmetric encryption uses the same key for both encryption and decryption." style="display: none;">
-                        <label class="radio-label" for="Q1a">Asymmetric encryption uses two different keys for encryption and decryption, while symmetric encryption uses the same key for both encryption and decryption.</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="Q1b" name="singleChoiceAnswer1" value="Asymmetric encryption is faster than symmetric encryption." style="display: none;">
-                        <label class="radio-label" for="Q1b">Asymmetric encryption is faster than symmetric encryption.</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="Q1c" name="singleChoiceAnswer1" value="Symmetric encryption is more secure than asymmetric encryption." style="display: none;">
-                        <label class="radio-label" for="Q1c">Symmetric encryption is more secure than asymmetric encryption.</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="Q1d" name="singleChoiceAnswer1" value="Asymmetric encryption uses the same key for encryption and decryption, while symmetric encryption uses two different keys for encryption and decryption." style="display: none;">
-                        <label class="radio-label" for="Q1d">Asymmetric encryption uses the same key for encryption and decryption, while symmetric encryption uses two different keys for encryption and decryption.</label>
-                    </div>
+                        <label class="prompt">How early was it believed that SolarWinds was initially compromised?</label>
+                <div>
+                    <input type="radio" id="Q1a" name="singleChoiceAnswer1" value="September 2019" style="display: none;">
+                    <label class="radio-label" for="Q1a">September 2019</label>
                 </div>
                 <div>
-                    <label class="prompt">What is a rainbow table attack?</label>
-                    <div>
-                        <input type="radio" id="Q2a" name="singleChoiceAnswer2" value="A method of bypassing authentication by guessing the correct password." style="display: none;">
-                        <label class="radio-label" for="Q2a">A method of bypassing authentication by guessing the correct password.</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="Q2b" name="singleChoiceAnswer2" value="A type of social engineering attack." style="display: none;">
-                        <label class="radio-label" for="Q2b">A type of social engineering attack.</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="Q2c" name="singleChoiceAnswer2" value="A brute force attack where precomputed hashes are used to crack passwords." style="display: none;">
-                        <label class="radio-label" for="Q2c">A brute force attack where precomputed hashes are used to crack passwords.</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="Q2d" name="singleChoiceAnswer2" value="A denial-of-service attack aimed at exploiting vulnerabilities in web servers." style="display: none;">
-                        <label class="radio-label" for="Q2d">A denial-of-service attack aimed at exploiting vulnerabilities in web servers.</label>
-                    </div>
+                    <input type="radio" id="Q1b" name="singleChoiceAnswer1" value="June 2020" style="display: none;">
+                    <label class="radio-label" for="Q1b">June 2020</label>
                 </div>
                 <div>
-                    <label class="prompt">What is the purpose of a VPN?</label>
-                    <div>
-                        <input type="radio" id="Q3a" name="singleChoiceAnswer3" value="To encrypt internet traffic and ensure privacy and anonymity online." style="display: none;">
-                        <label class="radio-label" for="Q3a">To encrypt internet traffic and ensure privacy and anonymity online.</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="Q3b" name="singleChoiceAnswer3" value="To block unauthorized access to a network." style="display: none;">
-                        <label class="radio-label" for="Q3b">To block unauthorized access to a network.</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="Q3c" name="singleChoiceAnswer3" value="To speed up internet connection by bypassing network congestion." style="display: none;">
-                        <label class="radio-label" for="Q3c">To speed up internet connection by bypassing network congestion.</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="Q3d" name="singleChoiceAnswer3" value="To monitor and analyze network traffic for security threats." style="display: none;">
-                        <label class="radio-label" for="Q3d">To monitor and analyze network traffic for security threats.</label>
-                    </div>
+                    <input type="radio" id="Q1c" name="singleChoiceAnswer1" value="December 2020" style="display: none;">
+                    <label class="radio-label" for="Q1c">December 2020</label>
                 </div>
                 <div>
-                    <label class="prompt">What is the main advantage of using multi-factor authentication?</label>
-                    <div>
-                        <input type="radio" id="Q4a" name="singleChoiceAnswer4" value="It eliminates the need for passwords." style="display: none;">
-                        <label class="radio-label" for="Q4a">It eliminates the need for passwords.</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="Q4b" name="singleChoiceAnswer4" value="It provides an additional layer of security beyond passwords." style="display: none;">
-                        <label class="radio-label" for="Q4b">It provides an additional layer of security beyond passwords.</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="Q4c" name="singleChoiceAnswer4" value="It makes authentication faster and more convenient." style="display: none;">
-                        <label class="radio-label" for="Q4c">It makes authentication faster and more convenient.</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="Q4d" name="singleChoiceAnswer4" value="It allows users to share authentication credentials securely." style="display: none;">
-                        <label class="radio-label" for="Q4d">It allows users to share authentication credentials securely.</label>
-                    </div>
-                </div>
-                <div>
-                    <label class="prompt">What is the purpose of hashing in cryptography?</label>
-                    <div>
-                        <input type="radio" id="Q5a" name="singleChoiceAnswer5" value="To convert plaintext into ciphertext." style="display: none;">
-                        <label class="radio-label" for="Q5a">To convert plaintext into ciphertext.</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="Q5b" name="singleChoiceAnswer5" value="To digitally sign messages for authentication." style="display: none;">
-                        <label class="radio-label" for="Q5b">To digitally sign messages for authentication.</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="Q5c" name="singleChoiceAnswer5" value="To verify the integrity of data." style="display: none;">
-                        <label class="radio-label" for="Q5c">To verify the integrity of data.</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="Q5d" name="singleChoiceAnswer5" value="To generate a unique fixed-size string from input data." style="display: none;">
-                        <label class="radio-label" for="Q5d">To generate a unique fixed-size string from input data.</label>
-                    </div>
+                    <input type="radio" id="Q1d" name="singleChoiceAnswer1" value="March 2020" style="display: none;">
+                    <label class="radio-label" for="Q1d">March 2020</label>
                 </div>
             </div>
-            <button class="submitQuestionsButton" id="module3" type="button" onclick="checkAnswers(this)">Check Answers</button>
-            <div id="resultMessage"></div>
-        </form>
+            <div>
+                <label class="prompt">What was the impacted software, Orion, designed to do?</label>
+                <div>
+                    <input type="radio" id="Q2a" name="singleChoiceAnswer2" value="A cloud storage solution" style="display: none;">
+                    <label class="radio-label" for="Q2a">A cloud storage solution</label>
+                </div>
+                <div>
+                    <input type="radio" id="Q2b" name="singleChoiceAnswer2" value="Infrastructure monitoring and management platform" style="display: none;">
+                    <label class="radio-label" for="Q2b">Infrastructure monitoring and management platform</label>
+                </div>
+                <div>
+                    <input type="radio" id="Q2c" name="singleChoiceAnswer2" value="An email service provider" style="display: none;">
+                    <label class="radio-label" for="Q2c">An email service provider</label>
+                </div>
+                <div>
+                    <input type="radio" id="Q2d" name="singleChoiceAnswer2" value="A social media platform" style="display: none;">
+                    <label class="radio-label" for="Q2d">A social media platform</label>
+                </div>
+            </div>
+            <div>
+                <label class="prompt">How were the attackers able to plant their malware into the Orion platform?</label>
+                <div>
+                    <input type="radio" id="Q3a" name="singleChoiceAnswer3" value="Attackers performed a phishing attack against high-level SolarWinds employees, gaining access to the system" style="display: none;">
+                    <label class="radio-label" for="Q3a">Attackers performed a phishing attack against high-level SolarWinds employees, gaining access to the system</label>
+                </div>
+                <div>
+                    <input type="radio" id="Q3b" name="singleChoiceAnswer3" value="Attackers took advantage of a misconfigured database, allowing them to access legitimate credentials of Orion administrators" style="display: none;">
+                    <label class="radio-label" for="Q3b">Attackers took advantage of a misconfigured database, allowing them to access legitimate credentials of Orion administrators</label>
+                </div>
+                <div>
+                    <input type="radio" id="Q3c" name="singleChoiceAnswer3" value="Attackers compromised the software supply chain through the Orion update mechanism" style="display: none;">
+                    <label class="radio-label" for="Q3c">Attackers compromised the software supply chain through the Orion update mechanism</label>
+                </div>
+                <div>
+                    <input type="radio" id="Q3d" name="singleChoiceAnswer3" value="An insider SolarWinds employee was paid anonymously by the attackers to provide them with Orion administrative credentials" style="display: none;">
+                    <label class="radio-label" for="Q3d">An insider SolarWinds employee was paid anonymously by the attackers to provide them with Orion administrative credentials</label>
+                </div>
+            </div>
+            <div>
+                <label class="prompt">How were the attackers able to propagate their SUNBURST malware to SolarWinds clients?</label>
+                <div>
+                    <input type="radio" id="Q4a" name="singleChoiceAnswer4" value="The attackers performed a denial of service attack to bring SolarWinds offline temporarily, at which time they used a backdoor to switch the legitimate Orion software with their own modified version" style="display: none;">
+                    <label class="radio-label" for="Q4a">The attackers performed a denial of service attack to bring SolarWinds offline temporarily, at which time they used a backdoor to switch the legitimate Orion software with their own modified version</label>
+                </div>
+                <div>
+                    <input type="radio" id="Q4b" name="singleChoiceAnswer4" value="The attackers did not intend for their malware to reach SolarWinds clients to avoid being detected; their main target was SolarWinds themselves" style="display: none;">
+                    <label class="radio-label" for="Q4b">The attackers did not intend for their malware to reach SolarWinds clients to avoid being detected; their main target was SolarWinds themselves</label>
+                </div>
+                <div>
+                    <input type="radio" id="Q4c" name="singleChoiceAnswer4" value="Attackers hacked each client individually to ensure that SUNBURST reached the intended target" style="display: none;">
+                    <label class="radio-label" for="Q4c">Attackers hacked each client individually to ensure that SUNBURST reached the intended target</label>
+                </div>
+                <div>
+                    <input type="radio" id="Q4d" name="singleChoiceAnswer4" value="SolarWinds unknowingly signed and pushed the malware themselves when they updated Orion" style="display: none;">
+                    <label class="radio-label" for="Q4d">SolarWinds unknowingly signed and pushed the malware themselves when they updated Orion</label>
+                </div>
+            </div>
+            <div>
+                <label class="prompt">Who did the United States formally accuse as perpetrators of the attack?</label>
+                <div>
+                    <input type="radio" id="Q5a" name="singleChoiceAnswer5" value="Russian SVR" style="display: none;">
+                    <label class="radio-label" for="Q5a">Russian SVR</label>
+                </div>
+                <div>
+                    <input type="radio" id="Q5b" name="singleChoiceAnswer5" value="Iranian MOIS" style="display: none;">
+                    <label class="radio-label" for="Q5b">Iranian MOIS</label>
+                </div>
+                <div>
+                    <input type="radio" id="Q5c" name="singleChoiceAnswer5" value=": Chinese MSS" style="display: none;">
+                    <label class="radio-label" for="Q5c">: Chinese MSS</label>
+                </div>
+                <div>
+                    <input type="radio" id="Q5d" name="singleChoiceAnswer5" value="Non-state individuals" style="display: none;">
+                    <label class="radio-label" for="Q5d">Non-state individuals</label>
+                </div>
+            </div>
+            <div>
+                <label class="prompt">What was the American government response to the attack?</label>
+                <div>
+                    <input type="radio" id="Q6a" name="singleChoiceAnswer6" value="The United States hacked Russia back in retaliation with a similar-style exploit" style="display: none;">
+                    <label class="radio-label" for="Q6a">The United States hacked Russia back in retaliation with a similar-style exploit</label>
+                </div>
+                <div>
+                    <input type="radio" id="Q6b" name="singleChoiceAnswer6" value="An executive order was issued by President Biden to deter and protect from future attacks of this nature" style="display: none;">
+                    <label class="radio-label" for="Q6b">An executive order was issued by President Biden to deter and protect from future attacks of this nature</label>
+                </div>
+                <div>
+                    <input type="radio" id="Q6c" name="singleChoiceAnswer6" value="The United States pulled diplomats back from Russia" style="display: none;">
+                    <label class="radio-label" for="Q6c">The United States pulled diplomats back from Russia</label>
+                </div>
+                <div>
+                    <input type="radio" id="Q6d" name="singleChoiceAnswer6" value="A UN Resolution was brought forth by the United States seeking to make these types of attacks illegal in international cyberspace" style="display: none;">
+                    <label class="radio-label" for="Q6d">A UN Resolution was brought forth by the United States seeking to make these types of attacks illegal in international cyberspace</label>
+                </div>
+            </div>
+            <div>
+                <label class="prompt">What is an important lesson learned from the SolarWinds attack?</label>
+                <div>
+                    <input type="radio" id="Q7a" name="singleChoiceAnswer7" value="SolarWinds was uniquely susceptible to a supply-chain hack and it is rare that a copycat attack will take place somewhere else" style="display: none;">
+                    <label class="radio-label" for="Q7a">SolarWinds was uniquely susceptible to a supply-chain hack and it is rare that a copycat attack will take place somewhere else</label>
+                </div>
+                <div>
+                    <input type="radio" id="Q7b" name="singleChoiceAnswer7" value="Most attacks of this nature can be tied back to the Russian government" style="display: none;">
+                    <label class="radio-label" for="Q7b">Most attacks of this nature can be tied back to the Russian government</label>
+                </div>
+                <div>
+                    <input type="radio" id="Q7c" name="singleChoiceAnswer7" value="This one a very difficult, one-off style attack, and companies needn’t worry much that an attack like this will happen to them" style="display: none;">
+                    <label class="radio-label" for="Q7c">This one a very difficult, one-off style attack, and companies needn’t worry much that an attack like this will happen to them</label>
+                </div>
+                <div>
+                    <input type="radio" id="Q7d" name="singleChoiceAnswer7" value="Supply chain attacks can be extremely hard to detect if they are performed correctly" style="display: none;">
+                    <label class="radio-label" for="Q7d">Supply chain attacks can be extremely hard to detect if they are performed correctly</label>
+                </div>
+            </div>
+        </div>
+        <button class="submitQuestionsButton" id="module4" type="button" onclick="checkAnswers(this)">Check Answers</button>
+        <div id="resultMessage"></div>
+    </form>
     </div>           
         </div>
     </div>
@@ -243,6 +283,6 @@ This is an oversimplified version, but hopefully this will provide a very basic 
 
     <!-- Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-    <script src="/src/Modules/js/module3.js"></script>
+    <script src="/src/Modules/js/module4.js"></script>
 </body>
 </html>

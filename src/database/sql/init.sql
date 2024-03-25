@@ -92,3 +92,13 @@ INSERT INTO Answers VALUES("module 4",
         "Q7" : ["Supply chain attacks can be extremely hard to detect if they are performed correctly"]
     }'
 );
+
+INSERT INTO Answers VALUES("module 5",
+    '{ 
+        "Q1" : ["APT is a sophisticated and complex cyberattack carried out by a skilled and determined adversary"],
+        "Q2" : ["Spear phishing is a targeted form of phishing that uses emails tailored to a specific individual or organization, while regular phishing uses generic emails sent out at random"],
+        "Q3" : ["Behavioral analysis involves monitoring and analyzing user activity and system behavior to detect deviations from normal traffic, which can indicate a potential attack"],
+        "Q4" : ["Yes, data encryption can ensure that sensitive information remains protected even in the case that attackers gain access to the system"],
+        "Q5" : ["Yes, MFA requires multiple forms of verification, such as passwords and biometrics, making it a solid defense in preventing unauthorized access to sensitive systems like Anthems"]
+    }'
+);

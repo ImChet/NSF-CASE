@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Module 5: Anthem</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/src/Modules/stylesheets/module3.css">
+    <link rel="stylesheet" href="/src/Modules/stylesheets/questions.css">
+    <link rel="stylesheet" href="/node_modules/xterm/css/xterm.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script type="application/javascript" src="/node_modules/xterm/lib/xterm.js"></script>
+    <script type="application/javascript" src="/src/Modules/js/validate.js"></script>
+    
+    <!-- Terminal addon for resize -->
+    <script type="application/javascript" src="/src/Modules/js/fit-addon.js"></script>
+
+    <!-- This NEEDS to be added to each page which you dont want to user to see unless signed in -->
+    <script type="application/javascript" src="/src/authentication/js/userAuthenticationCheck.js"></script>
+    
+</head>
+</body>
+<div id="animated-background"></div>
+    <div class="container">
+        <div class="topContainer">
+            <!-- Description -->
+            <div class="resizableContainer" id="narrativeContainer">
+                <div class="containerContent">
+                  <h2 id="moduleTitle">Module 5: Anthem</h2>
+                  <div style="background-color: #444; padding: 10px; border-radius: 4px; border: 2px solid #ddd;">
+                    <div id="moduleSections">
+                        <div class="moduleSection">
+                            <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); font-style: normal; text-decoration: underline;">
+                                Introductory Module Video:</a>
+                            </div>
+                            <!-- YouTube Video Embed // Replace Video ID "https://www.youtube.com/watch?v=ID" -->
+                            <div class="videoWrapper" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000;">
+                                <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                                        src="https://www.youtube.com/embed/NkcvIJGdTso"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen>
+                                </iframe>
+                            </div>
+                            <div class="spacer" style="height: 1em;"></div>
+                            <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); font-style: normal; text-decoration: underline;">
+                                Overview:
+                            </div>
+                            </div>
+                            <div class="moduleSection">
+                                <div style="font-size: 16px; font-weight: normal; color: white; font-style: normal; font-style: normal;">
+                                    Anthem, one of the largest health insurance providers, was revealed to have been breached in 2015 as hackers gained access to the health insurer's database. Personal information of nearly 80 million individuals, including current and former customers and employees was leaked. The attackers executed a sophisticated spear phishing campaign to compromise employee credentials, allowing them to gain access to Anthem's network and exfiltrate data. The stolen information included names, dates of birth, Social Security numbers, and medical data, raising concerns about identity theft and privacy violations. The incident exposed the vulnerability of healthcare organizations to cyber threats highlighted and the importance of proper cybersecurity measures to protect patient information.
+                                </div>
+                            </div>
+                            <div class="spacer" style="height: 1em;"></div>
+                            <div style="font-size: 18px; font-weight: normal; color: rgb(255, 215, 0); font-style: normal; text-decoration: underline;">
+                                Details:
+                            </div>
+                            <div class="moduleSection">
+                                <div style="font-size: 16px; font-weight: normal; color: white; font-style: normal; font-style: normal;">
+                                    The group “Deep Panda”, responsible for the Anthem breach, utilized advanced techniques, such as targeted spear phishing campaigns and a novel attack framework written in javascript. The term APT (Advanced Persistent Threat) refers to a skilled and determined adversary with advanced capabilities.
+
+                                    Hackers posed as Anthem’s HR and IT services within emails, and used typosquatting to create fake and malicious websites resembling legitimate domains. The phishing emails contained malicious attachments and embedded links leading to these typosquat domains, myhrsolutions.we11point.com and extcitrix.we11point.com. Once opened, the malware exploited various capabilities, including establishing backdoor channels, executing files and commands, and collecting and sending information about the infected computer.
+                                </div>
+                            </div>
+                            <div class="spacer" style="height: 1em;"></div>
+                        <button class="returnButton"><a href="/src/home/html/index.html">Return to Main Page</a></button>                            
+                    </div>
+                  </div>
+                </div>
+              </div>
+<!-- Terminal -->
+<div class="resizableContainer" id="terminalContainer">
+    <h2>Remote Terminal</h2>
+    <div id="terminalDescription" style="font-size: 16px; font-weight: normal; color: white;">In this lab, we will examine typosquatting, a very common technique used by attackers to phish for credentials. You will search for popular websites and analyze their various typosquatted domains.
+
+Instructions:
+<ul>
+<li>Use the <code style="color: rgb(255, 215, 0);">help-module5</code> command to explore available commands.</li>
+<li>View the various typosquatted domains of twitter.com</li>
+<li>View the various typosquatted domains of google.com</li>
+<li>Examine the different typo types used by attackers</li>
+<li>Examine the nameservers of the typosquatted domains</li>
+<li>In Google.com’s domain report, a majority of the typosquatted domains seem to belong to Google. Think about why this is the case</li></ul></div>
+    <div id="terminal"></div>                
+</div>
+    <!-- Questions -->
+    <div class="resizableContainer" id="questionFormContainer">
+        <form class="containerContent" id="questionForm">
+            <h2>Module Questions</h2>
+            <div id="questionsContainer">
+                <div>
+                    <label class="prompt">What is an APT?</label>
+                    <div>
+                        <input type="radio" id="Q1a" name="singleChoiceAnswer1" value="APT is a type of malware designed to target users through malicious email attachments" style="display: none;">
+                        <label class="radio-label" for="Q1a">APT is a type of malware designed to target users through malicious email attachments</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q1b" name="singleChoiceAnswer1" value="APT is a short-term attack aimed at disrupting an organization's operations" style="display: none;">
+                        <label class="radio-label" for="Q1b">APT is a short-term attack aimed at disrupting an organization's operations</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q1c" name="singleChoiceAnswer1" value="APT is a sophisticated and complex cyberattack carried out by a skilled and determined adversary" style="display: none;">
+                        <label class="radio-label" for="Q1c">APT is a sophisticated and complex cyberattack carried out by a skilled and determined adversary</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q1d" name="singleChoiceAnswer1" value="APT is a type of DoS attack that floods a target server with malicious traffic to make it inaccessible" style="display: none;">
+                        <label class="radio-label" for="Q1d">APT is a type of DoS attack that floods a target server with malicious traffic to make it inaccessible</label>
+                    </div>
+                </div>
+                <div>
+                    <label class="prompt">What is spear phishing? How does it differ from regular phishing?</label>
+                    <div>
+                        <input type="radio" id="Q2a" name="singleChoiceAnswer2" value="Spear phishing targets individuals based on social media activity, while regular phishing targets random email addresses" style="display: none;">
+                        <label class="radio-label" for="Q2a">Spear phishing targets individuals based on social media activity, while regular phishing targets random email addresses</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q2b" name="singleChoiceAnswer2" value="Spear phishing is a targeted form of phishing that uses emails tailored to a specific individual or organization, while regular phishing uses generic emails sent out at random" style="display: none;">
+                        <label class="radio-label" for="Q2b">Spear phishing is a targeted form of phishing that uses emails tailored to a specific individual or organization, while regular phishing uses generic emails sent out at random</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q2c" name="singleChoiceAnswer2" value="Spear phishing involves using voice calls to deceive victims, while regular phishing relies solely on email communication" style="display: none;">
+                        <label class="radio-label" for="Q2c">Spear phishing involves using voice calls to deceive victims, while regular phishing relies solely on email communication</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q2d" name="singleChoiceAnswer2" value="Spear phishing relies on exploiting software vulnerabilities, while regular phishing relies on tricking users into revealing sensitive information" style="display: none;">
+                        <label class="radio-label" for="Q2d">Spear phishing relies on exploiting software vulnerabilities, while regular phishing relies on tricking users into revealing sensitive information</label>
+                    </div>
+                </div>
+                <div>
+                    <label class="prompt">How could behavioral analysis help discover the attack?</label>
+                    <div>
+                        <input type="radio" id="Q3a" name="singleChoiceAnswer3" value="Behavioral analysis focuses solely on analyzing network traffic and does not aid in detecting malicious activities" style="display: none;">
+                        <label class="radio-label" for="Q3a">Behavioral analysis focuses solely on analyzing network traffic and does not aid in detecting malicious activities</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q3b" name="singleChoiceAnswer3" value="Behavioral analysis helps identify attack patterns by analyzing the behavior of potential victims rather than the attackers" style="display: none;">
+                        <label class="radio-label" for="Q3b">Behavioral analysis helps identify attack patterns by analyzing the behavior of potential victims rather than the attackers</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q3c" name="singleChoiceAnswer3" value="Behavioral analysis involves monitoring and analyzing user activity and system behavior to detect deviations from normal traffic, which can indicate a potential attack" style="display: none;">
+                        <label class="radio-label" for="Q3c">Behavioral analysis involves monitoring and analyzing user activity and system behavior to detect deviations from normal traffic, which can indicate a potential attack</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q3d" name="singleChoiceAnswer3" value="Behavioral analysis relies on analyzing physical behaviors rather than digital activities and is not relevant to cybersecurity" style="display: none;">
+                        <label class="radio-label" for="Q3d">Behavioral analysis relies on analyzing physical behaviors rather than digital activities and is not relevant to cybersecurity</label>
+                    </div>
+                </div>
+                <div>
+                    <label class="prompt">Could data encryption have helped prevent damage caused by the attack?</label>
+                    <div>
+                        <input type="radio" id="Q4a" name="singleChoiceAnswer4" value="No, data encryption is not effective against cyberattacks like the one on Anthem" style="display: none;">
+                        <label class="radio-label" for="Q4a">No, data encryption is not effective against cyberattacks like the one on Anthem</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q4b" name="singleChoiceAnswer4" value="Yes, data encryption can ensure that sensitive information remains protected even in the case that attackers gain access to the system" style="display: none;">
+                        <label class="radio-label" for="Q4b">Yes, data encryption can ensure that sensitive information remains protected even in the case that attackers gain access to the system</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q4c" name="singleChoiceAnswer4" value="No, data encryption only protects data while it is stored, it does not prevent unauthorized access to sensitive information during an attack" style="display: none;">
+                        <label class="radio-label" for="Q4c">No, data encryption only protects data while it is stored, it does not prevent unauthorized access to sensitive information during an attack</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q4d" name="singleChoiceAnswer4" value="Yes, data encryption scrambles data into unreadable format, making it difficult for attackers to access and exploit sensitive information" style="display: none;">
+                        <label class="radio-label" for="Q4d">Yes, data encryption scrambles data into unreadable format, making it difficult for attackers to access and exploit sensitive information</label>
+                    </div>
+                </div>
+                <div>
+                    <label class="prompt">Could Multi-Factor Authentication (MFA) have potentially prevented such attacks used against Anthem?</label>
+                    <div>
+                        <input type="radio" id="Q5a" name="singleChoiceAnswer5" value="No, MFA only adds complexity to the authentication process and does not offer significant protection against cyber threats" style="display: none;">
+                        <label class="radio-label" for="Q5a">No, MFA only adds complexity to the authentication process and does not offer significant protection against cyber threats</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q5b" name="singleChoiceAnswer5" value="Yes, MFA requires multiple forms of verification, such as passwords and biometrics, making it a solid defense in preventing unauthorized access to sensitive systems like Anthems" style="display: none;">
+                        <label class="radio-label" for="Q5b">Yes, MFA requires multiple forms of verification, such as passwords and biometrics, making it a solid defense in preventing unauthorized access to sensitive systems like Anthems</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q5c" name="singleChoiceAnswer5" value="No, MFA is very vulnerable to sophisticated social engineering tactics used in the Anthem attack" style="display: none;">
+                        <label class="radio-label" for="Q5c">No, MFA is very vulnerable to sophisticated social engineering tactics used in the Anthem attack</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="Q5d" name="singleChoiceAnswer5" value="Yes, MFA provides an additional layer of security that would have certainly thwarted unauthorized access attempts in the Anthem breach" style="display: none;">
+                        <label class="radio-label" for="Q5d">Yes, MFA provides an additional layer of security that would have certainly thwarted unauthorized access attempts in the Anthem breach</label>
+                    </div>
+                </div>
+            </div>
+            <button class="submitQuestionsButton" id="module5" type="button" onclick="checkAnswers(this)">Check Answers</button>
+            <div id="resultMessage"></div>
+        </form>
+    </div>           
+        </div>
+    </div>
+    </div>
+        <!-- Animated background element -->
+        <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+        <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
+        <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
+        <script>
+                // Animated Background
+                VANTA.TOPOLOGY({
+                    el: "#animated-background",
+                    color: 0x888888,
+                    backgroundColor: 0x222222
+                })
+        </script>
+
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="/src/Modules/js/module5.js"></script>
+</body>
+</html>

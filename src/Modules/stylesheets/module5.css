@@ -1,0 +1,313 @@
+/* Animated Background */
+#animated-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+
+body {
+  font-family: "Open Sans", sans-serif; /* Primary Web Font */
+  margin: 0;
+  padding: 0;
+  background-color: #222;
+  color: white;
+  overflow: auto; /* Global Scroll Bar */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Roboto", sans-serif; /* Primary Font Family for headlines */
+}
+
+blockquote {
+  font-family: "Georgia", serif; /* Secondary Print and Web Font for blockquotes */
+}
+
+/* Paragraph styles */
+p {
+  font-family: "Open Sans", sans-serif; /* Ensuring body copy uses Open Sans */
+  color: #fff;
+  line-height: 1.6; /* Adjust line height for readability */
+}
+
+/* Header 2 Style (Current Container Headers) */
+h2 {
+  font-family: "Roboto", sans-serif; /* Ensuring headlines use "Roboto" as Avenir Next is paid */
+  color: #ffd700;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+/* Example of specific blockquote styles */
+blockquote {
+  font-family: "Georgia", serif;
+  color: #ccc;
+  border-left: 4px solid #ffd700;
+  padding-left: 20px;
+  font-style: italic;
+}
+
+/* Main Container Styling */
+.container {
+  display: flex;
+  flex-direction: column;
+  /* height: 100vh; */
+  /* overflow: auto; */
+}
+
+/* Top Container Styling */
+.topContainer {
+  display: flex;
+  padding: 10px;
+  /* overflow: auto; */
+  flex-wrap: wrap;
+}
+
+/* Resizable Container Styling */
+.resizableContainer {
+  /* flex: 1; */
+  padding: 10px;
+  margin: 0 5px;
+  /* min-width: 150px;
+  min-height: 150px; */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  resize: none;
+  /* overflow: auto; */
+}
+
+/* Containers Styling */
+#narrativeContainer,
+#questionFormContainer {
+  background-color: #333;
+  /* overflow: auto; */
+}
+
+/* Containers Specific Styling */
+#questionFormContainer,
+#narrativeContainer {
+  width: calc(100% - 16px);
+  height: auto;
+  background-color: #333;
+  color: white;
+  border: 2px solid #ffd700;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 8px;
+  resize: none;
+  /* overflow: auto; */
+  margin: 0 10px;
+}
+
+/* Flexbox Layout for Radio Buttons and Checkboxes */
+.question div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* Adjustments to the container to prevent horizontal scrolling */
+#questionFormContainer {
+  overflow-x: hidden;
+}
+
+#questionsContainer {
+  background-color: #444;
+  padding: 10px;
+  border-radius: 4px;
+  border: 2px solid #ddd;
+  margin-bottom: 10px;
+}
+
+/* Terminal Container Styling */
+#terminalContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border: 2px solid #ffd700;
+  background-color: #333;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 8px;
+  margin: 0 10px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  /* overflow: auto; */
+}
+
+#terminalDescription {
+  background-color: #444;
+  padding: 10px;
+  border-radius: 4px;
+  border: 2px solid #ddd;
+  margin-bottom: 10px;
+}
+
+#terminal {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: auto;
+}
+
+.xterm {
+  border: 2px solid #fff;
+  padding-left: 6px;
+  padding-right: 6px;
+  height: auto;
+  width: auto;
+}
+
+#terminal, .xterm-viewport {
+  white-space: nowrap !important;
+  overflow-x: auto !important;
+}
+
+
+/* Container Content Styling */
+.containerContent {
+  /* margin-bottom: 20px; */
+}
+
+/* Result Message Styling */
+#resultMessage {
+  display: none;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  padding: 10px;
+  text-align: center;
+  margin-top: 20px;
+  transition: background-image 0.5s ease;
+  animation: none;
+}
+
+/* Correct Result Message Styling */
+#resultMessage.correct {
+  background: green;
+  text-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+  color: white;
+  text-shadow: 2px 2px 4px #000;
+}
+
+/* Incorrect Result Message Styling */
+#resultMessage.incorrect {
+  background: #ff5733;
+  text-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+  color: white;
+  text-shadow: 2px 2px 4px #000;
+}
+
+/* Link styling */
+a {
+  color: black;
+}
+a:hover {
+  color: #ffd700;
+  text-decoration: none;
+}
+
+.sendCommandButton,
+.submitQuestionsButton,
+.returnButton {
+  font-family: "Arial", sans-serif;
+  font-weight: bolder;
+  background-color: #ffd700;
+  color: black;
+  padding: 8px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.sendCommandButton:hover,
+.submitQuestionsButton:hover,
+.returnButton:hover {
+  background-color: #555;
+  color: #ffd700;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Global Scrollbar Styling */
+body {
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #ffd700 #333; /* For Firefox */
+}
+
+/* For Chrome, Edge, and Safari */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #333; /* Track color */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ffd700; /* Thumb color */
+  border-radius: 10px; /* Rounded corners for the thumb */
+  border: 3px solid #333; /* Optional: Adds some space between the thumb and the track */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Thumb color on hover */
+}
+
+/* Scrollbar for .resizableContainer, #terminalContainer, #terminalOutput */
+.resizableContainer::-webkit-scrollbar,
+#terminalContainer::-webkit-scrollbar,
+#terminalOutput::-webkit-scrollbar {
+  /* No need to duplicate the 'width' property if it's the same for all */
+}
+
+.resizableContainer::-webkit-scrollbar-track,
+#terminalContainer::-webkit-scrollbar-track,
+#terminalOutput::-webkit-scrollbar-track {
+  /* No need to duplicate the 'background-color' property if it's the same for all */
+}
+
+.resizableContainer::-webkit-scrollbar-thumb,
+#terminalContainer::-webkit-scrollbar-thumb,
+#terminalOutput::-webkit-scrollbar-thumb {
+  /* No need to duplicate the 'background-color' and 'border-radius' properties if they're the same for all */
+}
+
+.resizableContainer::-webkit-scrollbar-thumb:hover,
+#terminalContainer::-webkit-scrollbar-thumb:hover,
+#terminalOutput::-webkit-scrollbar-thumb:hover {
+  /* No need to duplicate the 'background-color' property if it's the same for all */
+}
+
+/* Specific styles for xterm */
+.xterm .xterm-viewport::-webkit-scrollbar {
+  /* Specific styles for xterm scrollbar if different from above */
+}
+
+.xterm .xterm-viewport::-webkit-scrollbar-track {
+  /* Specific styles for xterm scrollbar track if different from above */
+}
+
+.xterm .xterm-viewport::-webkit-scrollbar-thumb {
+  /* Specific styles for xterm scrollbar thumb if different from above */
+}
+
+.xterm .xterm-viewport::-webkit-scrollbar-thumb:hover {
+  /* Specific styles for xterm scrollbar thumb hover if different from above */
+}

