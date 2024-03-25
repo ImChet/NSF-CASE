@@ -31,32 +31,38 @@ const modules = [
     },
     {
         "id": "module6",
+        "groupID": "Comprehensive",
+        "title": "Module 6: Equifax",
+        "description": "DESCRIPTION OF EQUIFAX"
+    },
+    {
+        "id": "module6",
         "groupID": "group2",
-        "title": "Module 6",
+        "title": "Module 6: PLACEHOLDER",
         "description": "Description of Module 6 goes here."
     },
     {
         "id": "module7",
         "groupID": "group2",
-        "title": "Module 7",
+        "title": "Module 7: PLACEHOLDER",
         "description": "Description of Module 7 goes here."
     },
     {
         "id": "module8",
         "groupID": "group2",
-        "title": "Module 8",
+        "title": "Module 8: PLACEHOLDER",
         "description": "Description of Module 8 goes here."
     },
     {
         "id": "module9",
         "groupID": "group2",
-        "title": "Module 9",
+        "title": "Module 9: PLACEHOLDER",
         "description": "Description of Module 9 goes here."
     },
     {
         "id": "module10",
         "groupID": "group2",
-        "title": "Module 10",
+        "title": "Module 10: PLACEHOLDER",
         "description": "Description of Module 10 goes here."
     }
     ];
@@ -70,7 +76,7 @@ const modules = [
     {
         "id": "group2",
         "groupID": "group2",
-        "title": "Group 2"
+        "title": "PLACEHOLDER GROUP 2"
     }
     ];
 
