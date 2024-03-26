@@ -101,4 +101,18 @@ INSERT INTO Answers VALUES("module 5",
         "Q4" : ["Yes, data encryption can ensure that sensitive information remains protected even in the case that attackers gain access to the system"],
         "Q5" : ["Yes, MFA requires multiple forms of verification, such as passwords and biometrics, making it a solid defense in preventing unauthorized access to sensitive systems like Anthems"]
     }'
+
+ 
+);
+
+INSERT INTO Answers VALUES("module 6",
+'{ 
+       "Q1" : ["Apache Struts is an open-source framework for developing web applications in Java"],
+       "Q2" : ["You should update to the latest secure patch as soon as possible to mitigate potential exploitation."],
+       "Q3" : ["Immediate action is crucial to minimize damage of the breach by containing the incident and preventing further access."],
+       "Q4" : ["The vulnerability exploited incorrect exception handling of specially crafted HTTP requests."],
+       "Q5" : ["Social Security numbers, drivers license numbers, and biometric data"]
+      
+}'
+
 );
