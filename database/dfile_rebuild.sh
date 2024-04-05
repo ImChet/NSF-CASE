@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 # cd /src/database/
 
 # Remove previous image

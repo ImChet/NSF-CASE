@@ -1,0 +1,1 @@
+http-server src -d false --port 5500

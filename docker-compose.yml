@@ -9,7 +9,17 @@ services:
     tty: true # -t
     ports:
       - "3307:3306"
-    # SECOND SERVICE FOR NODE APP GOES HERE
-    # case_client:
+  
+  # SECOND SERVICE FOR NODE APP GOES HERE
+  case_server:
+    build:
+      context: .
+      dockerfile: client.dockerfile
+    container_name: case_server
+    stdin_open: true # -i
+    tty: true # -t
+    ports:
+      - "3000:3000"
+
 volumes:
   db:
