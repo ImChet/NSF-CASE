@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const signOutButton = document.getElementById('signOutButton');
 
     signOutButton.addEventListener('click', function () {
-        fetch('http://localhost:3000/signout', {
+        fetch('/signout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -254,8 +254,10 @@ document.addEventListener('DOMContentLoaded', function () {
             if (response.ok) {
                 // Sign-out successful, clear the session ID from localStorage
                 localStorage.removeItem('sessionId');
-                // Redirect the user to the sign-in page or any other desired location
-                window.location.href = '/src/authentication/html/signin.html';
+                // Reload page
+                document.getElementById("signInButton").style = "display: block";
+                document.getElementById("signOutButton").style = "display: none";
+                window.location.reload();
             } else {
                 // Handle sign-out error, you can show an alert or perform other actions
                 console.error('Sign-out failed');

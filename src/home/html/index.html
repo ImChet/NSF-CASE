@@ -16,7 +16,11 @@
 <body>
     <div id="animated-background"></div>
     <!-- <button id="signOutButton" class="hoverScale" onclick="window.location.href = '/src/authentication/signin.html';">Sign Out</button> -->
-    <button id="signOutButton" class="hoverScale">Sign Out</button>
+    <div class="button-container">
+        <a href='/src/authentication/signin.html'><button id="signInButton" class="hoverScale">Sign In</button></a>
+        <button id="signOutButton" class="hoverScale">Sign Out</button>
+    </div>
+    
     <button id="collapseButton" onclick="collapseAll()" class="hoverScale">Collapse All</button>
     <div id="groupButtons"></div>
 

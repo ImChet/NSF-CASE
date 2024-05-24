@@ -9,43 +9,73 @@ const { stringify } = require('querystring');
 const saltRounds = 10; // Adjust based on security requirements
 const SESSION_LENGTH = 4;
 process.env.TZ = 'UTC'; // UTC Time Zone
-const DEBUG = false;
+const DEBUG = true;
+const hostname = 'cyber-cases.info'
+const port = process.env.PORT || 3000;
 
 // Create an Express app
 const app = express();
 const client = new OAuth2Client("398792302857-gj4s9331t22kljn6inunra5tblqlmmpe.apps.googleusercontent.com");
 
 const pool = mysql.createPool({
-    host: '127.0.0.1',
+    //host: 'cyber-cases.info',
     user: 'cybercase_admin',
     password: 'NS=+KLPN445^^IO#$HGTJ14567',
     database: 'cybercase_db',
-    port: 3307,
+    //port: 3306,
 });
 
+/*
 // Database Logger Function
-async function logToDatabase(logLevel, logMessage, additionalInfo = {}) {
+async function logToDatabase(logLevel, logMessage, additionalInfo = {})
+{
     const logData = JSON.stringify({ level: logLevel, message: logMessage, ...additionalInfo });
     const logTime = new Date().toISOString().slice(0, 19).replace('T', ' '); // Format current time for MySQL
 
-    try {
+    try 
+    {
         // Insert log entry without specifying log_id, as it's auto-incremented
         await pool.query('INSERT INTO Logs (log_time, log_data) VALUES (?, ?)', [logTime, logData]);
-    } catch (error) {
+    } 
+    catch (error)
+    {
+        console.error('Error logging to database:', error);
+    }
+}
+*/
+
+// Database Logger Function
+async function logToDatabase(logLevel, logMessage)
+{
+    const logData = JSON.stringify({ level: logLevel, message: logMessage});
+    const logTime = new Date().toISOString().slice(0, 19).replace('T', ' '); // Format current time for MySQL
+
+    try 
+    {
+        // Insert log entry without specifying log_id, as it's auto-incremented
+        await pool.query('INSERT INTO Logs (log_time, log_data) VALUES (?, ?)', [logTime, logData]);
+    } 
+    catch (error)
+    {
         console.error('Error logging to database:', error);
     }
 }
 
-
 initializeDatabaseConnection = async () => {
-    try {
+    try 
+    {
         // Connect to the Database CaseDB
         await pool.query(`USE cybercase_db;`);
         // Clear leftover Sessions from last spin-up to prevent conflicts
         await pool.query(`TRUNCATE Sessions;`);
-        logToDatabase('info', 'Database connection successfull.')
-    } catch (error) {
-        logToDatabase('error', `Error connecting to the database: ${error}`)
+        logToDatabase('info', 'Database connection successful.');
+        if (DEBUG === true)
+            console.log("Succesfully began database connection!");
+    } 
+    catch (error) 
+    {
+        // logToDatabase('error', `Error connecting to the database: ${error}`) // Why is this here? We can't connect to db if we reach here... so we can't log that we can't reach the db...
+        console.error("Error whilst Initializing DB connection!\n")
         throw error;
     }
 };
@@ -57,7 +87,7 @@ initializeDatabaseConnection()
     .then(() => {
         // Start the server only after the database is initialized
         app.use(express.json());
-        app.use(cors({ origin: 'http://localhost:5500', credentials: true }));
+        app.use(cors({ origin: 'https://cyber-cases.info:2083', credentials: true }));
 
         // VerifyToken endpoint
         app.post('/verifyToken', async (req, res) => {
@@ -160,17 +190,58 @@ initializeDatabaseConnection()
         app.post('/register', async (req, res) => {
             const { username, password } = req.body;
 
+            if (DEBUG === true)
+                console.log(`Attempting to register user: ${username}`);
+
+            /*  Is it neccessary to perform the same check twice? Pehaps create a sql injection test and do that instead?
             // Check password complexity using the same logic as client-side
             if (!isPasswordComplex(password)) {
                 return res.status(400).json({ success: false, message: 'Password does not meet complexity requirements.' });
             }
-
+            */
+    
+             const invalidUsernames = ["Admin", "Administrator", "Operator", "Root", "Moderator"]; // Do not want to give away information that an account with one of theese usernames exists. Responds with message "Invalid username" instead of username already exists inf username matches one of theese
+    
+            let invalidFlag = false; // Flag for if the username is invalid. If true, respond invalid username, else username already exists
+            
+            function checkForInvalid(invalidUsername)
+            {
+                if ((username === invalidUsername) || (username === invalidUsername.toLowerCase()) || (username === invalidUsername.toUpperCase()))
+                {
+                    invalidFlag = true;
+                    // Should probaly add a way to prevent further iterations from checking but...
+                }
+            }
+    
             try {
+                
+                /*
                 // Check if username exists
                 const [users] = await pool.query(`CALL checkUserExists("${username}")`);
-                if (users[0].length > 0) {
+                if (users.length <= 0) {
                     return res.status(409).json({ success: false, message: 'Username already exists' });
                 }
+                */
+                
+                 const [users] = await pool.query("SELECT * FROM Users WHERE userid=?", username);
+                 if (users.length > 0) // Found an existing user with that username
+                 {
+                    if (DEBUG === true)
+                        console.log("Query returned at least one user")
+                    
+                    invalidUsernames.forEach(checkForInvalid);
+                    
+                    if (invalidFlag) // If true, return invalid username
+                        return res.status(408).json({ success: false, message: 'Invalid Username' });
+                    else
+                        return res.status(409).json({ success: false, message: 'Username already exists' });
+                 }
+                 
+                
+                invalidUsernames.forEach(checkForInvalid);
+                
+                if (invalidFlag) // If true, return invalid username
+                    return res.status(408).json({ success: false, message: 'Invalid Username' });
 
                 // Hash the password
                 bcrypt.hash(password, saltRounds, async (err, hashedPassword) => {
@@ -194,6 +265,13 @@ initializeDatabaseConnection()
             }
         });
 
+        /*
+        app.get(`/signin`, async (req, res) => {
+            console.log('Attempting a get request on /signin\n')
+            res.send({ TEST: "example text?"});
+        });
+        */
+
         // Non-Google Sign In Endpoint
         app.post('/signin', async (req, res) => {
             const { username, password } = req.body;
@@ -202,12 +280,26 @@ initializeDatabaseConnection()
                 console.log(`Attempting to sign in user: ${username}`);
 
             // WE SHOULD PROBABLY CHANGE THIS IN THIS FUTURE
-            const [users] = await pool.query("SELECT * FROM Users WHERE userid=?", [username]);
-            if (users[0].length < 0) {
+            const [users] = await pool.query("SELECT * FROM Users WHERE userid=?", username);
+            if (users.length <= 0) {
+                if (DEBUG === true)
+                    console.log("Query returned zero users")
                 return res.status(401).json({ authenticated: false, message: 'Invalid username or password' });
             }
+            
             const user = users[0];
+            
+            if (DEBUG === true)
+            {
+                console.log(`After the query for userid = ${username}, recieved:`);
+                console.log(user);
+            }
             const decodedPassword = decodeURIComponent(password);
+            
+            if (DEBUG === true)
+            {
+                console.log(`Decoded the recieved password as "${password}"`)
+            }
 
             bcrypt.compare(decodedPassword, user.pass, async (err, result) => {
                 if (err) {
@@ -224,6 +316,10 @@ initializeDatabaseConnection()
 
                 logToDatabase('info', `User signed in successfully: ${username}`)
                 logToDatabase('info', `Session created for user: ${username}, userId: ${user.id}, sessionId: ${sessionId}`)
+                
+                if (DEBUG === true)
+                    console.log(`User succesfully authenticated! Sending user back with sessionId: ${sessionId}`);
+                
                 res.json({ authenticated: true, sessionId: sessionId });
             });
         });
@@ -429,8 +525,8 @@ Vowel Swap             gaagle.cam                       162.255.119.247  UNITED 
         });
 
 
-        app.listen(3000, () => {
-            console.log('Server running on port 3000');
+        app.listen(port, () => {
+            console.log(`Server running at https://${hostname}:${port}`);
         });
 
         // Client-Logs Endpoint

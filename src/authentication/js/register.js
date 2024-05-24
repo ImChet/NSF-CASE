@@ -53,8 +53,10 @@ document.addEventListener('DOMContentLoaded', function () {
             username: document.getElementById('username').value,
             password: document.getElementById('password').value
         };
-
-        fetch('http://localhost:3000/register', {
+        
+        
+        // TESTING 1
+        fetch('/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

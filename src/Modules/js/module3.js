@@ -80,7 +80,7 @@ function prompt(term) {
 }
 
 function sendCommandToServer(command) {
-    fetch('http://localhost:3000/execute-command', { // Adjust the endpoint as needed
+    fetch('http://cyber-cases.info:3000/execute-command', { // Adjust the endpoint as needed
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

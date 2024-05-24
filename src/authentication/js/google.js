@@ -1,7 +1,7 @@
 // Function to send log message to server
 function sendLogToServer(message, level = 'info') {
     // Send a log message to the server using a POST request
-    fetch('http://localhost:3000/client-logs', {
+    fetch('/client-logs', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message, level}),
@@ -38,7 +38,7 @@ function parseJwt(token) {
 // Function to handle Google credential response
 function handleCredentialResponse(response) {
     sendLogToServer("Google Sign-In was successful. Received JWT ID token:", response.credential);
-    fetch('http://localhost:3000/verifyToken', {
+    fetch('https://cyber-cases.info:3000/verifyToken', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

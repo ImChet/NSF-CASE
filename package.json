@@ -10,7 +10,7 @@
     "fs": "^0.0.1-security",
     "google-auth-library": "^9.5.0",
     "http": "^0.0.1-security",
-    "mysql2": "^3.9.0",
+    "mysql2": "^2.3.3",
     "three": "^0.160.0",
     "uuid": "^9.0.1",
     "winston": "^3.11.0",

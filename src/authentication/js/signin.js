@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
             username: document.getElementById('username').value,
             password: document.getElementById('password').value
         };
-
-        fetch('http://localhost:3000/signin', {
+        
+        fetch('/signin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
             body: JSON.stringify(formData)
         })
         .then(response => {
-            if (!response.ok) {
+            if ((!response.ok) && (response.status != 401)) { // Returned a status code outside of 200-299 and isn't authorization error (401)
                 // Display the warning toast on login failure
                 toast.classList.add('active');
                 progress.classList.add('active');
@@ -44,7 +44,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     progress.classList.remove('active');
                 }, 5300);
 
-                throw new Error('Login failed');
+                //throw new Error(`Network response: ${response.status}`);
+                throw new Error(`Code: ${response.status}\n${response.message}`)
             }
             return response.json();
         })
@@ -52,11 +53,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.authenticated) {
                 localStorage.setItem('sessionId', data.sessionId);
                 window.location.href = '/src/home/html/index.html'; // Redirect to home page on successful login
-            } else {
+            } else { // *Should* be error code 401 only gets here and is authenticated == false
                 // Replace the default message in the toast
                 toast.classList.add('active');
                 progress.classList.add('active');
-                toast.querySelector('.text-2').textContent = 'Login failed. Please try again.';
+                toast.querySelector('.text-2').textContent = 'Authentication failed. Please try again.';
 
                 timer1 = setTimeout(() => {
                     hideToast();
@@ -71,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Replace the default message in the toast
             toast.classList.add('active');
             progress.classList.add('active');
-            toast.querySelector('.text-2').textContent = 'Login failed. Please try again.';
+            toast.querySelector('.text-2').textContent = 'Login error. ' + error;
 
             timer1 = setTimeout(() => {
                 hideToast();

@@ -1,7 +1,11 @@
+const DEBUG = true;
+// ALL console.log is being sent to browser development console, not server console. Be careful in sending important information to console.
+
+
 // Function to send log message to server
 function sendLogToServer(message, level = 'info') {
     // Send a log message to the server using a POST request
-    fetch('http://localhost:3000/client-logs', {
+    fetch('/client-logs', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message, level }),
@@ -11,26 +15,29 @@ function sendLogToServer(message, level = 'info') {
 // Window onload event handler
 window.onload = function () {
     // Send a log message to the server indicating the check for session ID
-    console.log('Checking for session ID...', 'info'); // Added log
+    console.log('Checking for session ID...'); // Added log. 
 
     const sessionId = localStorage.getItem('sessionId');
 
+    if (DEBUG === true)
+        console.log(`Found sessionId from localStorage to be: ${sessionId}`)
+
     if (!sessionId) {
-        // If no session ID is found, log an error and redirect to the sign-in page
-        console.log('No session ID found, redirecting to sign-in page...', 'warn'); // Added log
-        console.log('Redirecting to sign-in page...', 'info'); // Added log
-        window.location.href = '/src/authentication/html/signin.html';
+        // We assume this is guest sign in mode
+        console.log('Guest usage assumed'); // Added log
+        document.getElementById("signInButton").style = "display: block";
+        document.getElementById("signOutButton").style = "display: none";
         return;
     }
-
+    
     // Send a log message to the server indicating the found session ID
-    console.log('Session ID found: ' + sessionId, 'info'); // Added log
-    console.log('Session ID found, starting session check with session ID: ' + sessionId, 'info');
+    console.log('Session ID found: ' + sessionId); // Added log
+    console.log('Session ID found, starting session check with session ID: ' + sessionId);
 
     // Send a request to the server to verify the session for the user
-    fetch('http://localhost:3000/verifySession', {
+    fetch('/verifySession', {
         method: 'GET',
-        headers: { 'X-Session-ID': sessionId }
+        headers: { 'x-session-id': sessionId }
     })
     .then(response => {
         if (!response.ok) {
@@ -45,14 +52,15 @@ window.onload = function () {
         if (data.authenticated) {
             console.log('User is authenticated. Displaying content.', 'info');
             document.body.style.display = "block";
+            
+            // Switch what is being displayed
+            document.getElementById("signOutButton").style = "display: block";
+            document.getElementById("signInButton").style = "display: none";
         } else {
             console.log('User not authenticated. Redirecting to signin.', 'warn');
-            console.log('Redirecting to sign-in page...', 'info');
-            window.location.href = '/src/authentication/html/signin.html';
         }
     })
     .catch(error => {
         console.log('Error during session verification process: ' + error.message, 'error');
-        window.location.href = '/src/authentication/html/signin.html';
     });
 };
